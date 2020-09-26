@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 class DpsCalculator extends React.Component {
     render() {
+        //testing
         return (
             <div style={{marginTop: "50px", border: "1px dashed black", width: "400px"}}>
                 Dps calc react code is mounted here
