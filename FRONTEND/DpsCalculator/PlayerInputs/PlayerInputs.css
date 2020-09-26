@@ -14,3 +14,12 @@
     font-weight: bold;
     text-shadow: 1px 1px black;
 }
+
+.inputTabs {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+}

@@ -24,8 +24,8 @@ const Tab = (props) => {
     }
 
     return (
-        <div className="tab">
-            <img src={imgSrc}/>
+        <div className={props.selected ? "tabSelected" : "tab"} onClick={() => props.click(props.type)}>
+            <img src={imgSrc} />
         </div>
     )
 }
