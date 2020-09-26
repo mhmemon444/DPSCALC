@@ -2,12 +2,10 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-    entry: './FRONTEND/RestaurantsExampleReact/RestaurantsExampleReact.js', // fill in your entry path here
-    //e.g. entry: './FRONTEND/RestaurantsExampleReact/RestaurantsExampleReact.js',
+    entry: './FRONTEND/DpsCalculator/DpsCalculator.js', // fill in your entry path here
     output: {
         path: path.resolve(__dirname, './FRONTEND/public/react-js-bundles'), //<- do NOT change this
-        filename: 'example-bundle.js', // fill in your filename here
-        //e.g. filename: 'example-bundle.js',
+        filename: 'dps-bundle.js', // fill in your filename here
         chunkFilename: '[id].js',
         publicPath: '/'
     },

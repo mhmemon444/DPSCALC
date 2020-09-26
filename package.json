@@ -1,11 +1,11 @@
 {
-  "name": "USTEats",
+  "name": "usteats",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./BACKEND/src/server.js --ext js,html,css",
+    "dev": "nodemon ./src/server.js --ext js,html,css",
     "webpack": "webpack"
   },
   "keywords": [],
