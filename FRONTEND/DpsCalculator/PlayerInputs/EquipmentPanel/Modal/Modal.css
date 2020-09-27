@@ -1,0 +1,10 @@
+.modal {
+        width: 270px;
+        height: 400px;
+        background-color: black;
+        opacity: 0.75;
+        z-index: 5;
+        position: absolute;
+        top: -75px;
+        left: -15px;
+}

@@ -3,6 +3,7 @@
     height: 310px;
     margin: auto;
     margin-top: 3px;
+    position: relative;
 }
 
 .equipmentrow {
