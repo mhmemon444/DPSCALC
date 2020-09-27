@@ -1,4 +1,5 @@
 import React from 'react';
+import EquipmentPanel from './EquipmentPanel/EquipmentPanel';
 
 import './PlayerInputs.css'
 
@@ -49,6 +50,8 @@ class PlayerInputs extends React.Component {
                 <div className="inputTabs">
                     {tabs}
                 </div>
+
+                <EquipmentPanel />
 
             </div>
         )

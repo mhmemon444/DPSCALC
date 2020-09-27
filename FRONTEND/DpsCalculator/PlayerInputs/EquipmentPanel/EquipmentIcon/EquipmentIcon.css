@@ -1,0 +1,19 @@
+.equipmenticon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.equipmenticon-narrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
