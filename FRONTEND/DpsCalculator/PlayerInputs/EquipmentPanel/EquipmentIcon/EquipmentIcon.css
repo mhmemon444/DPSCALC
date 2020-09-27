@@ -8,6 +8,11 @@
     margin-right: 12px;
 }
 
+#equipmenticonimg:hover {
+    background-color: rgb(29, 29, 29);
+    cursor: pointer;
+}
+
 .equipmenticon-narrow {
     display: flex;
     justify-content: center;

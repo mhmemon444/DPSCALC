@@ -51,7 +51,7 @@ class PlayerInputs extends React.Component {
                     {tabs}
                 </div>
 
-                <EquipmentPanel />
+                { this.state.Equipment ? <EquipmentPanel /> : null }
 
             </div>
         )

@@ -42,7 +42,7 @@ const EquipmentIcon = (props) => {
 
     return (
         <div className={props.narrow ? "equipmenticon-narrow" : "equipmenticon"}>
-            <img src={imgSrc}/>
+            <img id="equipmenticonimg" src={imgSrc}/>
         </div>
     )
 }
