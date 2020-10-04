@@ -51,7 +51,7 @@ class Modal extends React.Component {
                     {/* <Sprite filename="potions.png" x={40} y={40} width={40} height={40} /> */} 
                 </div>
 
-                <InputBox ring={this.props.ring} setRing={this.props.setRing} feet={this.props.feet} setFeet={this.props.setFeet} hands={this.props.hands} setHands={this.props.setHands} shield={this.props.shield} setShield={this.props.setShield} body={this.props.body} setBody={this.props.setBody} wep={this.props.wep} setWep={this.props.setWep} ammo={this.props.ammo} setAmmo={this.props.setAmmo} neck={this.props.neck} setNeck={this.props.setNeck} head={this.props.head} setHead={this.props.setHead} selectedSlot={this.props.selectedSlot} cape={this.props.cape} setCape={this.props.setCape}/>
+                <InputBox legs={this.props.legs} setLegs={this.props.setLegs} ring={this.props.ring} setRing={this.props.setRing} feet={this.props.feet} setFeet={this.props.setFeet} hands={this.props.hands} setHands={this.props.setHands} shield={this.props.shield} setShield={this.props.setShield} body={this.props.body} setBody={this.props.setBody} wep={this.props.wep} setWep={this.props.setWep} ammo={this.props.ammo} setAmmo={this.props.setAmmo} neck={this.props.neck} setNeck={this.props.setNeck} head={this.props.head} setHead={this.props.setHead} selectedSlot={this.props.selectedSlot} cape={this.props.cape} setCape={this.props.setCape}/>
 
 
                 

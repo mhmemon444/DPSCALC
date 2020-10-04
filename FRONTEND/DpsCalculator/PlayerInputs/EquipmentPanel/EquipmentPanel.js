@@ -16,6 +16,7 @@ class EquipmentPanel extends React.Component {
         weapon: null,
         body: null,
         shield: null,
+        legs: null,
         hands: null,
         feet: null,
         ring: null
@@ -94,24 +95,30 @@ class EquipmentPanel extends React.Component {
         })
     }
 
+    setLegs = (legsObj) => {
+        this.setState({legs: legsObj}, () => {
+            console.log(this.state)
+        })
+    }
+
     render() {
         return (
             <div className="equipmentpanel">
-                {this.state.showModal ? <Modal ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape} click={this.modalClickHandler}/> : null }
+                {this.state.showModal ? <Modal legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape} click={this.modalClickHandler}/> : null }
                 <div className="equipmentrow">
-                    <EquipmentIcon type="head_slot" click={this.iconClickHandler}/>
+                    <EquipmentIcon head={this.state.head} type="head_slot" click={this.iconClickHandler}/>
                 </div>
                 <div className="equipmentrow">
-                    <EquipmentIcon type="cape_slot" narrow={true} click={this.iconClickHandler}/> <EquipmentIcon type="neck_slot" narrow={true} click={this.iconClickHandler}/> <EquipmentIcon type="ammo_slot" narrow={true} click={this.iconClickHandler}/>
+                    <EquipmentIcon cape={this.state.cape} type="cape_slot" narrow={true} click={this.iconClickHandler}/> <EquipmentIcon neck={this.state.neck} type="neck_slot" narrow={true} click={this.iconClickHandler}/> <EquipmentIcon ammo={this.state.ammo} type="ammo_slot" narrow={true} click={this.iconClickHandler}/>
                 </div>
                 <div className="equipmentrow">
-                    <EquipmentIcon type="weapon_slot" click={this.iconClickHandler}/> <EquipmentIcon type="body_slot" click={this.iconClickHandler}/> <EquipmentIcon type="shield_slot" click={this.iconClickHandler}/>
+                    <EquipmentIcon weapon={this.state.weapon} type="weapon_slot" click={this.iconClickHandler}/> <EquipmentIcon body={this.state.body} type="body_slot" click={this.iconClickHandler}/> <EquipmentIcon shield={this.state.shield} type="shield_slot" click={this.iconClickHandler}/>
                 </div>
                 <div className="equipmentrow">
-                    <EquipmentIcon type="legs_slot" click={this.iconClickHandler}/>
+                    <EquipmentIcon legs={this.state.legs} type="legs_slot" click={this.iconClickHandler}/>
                 </div>
                 <div className="equipmentrow">
-                    <EquipmentIcon type="hands_slot" click={this.iconClickHandler}/> <EquipmentIcon type="feet_slot" click={this.iconClickHandler}/> <EquipmentIcon type="ring_slot" click={this.iconClickHandler}/>
+                    <EquipmentIcon hands={this.state.hands} type="hands_slot" click={this.iconClickHandler}/> <EquipmentIcon feet={this.state.feet} type="feet_slot" click={this.iconClickHandler}/> <EquipmentIcon ring={this.state.ring} type="ring_slot" click={this.iconClickHandler}/>
                 </div>
 
                 
