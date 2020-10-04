@@ -41,7 +41,7 @@ const EquipmentIcon = (props) => {
     }
 
     return (
-        <div className={props.narrow ? "equipmenticon-narrow" : "equipmenticon"} onClick={() => props.click()}>
+        <div className={props.narrow ? "equipmenticon-narrow" : "equipmenticon"} onClick={() => props.click(props.type)}>
             <img id="equipmenticonimg" src={imgSrc}/>
         </div>
     )
