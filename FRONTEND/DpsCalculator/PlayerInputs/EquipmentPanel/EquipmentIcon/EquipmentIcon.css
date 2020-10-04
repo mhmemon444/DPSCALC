@@ -1,4 +1,5 @@
 .equipmenticon {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +14,22 @@
     cursor: pointer;
 }
 
+#equipmenticonimgSelected {
+    position: absolute;
+    z-index: 2;
+    left: 2px;
+    background-color: #555651;
+    width: 30px;
+    padding-left: 2px;
+    height: 30px;
+}
+
+#equipmenticonimgSelected:hover {
+    cursor: pointer;
+}
+
 .equipmenticon-narrow {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
