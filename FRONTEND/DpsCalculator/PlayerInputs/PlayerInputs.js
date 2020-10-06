@@ -1,7 +1,8 @@
 import React from 'react';
 import EquipmentPanel from './EquipmentPanel/EquipmentPanel';
-
+import PrayerPanel from './PrayerPanel/PrayerPanel';
 import './PlayerInputs.css'
+
 
 import Tab from './Tab/Tab';
 
@@ -51,7 +52,9 @@ class PlayerInputs extends React.Component {
                     {tabs}
                 </div>
 
-                { this.state.Equipment ? <EquipmentPanel /> : null }
+                { this.state.Equipment ? <EquipmentPanel /> 
+                : this.state.Prayers ? <PrayerPanel />
+                : null }
 
             </div>
         )

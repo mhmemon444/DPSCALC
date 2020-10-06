@@ -1,6 +1,8 @@
 const path = require('path')
 const express = require('express');
 
+const request = require('request');
+
 const server = express();
 const port = process.env.PORT || 3000
 
@@ -15,3 +17,4 @@ server.get('', (req, res) => { // route :: 'app.com' -> ( --> direct to homepage
 server.listen(port, () => {
     console.log("Server is up on port " + port)
 })
+
