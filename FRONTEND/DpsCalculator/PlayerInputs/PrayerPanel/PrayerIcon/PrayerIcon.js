@@ -7,6 +7,14 @@ class PrayerIcon extends React.Component {
         active: false
     }
 
+    componentDidMount() {
+        if ( (this.props.selectedPrayers).includes(this.props.name) ) {
+            this.setState({
+                active: true
+            })
+        }
+    }
+
     iconClickHandler = () => {
         var curActive = this.state.active
         this.setState({
@@ -17,11 +25,6 @@ class PrayerIcon extends React.Component {
     }
 
     render() {
-
-        var classes = [
-            "prayer-entry",
-            this.state.active ? "prayer-active" : null
-        ]
 
         return (
             <div className="prayer-entry" >

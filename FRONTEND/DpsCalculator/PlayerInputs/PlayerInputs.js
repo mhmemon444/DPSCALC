@@ -21,7 +21,12 @@ class PlayerInputs extends React.Component {
         Skills: false,
         Equipment: true, //default selected
         Potions: false,
-        Prayers: false
+        Prayers: false,
+
+        //Prayers:
+        selectedPrayers: [
+
+        ]
     }
 
     selectTabHandler = (tab) => {
@@ -35,6 +40,23 @@ class PlayerInputs extends React.Component {
             this.setState({
                 [tab]: true
             }, () => {console.log(this.state)})
+        })
+    }
+
+    prayerClickHandler = (prayerName, active) => {
+        var selPrayers = [...(this.state.selectedPrayers)];
+        if (active == true) {
+            selPrayers.push(prayerName);
+        } else {
+            const index = selPrayers.indexOf(prayerName);
+            if (index > -1) {
+                selPrayers.splice(index, 1);
+            }
+        }
+        this.setState({
+            selectedPrayers: [...selPrayers]
+        }, () => {
+            console.log(this.state)
         })
     }
 
@@ -53,7 +75,7 @@ class PlayerInputs extends React.Component {
                 </div>
 
                 { this.state.Equipment ? <EquipmentPanel /> 
-                : this.state.Prayers ? <PrayerPanel />
+                : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
                 : null }
 
             </div>

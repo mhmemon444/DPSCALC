@@ -37,32 +37,11 @@ const prayers = [
 ]
 
 class PrayerPanel extends React.Component {
-    state = {
-        selectedPrayers: [
-
-        ]
-    }
-
-    prayerClickHandler = (prayerName, active) => {
-        var selPrayers = [...(this.state.selectedPrayers)];
-        if (active == true) {
-            selPrayers.push(prayerName);
-        } else {
-            const index = selPrayers.indexOf(prayerName);
-            if (index > -1) {
-                selPrayers.splice(index, 1);
-            }
-        }
-        this.setState({
-            selectedPrayers: [...selPrayers]
-        }, () => {
-            console.log(this.state)
-        })
-    }
+    
 
     render() {
         var prayerslist = prayers.map(p => {
-            return <PrayerIcon name={p.name} rsrc={p.rsrc} click={this.prayerClickHandler} />
+            return <PrayerIcon selectedPrayers={this.props.selectedPrayers} name={p.name} rsrc={p.rsrc} click={this.props.prayerClick} />
         })
         return (
             <div className="prayerspanel">
