@@ -1,0 +1,24 @@
+.skill-entry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+}
+
+.skill-icon {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill-input-container {
+    margin-left: 5px;
+}
+
+.skill-input {
+    background-color: #555651;
+    color: rgb(212, 212, 212);
+    text-align: center;
+    width: 40px;
+}

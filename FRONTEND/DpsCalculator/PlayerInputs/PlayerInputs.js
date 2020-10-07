@@ -1,6 +1,7 @@
 import React from 'react';
 import EquipmentPanel from './EquipmentPanel/EquipmentPanel';
 import PrayerPanel from './PrayerPanel/PrayerPanel';
+import SkillsPanel from './SkillsPanel/SkillsPanel';
 import './PlayerInputs.css'
 
 
@@ -39,7 +40,17 @@ class PlayerInputs extends React.Component {
         legs: null,
         hands: null,
         feet: null,
-        ring: null
+        ring: null,
+
+        //Player stats:
+        username: "",
+        attackLevel: 99,
+        strengthLevel: 99,
+        defenceLevel: 99,
+        hitpointsLevel: 99,
+        rangedLevel: 99,
+        mageLevel: 99,
+        prayerLevel: 99
     }
 
     selectTabHandler = (tab) => {
@@ -142,6 +153,30 @@ class PlayerInputs extends React.Component {
         })
     }
 
+
+    //Player skills tab
+    hiscoreFetchHandler = (atk, str, def, hp, rng, mag, pray) => {
+        this.setState({
+            attackLevel: atk,
+            strengthLevel: str,
+            defenceLevel: def,
+            hitpointsLevel: hp,
+            rangedLevel: rng,
+            mageLevel: mag,
+            prayerLevel: pray
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    usernameChangeHandler = (event) => {
+        this.setState({
+            username: event.target.value
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
     render() {
         const tabs = TABS.map(tabType => {
             return <Tab type={tabType} selected={this.state[tabType]} click={this.selectTabHandler}/>
@@ -158,6 +193,7 @@ class PlayerInputs extends React.Component {
 
                 { this.state.Equipment ? <EquipmentPanel legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
+                : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
                 : null }
 
             </div>
