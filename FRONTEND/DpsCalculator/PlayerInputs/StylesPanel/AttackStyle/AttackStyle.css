@@ -1,0 +1,49 @@
+.attackstyle-entry {
+    display: flex;
+     flex: 0 0 50%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #cf7b19;
+    text-shadow: 1px 1px black;
+    font-size: 13px;
+}
+
+.attackstyle-individual {
+    background: rgb(85,86,81);
+background: linear-gradient(180deg, rgba(85,86,81,1) 30%, rgba(69,70,66,1) 100%);
+    display: flex;
+    flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid black;
+    width: 80px;
+    height: 50px;
+    margin: 6px;
+}
+
+.attackstyle-individual:hover {
+    cursor: pointer;
+    /* background: #454642; */
+    background: rgba(69,70,66,1);
+    background: linear-gradient(180deg,  rgba(69,70,66,1) 30%,  rgb(77, 78, 74) 100%);
+}
+
+.indiv-sel {
+    background:#831f1c;
+    background: linear-gradient(180deg, #831f1c 30%,  #992521 100%);
+    display: flex;
+    flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid black;
+    width: 80px;
+    height: 50px;
+    margin: 6px;
+    
+}
+
+
+    

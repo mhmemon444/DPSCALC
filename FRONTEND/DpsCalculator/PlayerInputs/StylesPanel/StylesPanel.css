@@ -1,0 +1,14 @@
+.stylespanel {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.wepname {
+    text-align: center;
+    color: #cf7b19;
+    text-shadow: 1px 1px black;
+    font-size: 16px;
+    margin-top: 10px;
+}
