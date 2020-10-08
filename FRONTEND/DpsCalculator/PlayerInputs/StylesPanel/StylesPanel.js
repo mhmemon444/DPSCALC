@@ -167,7 +167,7 @@ class StylesPanel extends React.Component {
         })
         return (
             <>
-            <div className="wepname">{wepType == "unarmed" ? "Unarmed" : this.props.weapon.label }</div>
+            <div className="wepname">{this.props.weapon == null ? "Unarmed" : this.props.weapon.label }</div>
             <div className="stylespanel">
                 {atkStyles}
             </div>
