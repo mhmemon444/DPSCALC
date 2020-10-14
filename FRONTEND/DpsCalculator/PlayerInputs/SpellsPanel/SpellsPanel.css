@@ -1,0 +1,4 @@
+.spellspanel {
+    display: flex;
+    flex-wrap: wrap;
+}
