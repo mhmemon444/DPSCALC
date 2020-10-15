@@ -14,12 +14,14 @@ class AttackStyle extends React.Component {
 
         var spellImgClass = null;
         if (this.props.name=="Spell" && this.props.currentSpell != null) {
-            if ( (this.props.currentSpell.name.includes(" Strike") && this.props.currentSpell.name!="Saradomin Strike") || (this.props.currentSpell.name.includes(" Rush")) ) {
+            if ( (this.props.currentSpell.name.includes(" Strike") && this.props.currentSpell.name!="Saradomin Strike") ) {
                 spellImgClass = "chosenSpell-strike"
             } else if (this.props.currentSpell.name=="Crumble Undead") {
                 spellImgClass = "chosenSpell-CU"
             } else if (this.props.currentSpell.name.includes(" Bolt")) {
                 spellImgClass = "chosenSpell-bolt"
+            } else if ((this.props.currentSpell.name.includes(" Rush"))) {
+                spellImgClass = "chosenSpell-rush"
             } else {
                 spellImgClass = "chosenSpell"
             }

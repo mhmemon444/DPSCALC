@@ -57,6 +57,10 @@ background: linear-gradient(180deg, rgba(85,86,81,1) 30%, rgba(69,70,66,1) 100%)
     width: 18px;
 }
 
+.chosenSpell-rush {
+    height: 11px;
+}
+
 .chosenSpell-CU {
     width: 15px;
 }
