@@ -90,7 +90,8 @@ class PlayerInputs extends React.Component {
 
         //Spells:
         openSpellsTab: false,
-        selectedSpell: null
+        selectedSpell: null,
+        spellbook: "regular"
     }
 
     selectTabHandler = (tab) => {
@@ -269,6 +270,12 @@ class PlayerInputs extends React.Component {
         })
     }
 
+    spellbookSwapHandler = () => {
+        this.setState({
+            spellbook: (this.state.spellbook == "regular") ? "ancients" : "regular"
+        })
+    }
+
 
     
 
@@ -287,7 +294,7 @@ class PlayerInputs extends React.Component {
                     {tabs}
                 </div>
 
-                { this.state.openSpellsTab ? <SpellsPanel selectSpell={this.selectSpellHandler} weapon={this.state.weapon}/> 
+                { this.state.openSpellsTab ? <SpellsPanel spellbook={this.state.spellbook} swapSpellbook={this.spellbookSwapHandler} selectSpell={this.selectSpellHandler} weapon={this.state.weapon}/> 
                 : this.state.Equipment ? <EquipmentPanel legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
                 : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>

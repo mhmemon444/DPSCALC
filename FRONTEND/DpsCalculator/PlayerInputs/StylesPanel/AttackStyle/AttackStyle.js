@@ -14,7 +14,7 @@ class AttackStyle extends React.Component {
 
         var spellImgClass = null;
         if (this.props.name=="Spell" && this.props.currentSpell != null) {
-            if (this.props.currentSpell.name.includes(" Strike") && this.props.currentSpell.name!="Saradomin Strike") {
+            if ( (this.props.currentSpell.name.includes(" Strike") && this.props.currentSpell.name!="Saradomin Strike") || (this.props.currentSpell.name.includes(" Rush")) ) {
                 spellImgClass = "chosenSpell-strike"
             } else if (this.props.currentSpell.name=="Crumble Undead") {
                 spellImgClass = "chosenSpell-CU"
@@ -29,6 +29,8 @@ class AttackStyle extends React.Component {
         var defensiveSpellImgClass = "def-spell-icon";
         if (this.props.currentSpell != null && (this.props.currentSpell.name.includes(" Bolt")||this.props.currentSpell.name=="Crumble Undead")) {
             defensiveSpellImgClass = "def-spell-icon-bolt"
+        } else if (this.props.currentSpell != null && (this.props.currentSpell.name.includes(" Blitz"))) {
+            defensiveSpellImgClass = "def-spell-icon-blitz"
         }
 
         return (

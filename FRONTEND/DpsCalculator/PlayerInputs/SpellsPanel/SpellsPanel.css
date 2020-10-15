@@ -2,3 +2,27 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.totalspells-panel {
+    position: relative;
+    height: 320px;
+}
+
+.swapspellbook-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 70px;
+    /* border-radius: 5px; */
+    /* border: 1px solid black; */
+    /* padding: 10px; */
+}
+
+.spellbooktext {
+    position: absolute;
+    z-index: 2;
+    bottom: 5px;
+    right: 23px;
+    font-size: 12px;
+    text-shadow: 1px 1px black;
+    color: #cf7b19;
+}
