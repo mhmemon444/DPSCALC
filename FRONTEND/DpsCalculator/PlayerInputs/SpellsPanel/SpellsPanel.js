@@ -43,13 +43,13 @@ const extraspells = [
 class SpellsPanel extends React.Component {
     render() {
         var regularSpells = spells.map(p => {
-            return <SpellIcon name={p.name} rsrc={p.rsrc}/>
+            return <SpellIcon name={p.name} rsrc={p.rsrc} select={this.props.selectSpell}/>
         })
         var godSpells = godspells.map(p => {
-            return <SpellIcon name={p.name} rsrc={p.rsrc} staff={p.staff} equippedStaff={this.props.weapon} special={true}/>
+            return <SpellIcon name={p.name} rsrc={p.rsrc} staff={p.staff} equippedStaff={this.props.weapon} special={true} select={this.props.selectSpell}/>
         })
         var extraSpells = extraspells.map(p => {
-            return <SpellIcon name={p.name} rsrc={p.rsrc} staff={p.staff} equippedStaff={this.props.weapon} special={p.name != "Crumble Undead" ? true : false}/>
+            return <SpellIcon name={p.name} rsrc={p.rsrc} staff={p.staff} equippedStaff={this.props.weapon} special={p.name != "Crumble Undead" ? true : false} select={this.props.selectSpell}/>
         })
         return (
             <div className="spellspanel">

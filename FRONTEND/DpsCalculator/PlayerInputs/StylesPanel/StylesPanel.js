@@ -163,7 +163,10 @@ class StylesPanel extends React.Component {
                     name={attackstyle.name} 
                     style={attackstyle.style} 
                     opt={attackstyle.opt} 
-                    rsrc={attackstyle.rsrc}/>
+                    rsrc={attackstyle.rsrc}
+                    currentSpell={this.props.currentSpell} //if spell is selected, replace mage book icon with spell icon
+                    />
+                    
         })
         return (
             <>

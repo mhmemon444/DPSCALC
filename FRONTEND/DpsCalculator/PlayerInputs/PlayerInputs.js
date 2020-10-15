@@ -89,7 +89,8 @@ class PlayerInputs extends React.Component {
         selectedOptionName: "Punch",
 
         //Spells:
-        openSpellsTab: false
+        openSpellsTab: false,
+        selectedSpell: null
     }
 
     selectTabHandler = (tab) => {
@@ -159,7 +160,8 @@ class PlayerInputs extends React.Component {
             selectedStyle3: false,
             selectedStyle4: false,
             selectedStyle5: false,
-            selectedOptionName: ATK_STYLE_MAP[wepObj.type]
+            selectedOptionName: ATK_STYLE_MAP[wepObj.type],
+            selectedSpell: null
         }, () => {
             console.log(this.state)
         })
@@ -178,7 +180,9 @@ class PlayerInputs extends React.Component {
     }
 
     setHands = (handsObj) => {
-        this.setState({hands: handsObj}, () => {
+        this.setState({
+            hands: handsObj
+        }, () => {
             console.log(this.state)
         })
     }
@@ -249,6 +253,23 @@ class PlayerInputs extends React.Component {
     }
 
 
+
+    //Spells tab
+    selectSpellHandler = (spellName, spellImg) => {
+        const spellObj = {
+            name: spellName,
+            rsrc: spellImg
+        }
+
+        this.setState({
+            selectedSpell: spellObj, //e.g. selectedSpell: {name: "Fire Blast", rsrc: "((...base64 image code))"}
+            openSpellsTab: false //close spellsTab after selecting spell
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+
     
 
 
@@ -266,11 +287,11 @@ class PlayerInputs extends React.Component {
                     {tabs}
                 </div>
 
-                { this.state.openSpellsTab ? <SpellsPanel weapon={this.state.weapon}/> 
+                { this.state.openSpellsTab ? <SpellsPanel selectSpell={this.selectSpellHandler} weapon={this.state.weapon}/> 
                 : this.state.Equipment ? <EquipmentPanel legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
                 : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
-                : this.state.Combat ? <StylesPanel selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>
+                : this.state.Combat ? <StylesPanel currentSpell={this.state.selectedSpell} selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>
                 : null }
 
             </div>

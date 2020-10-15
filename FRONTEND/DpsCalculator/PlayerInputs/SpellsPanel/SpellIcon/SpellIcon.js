@@ -3,46 +3,34 @@ import React from 'react';
 import './SpellIcon.css';
 
 const SpellIcon = (props) => {
-    // state = {
-    //     show: true
-    // }
 
-    // componentDidMount() {
-    //     if ( (this.props.selectedPrayers).includes(this.props.name) ) {
-    //         this.setState({
-    //             active: true
-    //         })
-    //     }
-    // }
+    var imgClassName = null;
+    var confirmSpell = true;
+    if (props.special) {
+        imgClassName = !((props.staff).includes(props.equippedStaff.label)) ? "hidespell" : null
+        confirmSpell = !((props.staff).includes(props.equippedStaff.label)) ? false : true; //prevent selecting blocked spells
+    }
 
-    // iconClickHandler = () => {
-    //     var curActive = this.state.active
-    //     this.setState({
-    //         active: !curActive
-    //     }, () => {
-    //         this.props.click(this.props.name, this.state.active)
-    //     })
-    // }
-
-        // var spellClassName = this.props.specialspell ? "specialspell-entry" : "spell-entry";
-
-        var imgClassName = null;
-        if (props.special) {
-            imgClassName = !((props.staff).includes(props.equippedStaff.label)) ? "hidespell" : null
+    const handleSelect = (name, rsrc, conf) => {
+        if (conf == false) {
+            return;
+        } else {
+            props.select(name, rsrc);
         }
+    }
 
-        return (
-            <div className="spell-entry" >
-                <div id="spell-hovericon">
-                    <img 
-                        className={imgClassName} 
-                        src={props.rsrc} 
-                    />
-                </div>
-                
+    return (
+        <div className="spell-entry" >
+            <div id={confirmSpell ? "spell-hovericon" : null} onClick={() => handleSelect(props.name, props.rsrc, confirmSpell)}>
+                <img
+                    className={imgClassName}
+                    src={props.rsrc}
+                />
             </div>
-        )
-    
+
+        </div>
+    )
+
 }
 
 export default SpellIcon

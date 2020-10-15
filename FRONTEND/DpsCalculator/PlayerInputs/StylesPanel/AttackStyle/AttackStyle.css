@@ -45,5 +45,33 @@ background: linear-gradient(180deg, rgba(85,86,81,1) 30%, rgba(69,70,66,1) 100%)
     
 }
 
+.chosenSpell {
+    height: 20px;
+}
+
+.chosenSpell-strike {
+    height: 14px;
+}
+
+.chosenSpell-bolt {
+    width: 18px;
+}
+
+.chosenSpell-CU {
+    width: 15px;
+}
+
+.def-spell-icon {
+    width: 17px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+}
+
+.def-spell-icon-bolt {
+    height: 17px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+}
+
 
     
