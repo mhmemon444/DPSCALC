@@ -9,7 +9,7 @@ const IndividualBoost = (props) => {
         <div className="individualBoost" onClick={() => {props.click(props.type)}}>
             <img className="boostIcon" src = {props.icon} />
             <span className="levelboost">{props.level} / {props.level}</span>
-            <img className="vialimg" src={vialImg} />
+            <img className="vialimg" style={{height: (props.selected != null && props.selected.label=="Imbued heart") ? 18 : 25}} src={props.selected == null ? vialImg : props.selected.icon} />
         </div>
     )
 }
