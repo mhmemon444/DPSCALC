@@ -92,7 +92,21 @@ class PlayerInputs extends React.Component {
         //Spells:
         openSpellsTab: false,
         selectedSpell: null,
-        spellbook: "regular"
+        spellbook: "regular",
+
+        //Stat boosts:
+        
+        strSelectedBoost: null,
+        attSelectedBoost: null,
+        defSelectedBoost: null,
+        rangeSelectedBoost: null,
+        mageSelectedBoost: null,
+        otherSelectedBoost: null,
+        boostedRange: 99,
+        boostedDef: 99,
+        boostedStr: 99,
+        boostedMage: 99,
+        boostedAtt: 99
     }
 
     selectTabHandler = (tab) => {
@@ -278,8 +292,101 @@ class PlayerInputs extends React.Component {
     }
 
 
-    
 
+
+    //Stat boosts tab
+    boostStatHandler = (boost, type, level) => {
+        // console.log("boost: ", boost, " type: ",type, " level: ", level)
+        switch (boost) {
+            case "Bastion potion":
+                if (type == "ran") { //Bastion potion for ranged
+                    var boosted = Math.floor(0.1 * level) + 4;
+                    return level+boosted;
+                } else if (type == "def") { //Bastion potion for defence
+                    var boosted = Math.floor(0.15 * level) + 5;
+                    
+                    return level+boosted;
+                }
+                break;
+            
+            case "Battlemage potion":
+                if (type == "mag") {
+                    return level+4;
+                } else if (type == "def") {
+                    var boosted = Math.floor(0.15 * level) + 5;
+                    return level+boosted;
+                }
+                break;
+            
+            case "Dragon battleaxe":
+                var drain = 0.1*(this.state.boostedAtt + this.state.boostedDef + this.state.boostedMage + this.state.boostedRange);
+                var boosted = 10 + Math.floor(drain/4);
+                return level+boosted;
+                break;
+            
+            case "Imbued heart":
+                var boosted = Math.floor(this.state.mageLevel / 10) + 1;
+                return level+boosted;
+        }
+    }
+
+    setStrBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "str", this.state.strengthLevel);
+        this.setState({
+            strSelectedBoost: boost,
+            boostedStr: newLvl
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    setAttBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "att", this.state.attackLevel);
+        this.setState({
+            attSelectedBoost: boost,
+            boostedAtt: newLvl
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    setDefBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "def", this.state.defenceLevel);
+        this.setState({
+            defSelectedBoost: boost,
+            boostedDef: newLvl
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    setMagBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "mag", this.state.mageLevel);
+        this.setState({
+            mageSelectedBoost: boost,
+            boostedMage: newLvl
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    setRanBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "ran", this.state.rangedLevel);
+        this.setState({
+            rangeSelectedBoost: boost,
+            boostedRange: newLvl
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    setOtherBoost = (boost) => {
+        this.setState({
+            otherSelectedBoost: boost
+        }, () => {
+            console.log(this.state)
+        })
+    }
 
     render() {
         const tabs = TABS.map(tabType => {
@@ -300,7 +407,18 @@ class PlayerInputs extends React.Component {
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
                 : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
                 : this.state.Combat ? <StylesPanel currentSpell={this.state.selectedSpell} selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>
-                : this.state.Potions ? <BoostsPanel attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} rangedLevel={this.state.rangedLevel} mageLevel={this.state.mageLevel}/>
+                : this.state.Potions ? <BoostsPanel selectStr={this.setStrBoost} 
+                                                    selectAtt={this.setAttBoost}
+                                                    selectDef={this.setDefBoost}
+                                                    selectMag={this.setMagBoost}
+                                                    selectRang={this.setRanBoost}
+                                                    selectOther={this.setOtherBoost}
+                                                    str={this.state.strSelectedBoost} 
+                                                    att={this.state.attSelectedBoost}
+                                                    def={this.state.defSelectedBoost}
+                                                    ran={this.state.rangeSelectedBoost}
+                                                    mag={this.state.mageSelectedBoost}
+                                                    other={this.state.otherSelectedBoost} selectedBoost={this.state.selectedBoost} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} rangedLevel={this.state.rangedLevel} mageLevel={this.state.mageLevel} boostedAtt={this.state.boostedAtt} boostedStr={this.state.boostedStr} boostedDef={this.state.boostedDef} boostedMage={this.state.boostedMage} boostedRange={this.state.boostedRange}/>
                 : null }
 
             </div>
