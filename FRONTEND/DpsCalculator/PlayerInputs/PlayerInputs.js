@@ -4,6 +4,7 @@ import PrayerPanel from './PrayerPanel/PrayerPanel';
 import SkillsPanel from './SkillsPanel/SkillsPanel';
 import StylesPanel from './StylesPanel/StylesPanel';
 import SpellsPanel from './SpellsPanel/SpellsPanel';
+import BoostsPanel from './BoostsPanel/BoostsPanel';
 import './PlayerInputs.css'
 
 
@@ -299,6 +300,7 @@ class PlayerInputs extends React.Component {
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
                 : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
                 : this.state.Combat ? <StylesPanel currentSpell={this.state.selectedSpell} selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>
+                : this.state.Potions ? <BoostsPanel />
                 : null }
 
             </div>
