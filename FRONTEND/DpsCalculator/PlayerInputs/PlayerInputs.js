@@ -307,7 +307,6 @@ class PlayerInputs extends React.Component {
                     
                     return level+boosted;
                 }
-                break;
             
             case "Battlemage potion":
                 if (type == "mag") {
@@ -316,17 +315,90 @@ class PlayerInputs extends React.Component {
                     var boosted = Math.floor(0.15 * level) + 5;
                     return level+boosted;
                 }
-                break;
             
             case "Dragon battleaxe":
                 var drain = 0.1*(this.state.boostedAtt + this.state.boostedDef + this.state.boostedMage + this.state.boostedRange);
                 var boosted = 10 + Math.floor(drain/4);
                 return level+boosted;
-                break;
             
             case "Imbued heart":
                 var boosted = Math.floor(this.state.mageLevel / 10) + 1;
                 return level+boosted;
+            
+            case "Overload (+)":
+            case "Elder (+)":
+            case "Kodai (+)":
+            case "Twisted potion (+)":
+                var boosted = Math.floor(0.16 * level) + 6;
+                return level + boosted;
+
+            case "Ranging potion":
+                var boosted = Math.floor(0.1 * level) + 4;
+                return level + boosted;
+            
+            case "Saradomin brew":
+                var boosted = Math.floor(0.2 * level) + 2;
+                return level + boosted;
+            
+            case "Super combat potion":
+            case "Super magic potion":
+            case "Super ranging":
+            case "Super attack":
+            case "Super defence":
+            case "Super strength":
+            case "Overload (NMZ)":
+                var boosted = Math.floor(0.15 * level) + 5;
+                return level + boosted;
+            
+            case "Xeric's aid (+)":
+                var boosted = Math.floor(0.2 * level) + 5;
+                return level + boosted;
+            
+            case "Zamorak brew":
+                if (type == "att") {
+                    var boosted = Math.floor(0.2 * level) + 2;
+                    return level + boosted;
+                } else if (type == "str") {
+                    var boosted = Math.floor(0.12 * level) + 2;
+                    return level + boosted;
+                }
+            
+            case "Attack potion":
+            case "Combat potion":
+            case "Defence potion":
+            case "Strength potion":
+                var boosted = Math.floor(0.1 * level) + 3;
+                    return level + boosted;
+            
+            case "Elder potion":
+            case "Kodai potion":
+            case "Overload":
+            case "Twisted potion":
+                var boosted = Math.floor(0.13 * level) + 5;
+                    return level + boosted;
+            
+            case "Elder (-)":
+            case "Kodai (-)":
+            case "Overload (-)":
+            case "Twisted potion(-)":
+                var boosted = Math.floor(0.1 * level) + 4;
+                    return level + boosted;
+            
+            case "Excalibur":
+                return level + 8;
+            
+            case "Magic essence":
+                return level + 3;
+            
+            case "Magic potion":
+                return level + 4;
+            
+            
+            
+            
+            
+
+            
         }
     }
 
