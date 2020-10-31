@@ -1678,7 +1678,7 @@ const IconOption = props => (
             alt={props.data.label}
             loading="lazy"
         />
-        <span style={{ marginLeft: "5px" }}>{props.data.label}</span>
+        <span style={{ marginLeft: "5px", position: "relative", bottom: 5 }}>{props.data.label}</span>
     </Option>
 );
 
@@ -1690,7 +1690,7 @@ const CustomSelectValue = props => (
             alt={props.data.label}
             loading="lazy"
         />
-        <span style={{ marginLeft: "5px" }}>{props.data.label}</span>
+        <span style={{ marginLeft: "5px", position: "relative", bottom: 3 }}>{props.data.label}</span>
     </div>
 )
 
