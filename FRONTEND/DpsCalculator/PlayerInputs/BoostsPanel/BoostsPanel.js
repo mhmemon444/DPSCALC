@@ -90,7 +90,7 @@ class BoostsPanel extends React.Component {
 
     render() {
         var boostTabs = INDIVIDUAL_BOOSTS.map(b => {
-            return <IndividualBoost icon={b.icon} level={this.props[b.name]} click={this.slotClickHandler} type={b.type} selected={this.props[b.type]} boostedLevel={this.props[b.selectedState]} />
+            return <IndividualBoost boostlvl={this.props.boostlvl} icon={b.icon} level={this.props[b.name]} click={this.slotClickHandler} type={b.type} selected={this.props[b.type]} boostedLevel={this.props[b.selectedState]} />
         })
         return (
             <div style={{position: "relative"}}>

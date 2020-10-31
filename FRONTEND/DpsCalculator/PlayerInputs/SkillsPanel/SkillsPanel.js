@@ -35,7 +35,7 @@ class SkillsPanel extends React.Component {
 
     render() {
         var skillentries = skills.map(skill => {
-            return <SkillEntry name={skill.name} rsrc={skill.rsrc} val={this.props[skill.value]} />
+            return <SkillEntry name={skill.name} rsrc={skill.rsrc} val={this.props[skill.value]} statsChange={this.props.statsChange} v={skill.value} />
         })
         return (
             <div className="skillspanel">

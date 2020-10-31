@@ -256,6 +256,35 @@ class PlayerInputs extends React.Component {
         })
     }
 
+    statsChangeHandler = (level, val) => {
+        var input = level.slice(0, 2);
+
+        this.setState({
+            [val]: input,
+        }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
+            var c = null;
+            var recalc = false;
+            var recalcBoost = null;
+            switch (val) {
+                case "strengthLevel":
+                    recalc = true; c = "boostedStr"; recalcBoost = this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(input)); break;
+                case "attackLevel":
+                    recalc = true; c = "boostedAtt"; recalcBoost = this.boostStatHandler(this.state.attSelectedBoost, "att", parseInt(input)); break;
+                case "defenceLevel":
+                    recalc = true; c = "boostedDef"; recalcBoost = this.boostStatHandler(this.state.defSelectedBoost, "def", parseInt(input)); break;
+                case "rangedLevel":
+                    recalc = true; c = "boostedRange"; recalcBoost = this.boostStatHandler(this.state.rangeSelectedBoost, "ran", parseInt(input)); break;
+                case "mageLevel":
+                    recalc = true; c = "boostedMage"; recalcBoost = this.boostStatHandler(this.state.mageSelectedBoost, "mag", parseInt(input)); break;
+            }
+            if (recalc) {
+                this.setState({
+                    [c]: recalcBoost
+                })
+            }
+        })
+    }
+
 
 
     
@@ -391,7 +420,7 @@ class PlayerInputs extends React.Component {
             case "Elder (-)":
             case "Kodai (-)":
             case "Overload (-)":
-            case "Twisted potion(-)":
+            case "Twisted potion (-)":
                 var boosted = Math.floor(0.1 * level) + 4;
                     return level + boosted;
             
@@ -404,12 +433,8 @@ class PlayerInputs extends React.Component {
             case "Magic potion":
                 return level + 4;
             
-            
-            
-            
-            
-
-            
+            default:
+                return level;
         }
     }
 
@@ -488,7 +513,7 @@ class PlayerInputs extends React.Component {
                 { this.state.openSpellsTab ? <SpellsPanel spellbook={this.state.spellbook} swapSpellbook={this.spellbookSwapHandler} selectSpell={this.selectSpellHandler} weapon={this.state.weapon}/> 
                 : this.state.Equipment ? <EquipmentPanel legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.state.selectedPrayers} prayerClick={this.prayerClickHandler}/>
-                : this.state.Skills ? <SkillsPanel username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
+                : this.state.Skills ? <SkillsPanel statsChange={this.statsChangeHandler} username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.hiscoreFetchHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel}/>
                 : this.state.Combat ? <StylesPanel currentSpell={this.state.selectedSpell} selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>
                 : this.state.Potions ? <BoostsPanel selectStr={this.setStrBoost} 
                                                     selectAtt={this.setAttBoost}
@@ -501,7 +526,7 @@ class PlayerInputs extends React.Component {
                                                     def={this.state.defSelectedBoost}
                                                     ran={this.state.rangeSelectedBoost}
                                                     mag={this.state.mageSelectedBoost}
-                                                    other={this.state.otherSelectedBoost} selectedBoost={this.state.selectedBoost} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} rangedLevel={this.state.rangedLevel} mageLevel={this.state.mageLevel} boostedAtt={this.state.boostedAtt} boostedStr={this.state.boostedStr} boostedDef={this.state.boostedDef} boostedMage={this.state.boostedMage} boostedRange={this.state.boostedRange}/>
+                                                    other={this.state.otherSelectedBoost} selectedBoost={this.state.selectedBoost} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} rangedLevel={this.state.rangedLevel} mageLevel={this.state.mageLevel} boostedAtt={this.state.boostedAtt} boostedStr={this.state.boostedStr} boostedDef={this.state.boostedDef} boostedMage={this.state.boostedMage} boostedRange={this.state.boostedRange} boostlvl={this.boostStatHandler}/>
                 : null }
 
             </div>
