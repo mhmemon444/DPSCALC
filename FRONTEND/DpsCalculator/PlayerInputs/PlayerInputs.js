@@ -171,6 +171,7 @@ class PlayerInputs extends React.Component {
     setWep = (wepObj) => {
         this.setState({
             weapon: wepObj,
+            shield: ("twohanded" in wepObj) ? null : this.state.shield, //if 2h wep selected, remove shield
             selectedStyle1: true,
             selectedStyle2: false,
             selectedStyle3: false,
@@ -190,7 +191,10 @@ class PlayerInputs extends React.Component {
     }
 
     setShield = (shieldObj) => {
-        this.setState({shield: shieldObj}, () => {
+        this.setState({
+            shield: shieldObj,
+            weapon: ("twohanded" in this.state.weapon) ? null : this.state.weapon
+        }, () => {
             console.log(this.state)
         })
     }
