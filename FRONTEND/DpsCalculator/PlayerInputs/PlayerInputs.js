@@ -145,32 +145,32 @@ class PlayerInputs extends React.Component {
 
     //Equipment tab
     setCape = (capeObj) => {
-        this.setState({cape: capeObj}, () => {
+        this.setState({cape: (capeObj.value == "Nothing") ? null : capeObj}, () => {
             console.log(this.state)
         })
     }
 
     setHead = (headObj) => {
-        this.setState({head: headObj}, () => {
+        this.setState({head: (headObj.value == "Nothing") ? null : headObj}, () => {
             console.log(this.state)
         })
     }
 
     setNeck = (neckObj) => {
-        this.setState({neck: neckObj}, () => {
+        this.setState({neck: (neckObj.value == "Nothing") ? null : neckObj}, () => {
             console.log(this.state)
         })
     }
 
     setAmmo = (ammoObj) => {
-        this.setState({ammo: ammoObj}, () => {
+        this.setState({ammo: (ammoObj.value == "Nothing") ? null : ammoObj}, () => {
             console.log(this.state)
         })
     }
 
     setWep = (wepObj) => {
         this.setState({
-            weapon: wepObj,
+            weapon: (wepObj.value == "Nothing") ? null : wepObj,
             shield: ("twohanded" in wepObj) ? null : this.state.shield, //if 2h wep selected, remove shield
             selectedStyle1: true,
             selectedStyle2: false,
@@ -185,7 +185,7 @@ class PlayerInputs extends React.Component {
     }
 
     setBody = (bodyObj) => {
-        this.setState({body: bodyObj}, () => {
+        this.setState({body: (bodyObj.value == "Nothing") ? null : bodyObj}, () => {
             console.log(this.state)
         })
     }
@@ -199,7 +199,7 @@ class PlayerInputs extends React.Component {
         }
 
         this.setState({
-            shield: shieldObj,
+            shield: (shieldObj.value == "Nothing") ? null : shieldObj,
             weapon: wep
         }, () => {
             console.log(this.state)
@@ -208,26 +208,26 @@ class PlayerInputs extends React.Component {
 
     setHands = (handsObj) => {
         this.setState({
-            hands: handsObj
+            hands: (handsObj.value == "Nothing") ? null : handsObj
         }, () => {
             console.log(this.state)
         })
     }
 
     setFeet = (feetObj) => {
-        this.setState({feet: feetObj}, () => {
+        this.setState({feet: (feetObj.value == "Nothing") ? null : feetObj}, () => {
             console.log(this.state)
         })
     }
 
     setRing = (ringObj) => {
-        this.setState({ring: ringObj}, () => {
+        this.setState({ring: (ringObj.value == "Nothing") ? null : ringObj}, () => {
             console.log(this.state)
         })
     }
 
     setLegs = (legsObj) => {
-        this.setState({legs: legsObj}, () => {
+        this.setState({legs: (legsObj.value == "Nothing") ? null : legsObj}, () => {
             console.log(this.state)
         })
     }
