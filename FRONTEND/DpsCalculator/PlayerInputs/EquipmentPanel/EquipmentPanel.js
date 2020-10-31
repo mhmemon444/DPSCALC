@@ -24,10 +24,98 @@ class EquipmentPanel extends React.Component {
         })
     }
 
+    setHeadHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setHead(obj);
+        })
+    }
+
+    setNeckHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setNeck(obj);
+        })
+    }
+
+    setCapeHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setCape(obj);
+        })
+    }
+
+    setAmmoHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setAmmo(obj);
+        })
+    }
+
+    setWepHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setWep(obj);
+        })
+    }
+
+    setBodyHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setBody(obj);
+        })
+    }
+
+    setShieldHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setShield(obj);
+        })
+    }
+
+    setLegsHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setLegs(obj);
+        })
+    }
+
+    setHandsHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setHands(obj);
+        })
+    }
+
+    setFeetHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setFeet(obj);
+        })
+    }
+
+    setRingHandler = (obj) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.setRing(obj);
+        })
+    }
+
     render() {
         return (
             <div className="equipmentpanel">
-                {this.state.showModal ? <Modal legs={this.props.legs} setLegs={this.props.setLegs} ring={this.props.ring} setRing={this.props.setRing} feet={this.props.feet} setFeet={this.props.setFeet} hands={this.props.hands} setHands={this.props.setHands} shield={this.props.shield} setShield={this.props.setShield} body={this.props.body} setBody={this.props.setBody} wep={this.props.wep} setWep={this.props.setWep} ammo={this.props.ammo} setAmmo={this.props.setAmmo} neck={this.props.neck} setNeck={this.props.setNeck} head={this.props.head} setHead={this.props.setHead} selectedSlot={this.state.selectedSlot} cape={this.props.cape} setCape={this.props.setCape} click={this.modalClickHandler}/> : null }
+                {this.state.showModal ? <Modal legs={this.props.legs} setLegs={this.setLegsHandler} ring={this.props.ring} setRing={this.setRingHandler} feet={this.props.feet} setFeet={this.setFeetHandler} hands={this.props.hands} setHands={this.setHandsHandler} shield={this.props.shield} setShield={this.setShieldHandler} body={this.props.body} setBody={this.setBodyHandler} wep={this.props.wep} setWep={this.setWepHandler} ammo={this.props.ammo} setAmmo={this.setAmmoHandler} neck={this.props.neck} setNeck={this.setNeckHandler} head={this.props.head} setHead={this.setHeadHandler} selectedSlot={this.state.selectedSlot} cape={this.props.cape} setCape={this.setCapeHandler} click={this.modalClickHandler}/> : null }
                 <div className="equipmentrow">
                     <EquipmentIcon head={this.props.head} type="head_slot" click={this.iconClickHandler}/>
                 </div>

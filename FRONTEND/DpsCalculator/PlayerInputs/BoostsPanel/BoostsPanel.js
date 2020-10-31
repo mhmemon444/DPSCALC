@@ -36,6 +36,54 @@ class BoostsPanel extends React.Component {
         })
     }
 
+    boostStrHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectStr(boost);
+        })
+    }
+
+    boostAttHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectAtt(boost);
+        })
+    }
+
+    boostDefHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectDef(boost);
+        })
+    }
+
+    boostMagHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectMag(boost);
+        })
+    }
+
+    boostRangHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectRang(boost);
+        })
+    }
+
+    boostOtherHandler = (boost) => {
+        this.setState({
+            showModal: false
+        }, () => {
+            this.props.selectOther(boost);
+        })
+    }
+
 
 
     
@@ -47,12 +95,12 @@ class BoostsPanel extends React.Component {
         return (
             <div style={{position: "relative"}}>
                 {this.state.showModal ? <BoostsModal click={this.modalClickHandler} 
-                                                     selectStr={this.props.selectStr} 
-                                                     selectAtt={this.props.selectAtt}
-                                                     selectDef={this.props.selectDef}
-                                                     selectMag={this.props.selectMag}
-                                                     selectRang={this.props.selectRang}
-                                                     selectOther={this.props.selectOther}
+                                                     selectStr={this.boostStrHandler}
+                                                     selectAtt={this.boostAttHandler}
+                                                     selectDef={this.boostDefHandler}
+                                                     selectMag={this.boostMagHandler}
+                                                     selectRang={this.boostRangHandler}
+                                                     selectOther={this.boostOtherHandler}
                                                      str={this.props.str} 
                                                      att={this.props.att}
                                                      def={this.props.def}

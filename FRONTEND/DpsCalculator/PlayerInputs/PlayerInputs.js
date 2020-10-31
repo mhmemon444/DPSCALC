@@ -191,9 +191,16 @@ class PlayerInputs extends React.Component {
     }
 
     setShield = (shieldObj) => {
+        var wep = this.state.weapon;
+        if (wep != null) {
+            if ("twohanded" in this.state.weapon) {
+                wep = null; //turn off 2h wep when shield equipped
+            }
+        }
+
         this.setState({
             shield: shieldObj,
-            weapon: ("twohanded" in this.state.weapon) ? null : this.state.weapon
+            weapon: wep
         }, () => {
             console.log(this.state)
         })
