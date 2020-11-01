@@ -345,6 +345,7 @@ class PlayerInputs extends React.Component {
     //Stat boosts tab
     boostStatHandler = (boost, type, level) => {
         // console.log("boost: ", boost, " type: ",type, " level: ", level)
+        level = parseInt(level);
         switch (boost) {
             case "Bastion potion":
                 if (type == "ran") { //Bastion potion for ranged
