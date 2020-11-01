@@ -154,24 +154,31 @@ class PlayerInputs extends React.Component {
     }
 
     setHead = (headObj) => {
+        var previous = this.state.head;
         this.setState({head: (headObj.value == "Nothing") ? null : headObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.head, "head", previous); //update equipment attributes
         })
     }
 
     setNeck = (neckObj) => {
+        var previous = this.state.neck;
         this.setState({neck: (neckObj.value == "Nothing") ? null : neckObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.neck, "neck", previous); //update equipment attributes
         })
     }
 
     setAmmo = (ammoObj) => {
+        var previous = this.state.ammo;
         this.setState({ammo: (ammoObj.value == "Nothing") ? null : ammoObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.ammo, "ammo", previous); //update equipment attributes
         })
     }
 
     setWep = (wepObj) => {
+        var previous = this.state.weapon;
         this.setState({
             weapon: (wepObj.value == "Nothing") ? null : wepObj,
             shield: ("twohanded" in wepObj) ? null : this.state.shield, //if 2h wep selected, remove shield
@@ -184,16 +191,20 @@ class PlayerInputs extends React.Component {
             selectedSpell: null
         }, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.weapon, "weapon", previous); //update equipment attributes
         })
     }
 
     setBody = (bodyObj) => {
+        var previous = this.state.body;
         this.setState({body: (bodyObj.value == "Nothing") ? null : bodyObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.body, "torso", previous); //update equipment attributes
         })
     }
 
     setShield = (shieldObj) => {
+        var previous = this.state.shield;
         var wep = this.state.weapon;
         if (wep != null) {
             if ("twohanded" in this.state.weapon) {
@@ -206,32 +217,41 @@ class PlayerInputs extends React.Component {
             weapon: wep
         }, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.shield, "shield", previous); //update equipment attributes
         })
     }
 
     setHands = (handsObj) => {
+        var previous = this.state.hands;
         this.setState({
             hands: (handsObj.value == "Nothing") ? null : handsObj
         }, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.hands, "gloves", previous); //update equipment attributes
         })
     }
 
     setFeet = (feetObj) => {
+        var previous = this.state.feet;
         this.setState({feet: (feetObj.value == "Nothing") ? null : feetObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.feet, "boots", previous); //update equipment attributes
         })
     }
 
     setRing = (ringObj) => {
+        var previous = this.state.ring;
         this.setState({ring: (ringObj.value == "Nothing") ? null : ringObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.ring, "ring", previous); //update equipment attributes
         })
     }
 
     setLegs = (legsObj) => {
+        var previous = this.state.legs;
         this.setState({legs: (legsObj.value == "Nothing") ? null : legsObj}, () => {
             console.log(this.state)
+            this.props.calcAttributes(this.state.legs, "legs", previous); //update equipment attributes
         })
     }
 
@@ -260,6 +280,21 @@ class PlayerInputs extends React.Component {
         }
     }
 
+    recalcAllBoosts = () => {
+        var bStr = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(this.state.strengthLevel)) : this.state.strengthLevel;
+        var bAtt = this.state.attSelectedBoost != null ? this.boostStatHandler(this.state.attSelectedBoost.label, "att", parseInt(this.state.attackLevel)) : this.state.attackLevel;
+        var bDef = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(this.state.defenceLevel)) : this.state.defenceLevel;
+        var bRan = this.state.rangeSelectedBoost != null ? this.boostStatHandler(this.state.rangeSelectedBoost.label, "ran", parseInt(this.state.rangedLevel)) : this.state.rangedLevel;
+        var bMag = this.state.mageSelectedBoost != null ? this.boostStatHandler(this.state.mageSelectedBoost.label, "mag", parseInt(this.state.mageLevel)) : this.state.mageLevel;
+        this.setState({
+            boostedAtt: bAtt,
+            boostedStr: bStr,
+            boostedDef: bDef,
+            boostedRange: bRan,
+            boostedMage: bMag
+        })
+    }
+
     hiscoreFetchHandler = (atk, str, def, hp, rng, mag, pray) => {
         this.setState({
             attackLevel: atk,
@@ -270,11 +305,7 @@ class PlayerInputs extends React.Component {
             mageLevel: mag,
             prayerLevel: pray
         }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
-            this.recalculateBoost("attackLevel", atk);
-            this.recalculateBoost("strengthLevel", str);
-            this.recalculateBoost("defenceLevel", def);
-            this.recalculateBoost("rangedLevel", rng);
-            this.recalculateBoost("mageLevel", mag);
+            this.recalcAllBoosts();
         })
     }
 
