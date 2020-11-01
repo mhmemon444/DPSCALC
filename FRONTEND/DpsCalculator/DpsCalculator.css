@@ -1,0 +1,4 @@
+.calc-overall-layout {
+    display: flex;
+    flex-wrap: wrap;
+}
