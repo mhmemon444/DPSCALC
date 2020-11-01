@@ -234,6 +234,29 @@ class PlayerInputs extends React.Component {
 
 
     //Player skills tab
+    recalculateBoost = (trigger, input) => { //helper function to recalculate boosted stats upon input change / hiscores fetch
+        var c = null;
+        var recalc = false;
+        var recalcBoost = null;
+        switch (trigger) {
+            case "strengthLevel":
+                recalc = true; c = "boostedStr"; recalcBoost = this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(input)); break;
+            case "attackLevel":
+                recalc = true; c = "boostedAtt"; recalcBoost = this.boostStatHandler(this.state.attSelectedBoost, "att", parseInt(input)); break;
+            case "defenceLevel":
+                recalc = true; c = "boostedDef"; recalcBoost = this.boostStatHandler(this.state.defSelectedBoost, "def", parseInt(input)); break;
+            case "rangedLevel":
+                recalc = true; c = "boostedRange"; recalcBoost = this.boostStatHandler(this.state.rangeSelectedBoost, "ran", parseInt(input)); break;
+            case "mageLevel":
+                recalc = true; c = "boostedMage"; recalcBoost = this.boostStatHandler(this.state.mageSelectedBoost, "mag", parseInt(input)); break;
+        }
+        if (recalc) {
+            this.setState({
+                [c]: recalcBoost
+            })
+        }
+    }
+
     hiscoreFetchHandler = (atk, str, def, hp, rng, mag, pray) => {
         this.setState({
             attackLevel: atk,
@@ -243,8 +266,12 @@ class PlayerInputs extends React.Component {
             rangedLevel: rng,
             mageLevel: mag,
             prayerLevel: pray
-        }, () => {
-            console.log(this.state)
+        }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
+            this.recalculateBoost("attackLevel", atk);
+            this.recalculateBoost("strengthLevel", str);
+            this.recalculateBoost("defenceLevel", def);
+            this.recalculateBoost("rangedLevel", rng);
+            this.recalculateBoost("mageLevel", mag);
         })
     }
 
@@ -262,26 +289,7 @@ class PlayerInputs extends React.Component {
         this.setState({
             [val]: input,
         }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
-            var c = null;
-            var recalc = false;
-            var recalcBoost = null;
-            switch (val) {
-                case "strengthLevel":
-                    recalc = true; c = "boostedStr"; recalcBoost = this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(input)); break;
-                case "attackLevel":
-                    recalc = true; c = "boostedAtt"; recalcBoost = this.boostStatHandler(this.state.attSelectedBoost, "att", parseInt(input)); break;
-                case "defenceLevel":
-                    recalc = true; c = "boostedDef"; recalcBoost = this.boostStatHandler(this.state.defSelectedBoost, "def", parseInt(input)); break;
-                case "rangedLevel":
-                    recalc = true; c = "boostedRange"; recalcBoost = this.boostStatHandler(this.state.rangeSelectedBoost, "ran", parseInt(input)); break;
-                case "mageLevel":
-                    recalc = true; c = "boostedMage"; recalcBoost = this.boostStatHandler(this.state.mageSelectedBoost, "mag", parseInt(input)); break;
-            }
-            if (recalc) {
-                this.setState({
-                    [c]: recalcBoost
-                })
-            }
+            this.recalculateBoost(val, input);
         })
     }
 
