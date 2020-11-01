@@ -145,8 +145,11 @@ class PlayerInputs extends React.Component {
 
     //Equipment tab
     setCape = (capeObj) => {
+        var previous = this.state.cape;
         this.setState({cape: (capeObj.value == "Nothing") ? null : capeObj}, () => {
             console.log(this.state)
+             
+            this.props.calcAttributes(this.state.cape, "cape", previous); //update equipment attributes
         })
     }
 

@@ -1,0 +1,18 @@
+.attr-row {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.attr-inner-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.attr-row-header {
+    font-size: 14px;
+    color: #cf7b19;
+    text-shadow: 1px 1px black;
+    margin: auto;
+    text-align: center;
+}
