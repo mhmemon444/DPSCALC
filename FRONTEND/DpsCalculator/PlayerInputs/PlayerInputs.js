@@ -283,7 +283,7 @@ class PlayerInputs extends React.Component {
     recalcAllBoosts = () => {
         var bStr = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(this.state.strengthLevel)) : this.state.strengthLevel;
         var bAtt = this.state.attSelectedBoost != null ? this.boostStatHandler(this.state.attSelectedBoost.label, "att", parseInt(this.state.attackLevel)) : this.state.attackLevel;
-        var bDef = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(this.state.defenceLevel)) : this.state.defenceLevel;
+        var bDef = this.state.defSelectedBoost != null ? this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(this.state.defenceLevel)) : this.state.defenceLevel;
         var bRan = this.state.rangeSelectedBoost != null ? this.boostStatHandler(this.state.rangeSelectedBoost.label, "ran", parseInt(this.state.rangedLevel)) : this.state.rangedLevel;
         var bMag = this.state.mageSelectedBoost != null ? this.boostStatHandler(this.state.mageSelectedBoost.label, "mag", parseInt(this.state.mageLevel)) : this.state.mageLevel;
         this.setState({
