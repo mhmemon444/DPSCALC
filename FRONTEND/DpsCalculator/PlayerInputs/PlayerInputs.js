@@ -292,6 +292,12 @@ class PlayerInputs extends React.Component {
             boostedDef: bDef,
             boostedRange: bRan,
             boostedMage: bMag
+        }, () => {
+            //reboost str (dragon battleaxe bug fix)
+            var doubleStrBoost = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(this.state.strengthLevel)) : this.state.strengthLevel;
+            this.setState({
+                boostedStr: doubleStrBoost
+            })
         })
     }
 
