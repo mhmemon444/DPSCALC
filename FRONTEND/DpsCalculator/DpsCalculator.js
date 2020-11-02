@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import PlayerInputs from './PlayerInputs/PlayerInputs';
 import CombatAttributes from './CombatAttributes/CombatAttributes';
 import MonsterAttributes from './MonsterAttributes/MonsterAttributes';
+import Results from './Results/Results';
 
 import * as attributes from './dpsattributes';
 
@@ -58,6 +59,7 @@ class DpsCalculator extends React.Component {
                 <PlayerInputs calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes />
+                <Results />
             </div>
         )
     }
