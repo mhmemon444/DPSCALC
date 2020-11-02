@@ -1,0 +1,11 @@
+.mon-attr-row {
+    margin-top: 15px;
+    text-align: center;
+    margin-left: 2px;
+}
+
+.mon-attr-inner-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

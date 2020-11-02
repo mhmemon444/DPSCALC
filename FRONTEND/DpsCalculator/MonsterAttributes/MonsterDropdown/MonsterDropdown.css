@@ -1,0 +1,14 @@
+.monster-dropdown {
+    font-family: 'Calibri';
+    margin-top: 13px;
+}
+
+.myClassListName {
+    max-height: 260px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.myClassItemName:hover {
+    background-color: gainsboro;
+}
