@@ -304,13 +304,13 @@ class PlayerInputs extends React.Component {
             case "strengthLevel":
                 recalc = true; c = "boostedStr"; recalcBoost = this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(input)); break;
             case "attackLevel":
-                recalc = true; c = "boostedAtt"; recalcBoost = this.boostStatHandler(this.state.attSelectedBoost, "att", parseInt(input)); break;
+                recalc = true; c = "boostedAtt"; recalcBoost = this.boostStatHandler(this.state.attSelectedBoost.label, "att", parseInt(input)); break;
             case "defenceLevel":
-                recalc = true; c = "boostedDef"; recalcBoost = this.boostStatHandler(this.state.defSelectedBoost, "def", parseInt(input)); break;
+                recalc = true; c = "boostedDef"; recalcBoost = this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(input)); break;
             case "rangedLevel":
-                recalc = true; c = "boostedRange"; recalcBoost = this.boostStatHandler(this.state.rangeSelectedBoost, "ran", parseInt(input)); break;
+                recalc = true; c = "boostedRange"; recalcBoost = this.boostStatHandler(this.state.rangeSelectedBoost.label, "ran", parseInt(input)); break;
             case "mageLevel":
-                recalc = true; c = "boostedMage"; recalcBoost = this.boostStatHandler(this.state.mageSelectedBoost, "mag", parseInt(input)); break;
+                recalc = true; c = "boostedMage"; recalcBoost = this.boostStatHandler(this.state.mageSelectedBoost.label, "mag", parseInt(input)); break;
         }
         if (recalc) {
             this.setState({
