@@ -1704,7 +1704,7 @@ const CustomSelectValue = props => (
             alt={props.data.label}
             loading="lazy"
         /> }
-        <span style={{ marginLeft: "5px", position: "relative", bottom: 3 }}>{props.data.label}</span>
+        <span style={{ marginLeft: "5px", position: "relative", bottom: 3 }}>{props.data.label.length > 15 ? props.data.label.slice(0, 15) + "..." : props.data.label}</span>
     </div>
 )
 
@@ -1720,7 +1720,7 @@ const InputBox = (props) => {
     return (
         <div className="inputbox">
             <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select gear</div>
-            <div style={{ textAlign: 'center', width: '210px', margin: 'auto', fontSize: '11px' }}>
+            <div className="zoomfixx" style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
                 <Select
                     value={props.selectedSlot == "cape_slot" ? props.cape
                         : props.selectedSlot == "head_slot" ? props.head

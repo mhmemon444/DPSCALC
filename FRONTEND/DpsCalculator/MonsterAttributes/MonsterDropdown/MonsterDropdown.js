@@ -55,7 +55,7 @@ const MonsterDropdown = (props) => {
     return (
         <div className="monster-dropdown">
             {/* <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select monster</div> */}
-            <div style={{ textAlign: 'center', width: '210px', margin: 'auto', fontSize: '11px' }}>
+            <div style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
                 <Select
                     //value={props.selectedMonster.value}
                     options={monsterSelect}
