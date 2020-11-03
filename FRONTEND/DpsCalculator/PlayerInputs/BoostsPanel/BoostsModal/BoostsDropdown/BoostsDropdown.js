@@ -108,7 +108,7 @@ const CustomSelectValue = props => (
             alt={props.data.label}
             loading="lazy"
         />
-        <span style={{ marginLeft: "5px", position: "relative", bottom: 3 }}>{props.data.label}</span>
+        <span style={{ marginLeft: "5px", position: "relative", bottom: 3 }}>{props.data.label.length > 15 ? props.data.label.slice(0, 15) + "..." : props.data.label}</span>
     </div>
 )
 
@@ -124,7 +124,7 @@ const BoostsDropdown = (props) => {
     return (
         <div className="boosts-dropdown">
             <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select boost</div>
-            <div style={{ textAlign: 'center', width: '210px', margin: 'auto', fontSize: '11px' }}>
+            <div style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
                 <Select
                     value={props.selectedBoost == "str" ? props.str
                         : props.selectedBoost == "att" ? props.att
