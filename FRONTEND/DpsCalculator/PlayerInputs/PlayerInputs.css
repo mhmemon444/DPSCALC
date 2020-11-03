@@ -1,4 +1,4 @@
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+/* @media screen and (-webkit-min-device-pixel-ratio:0) { 
     select,
     textarea,
     input {
@@ -10,7 +10,7 @@
     input:focus {
     font-size: 16px;
   }
-  }
+  } */
 
 .playerinputs {
     background-color: #483f32;
