@@ -8,27 +8,28 @@ class PrayerIcon extends React.Component {
     }
 
     componentDidMount() {
-        if ( (this.props.selectedPrayers).includes(this.props.name) ) {
-            this.setState({
-                active: true
-            })
-        }
+        // if ( (this.props.selectedPrayers).includes(this.props.name) ) {
+        //     this.setState({
+        //         active: true
+        //     })
+        // }
     }
 
     iconClickHandler = () => {
-        var curActive = this.state.active
-        this.setState({
-            active: !curActive
-        }, () => {
-            this.props.click(this.props.name, this.state.active)
-        })
+        // var curActive = this.state.active
+        // this.setState({
+        //     active: !curActive
+        // }, () => {
+        //     this.props.click(this.props.name, this.state.active)
+        // })
+        this.props.click(this.props.name);
     }
 
     render() {
 
         return (
             <div className="prayer-entry" >
-                <div id="hovericon" className={this.state.active ? "prayer-active" : null} onClick={this.iconClickHandler}>
+                <div id="hovericon" className={this.props.selectedPrayers.includes(this.props.name) ? "prayer-active" : null} onClick={this.iconClickHandler}>
                     <img src={this.props.rsrc} />
                 </div>
                 

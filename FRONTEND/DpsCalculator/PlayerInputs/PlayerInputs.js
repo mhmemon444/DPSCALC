@@ -44,6 +44,38 @@ const ATK_STYLE_MAP = {
     unarmed: "Punch"
 }
 
+const PRAYER_TURNOFF= {
+    'Thick Skin': {DefenceBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Rock Skin','Steel Skin','Chivalry','Piety','Rigour','Augury']},
+    'Burst of Strength': {StrengthBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Superhuman Strength','Ultimate Strength','Chivalry','Piety']},
+    'Clarity of Thought': {AttackBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Improved Reflexes','Incredible Reflexes','Chivalry','Piety']},
+    'Sharp Eye': {RangedAttackBonus:1.05, RangedStrengthBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Hawk Eye','Eagle Eye','Rigour']},
+    'Mystic Will': {MagicBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Mystic Lore','Mystic Might','Augury']},
+    'Rock Skin': {DefenceBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Thick Skin','Steel Skin','Chivalry','Piety','Rigour','Augury']},
+    'Superhuman Strength': {StrengthBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Burst of Strength','Ultimate Strength','Chivalry','Piety']},
+    'Improved Reflexes': {AttackBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Clarity of Thought','Incredible Reflexes','Chivalry','Piety']},
+    'Rapid Restore': {DrainSpeed:1, vi:1, TurnsOff:[]},
+    'Rapid Heal': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Protect Item': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Hawk Eye': {RangedAttackBonus:1.1, RangedStrengthBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Sharp Eye','Eagle Eye','Rigour']},
+    'Mystic Lore': {MagicBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Mystic Will','Mystic Might','Augury']},
+    'Steel Skin': {DefenceBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Thick Skin','Rock Skin','Chivalry','Piety','Rigour','Augury']},
+    'Ultimate Strength': {StrengthBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Burst of Strength','Superhuman Strength','Chivalry','Piety']},
+    'Incredible Reflexes': {AttackBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Clarity of Thought','Improved Reflexes','Chivalry','Piety']},
+    'Protect from Magic': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Missiles','Protect from Melee','Retribution','Redemption','Smite']},
+    'Protect from Missiles': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Magic','Protect from Melee','Retribution','Redemption','Smite']},
+    'Protect from Melee': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Magic','Protect from Missiles','Retribution','Redemption','Smite']},
+    'Eagle Eye': {RangedAttackBonus:1.15, RangedStrengthBonus:1.15, DrainSpeed:12, vi:2, TurnsOff:['Sharp Eye','Hawk Eye','Rigour']},
+    'Mystic Might': {MagicBonus:1.15, DrainSpeed:12, vi:2, TurnsOff:['Mystic Will','Mystic Lore','Augury']},
+    'Retribution': {DrainSpeed:3, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Redemption','Smite']},
+    'Redemption': {DrainSpeed:6, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Retribution','Smite']},
+    'Smite': {DrainSpeed:18, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Retribution','Redemption']},
+    'Preserve': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Chivalry': {AttackBonus:1.15, StrengthBonus:1.18, DefenceBonus:1.2, DrainSpeed:24, vi:0, TurnsOff:['Thick Skin','Burst of Strength','Clarity of Thought','Rock Skin','Superhuman Strength','Improved Reflexes','Steel Skin','Ultimate Strength','Incredible Reflexes','Piety','Rigour','Augury']},
+    'Piety': {AttackBonus:1.2, StrengthBonus:1.23, DefenceBonus:1.25, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Burst of Strength','Clarity of Thought','Rock Skin','Superhuman Strength','Improved Reflexes','Steel Skin','Ultimate Strength','Incredible Reflexes','Chivalry','Rigour','Augury']},
+    'Rigour': {DefenceBonus:1.25, RangedAttackBonus:1.2, RangedStrengthBonus:1.23, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Rock Skin','Steel Skin','Chivalry','Piety','Sharp Eye','Hawk Eye','Eagle Eye','Augury']},
+    'Augury': {DefenceBonus:1.25, MagicBonus:1.25, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Rock Skin','Steel Skin','Chivalry','Piety','Mystic Will','Mystic Lore','Mystic Might','Rigour']},
+};
+
 class PlayerInputs extends React.Component {
     state = {
         //selected Tabs:
@@ -125,10 +157,17 @@ class PlayerInputs extends React.Component {
     }
 
     //Prayer tab
-    prayerClickHandler = (prayerName, active) => {
+    prayerClickHandler = (prayerName) => {
         var selPrayers = [...(this.state.selectedPrayers)];
-        if (active == true) {
+
+        if (!selPrayers.includes(prayerName)) {
             selPrayers.push(prayerName);
+            PRAYER_TURNOFF[prayerName].TurnsOff.forEach(t => {
+                const index = selPrayers.indexOf(t);
+                if (index > -1) {
+                    selPrayers.splice(index, 1);
+                }
+            })
         } else {
             const index = selPrayers.indexOf(prayerName);
             if (index > -1) {
