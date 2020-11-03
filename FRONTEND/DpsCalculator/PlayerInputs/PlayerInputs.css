@@ -1,3 +1,17 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    select,
+    textarea,
+    input {
+      font-size: 16px;
+    }
+
+    select:focus,
+    textarea:focus,
+    input:focus {
+    font-size: 16px;
+  }
+  }
+
 .playerinputs {
     background-color: #483f32;
     width: 270px;
