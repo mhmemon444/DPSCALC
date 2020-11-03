@@ -355,8 +355,9 @@ class PlayerInputs extends React.Component {
     }
 
     usernameChangeHandler = (event) => {
+        const uName = event.target.value.slice(0, 30);
         this.setState({
-            username: event.target.value
+            username: uName
         }, () => {
             console.log(this.state)
         })
