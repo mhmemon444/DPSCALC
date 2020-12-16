@@ -98,6 +98,12 @@ var calc = {
             }
             return 1;
         },
+        MSmokeStaff: function(loadout){
+            if((loadout.equipment.weapon === 'Smoke battlestaff' || loadout.equipment.weapon === 'Mystic smoke staff') && loadout.spell.smoke){
+                return 1.1;
+            }
+            return 1;
+        },
     }
     //end check
     

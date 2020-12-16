@@ -11,17 +11,17 @@ const SpellIcon = (props) => {
         confirmSpell = !((props.staff).includes(props.equippedStaff.label)) ? false : true; //prevent selecting blocked spells
     }
 
-    const handleSelect = (name, rsrc, conf) => {
+    const handleSelect = (name, rsrc, conf, s) => {
         if (conf == false) {
             return;
         } else {
-            props.select(name, rsrc);
+            props.select(name, rsrc, s);
         }
     }
 
     return (
         <div className="spell-entry" >
-            <div id={confirmSpell ? "spell-hovericon" : null} onClick={() => handleSelect(props.name, props.rsrc, confirmSpell)}>
+            <div id={confirmSpell ? "spell-hovericon" : null} onClick={() => handleSelect(props.name, props.rsrc, confirmSpell, props.spell)}>
                 <img
                     className={imgClassName}
                     src={props.rsrc}

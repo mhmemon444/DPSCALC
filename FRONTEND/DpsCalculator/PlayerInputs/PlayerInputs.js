@@ -410,7 +410,7 @@ class PlayerInputs extends React.Component {
 
 
     //Spells tab
-    selectSpellHandler = (spellName, spellImg) => {
+    selectSpellHandler = (spellName, spellImg, spell) => {
         const spellObj = {
             name: spellName,
             rsrc: spellImg
@@ -421,6 +421,7 @@ class PlayerInputs extends React.Component {
             openSpellsTab: false //close spellsTab after selecting spell
         }, () => {
             console.log(this.state)
+            this.props.setSpell(spell);
         })
     }
 
