@@ -104,7 +104,60 @@ var calc = {
             }
             return 1;
         },
-    }
+        MLightsword: function(loadout,darklight,silverlight){
+            if(loadout.monster.cT.includes('demon')){
+                if(loadout.equipment.weapon === 'Arclight'){
+                    return 1.7;
+                }
+                if(loadout.equipment.weapon === 'Darklight'){
+                    return darklight;
+                }
+                if(loadout.equipment.weapon === 'Silverlight' || loadout.equipment.weapon === 'Silverlight (dyed)'){
+                    return silverlight;
+                }
+            }
+            return 1;
+        },
+        MLeafyBaxe: function(loadout){
+            if(loadout.monster.cT.includes('leafy')){
+                if(loadout.equipment.weapon === 'Leaf-bladed battleaxe'){
+                    return 1.175;
+                }
+            }
+            return 1;
+        },
+        MDhcb: function(loadout){
+            if(loadout.monster.cT.includes('dragon')){
+                if(loadout.equipment.weapon === 'Dragon hunter crossbow'){
+                    return 1.3;
+                }
+            }
+            return 1;
+        },
+        MDhl: function(loadout){
+            if(loadout.monster.cT.includes('dragon')){
+                if(loadout.equipment.weapon === 'Dragon hunter lance'){
+                    return 1.2;
+                }
+            }
+            return 1;
+        },
+        MHolyWater: function(loadout){
+            if(loadout.cT.includes('demon')){
+                if(loadout.equipment.weapon === 'Holy water'){
+                    return 1.6;
+                }
+            }
+            return 1;
+        },
+        MWildyWeap: function(loadout, weapon, bonus){
+            if(loadout.wilderness && (loadout.equipment.weapon === weapon || loadout.equipment.weapon === weapon + ' (u)')){
+                return bonus;
+            }
+            return 1;
+        },
+        //Tbow
+    },
     //end check
     
 } //end of calc object

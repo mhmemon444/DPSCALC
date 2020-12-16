@@ -35,6 +35,9 @@ class DpsCalculator extends React.Component {
 
         //Selected spell:
         spell: null,
+
+        //check if wildy wep for dps code
+        checkedwildy: false,
         
 
         //Equipment Bonuses
@@ -64,7 +67,15 @@ class DpsCalculator extends React.Component {
             // console.log("Set Gear");
             // console.log(this.state);
             // console.log("MVOID::::");
-            
+            // var loadout = {
+            //     equipment: {...this.state.equipment},
+            //     monster: {...this.state.monster},
+            //     spell: {...this.state.spell},
+            //     wilderness: this.state.checkedwildy
+            // }
+            // // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
+            // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
+            // console.log(calc.check.MSmokeStaff(loadout));
         })
     }
 
@@ -80,6 +91,16 @@ class DpsCalculator extends React.Component {
         }, () => {
             
         })
+    }
+
+    checkboxClickHandler = (e, n) => {
+        var getcheck = this.state[n]
+        this.setState({
+            [n]: !getcheck
+        }, () => {
+            console.log(this.state)
+        })
+        
     }
 
     calculateAttributeBonusHandler = (item, type, previous) => {
@@ -115,7 +136,7 @@ class DpsCalculator extends React.Component {
         return (
             <div className="calc-overall-layout" style={{marginTop: "50px"}}>
                 {/* Dps calc react code is mounted here */}
-                <PlayerInputs setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
+                <PlayerInputs checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
                 <Results />

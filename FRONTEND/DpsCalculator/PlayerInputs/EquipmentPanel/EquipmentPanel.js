@@ -2,8 +2,11 @@ import React from 'react';
 
 import EquipmentIcon from './EquipmentIcon/EquipmentIcon';
 import Modal from './Modal/Modal';
+import Checkbox from './Checkbox/Checkbox';
 
 import './EquipmentPanel.css';
+
+const WILDY_WEPS = ["Craw's bow", "Thammaron's sceptre", "Viggora's chainmace"];
 
 class EquipmentPanel extends React.Component {
     state = {
@@ -113,6 +116,19 @@ class EquipmentPanel extends React.Component {
     }
 
     render() {
+        var checkWildy = null;
+        if (this.props.wep && WILDY_WEPS.includes(this.props.wep.label)) {
+            checkWildy = (
+                <>
+                <div className="chkwbox">
+                    <Checkbox type="wildy" height="20px" checked={this.props.checkWildy} checkboxClickHandler={this.props.checkboxClick}/>
+                </div>
+                <div className='chkwildy'>
+                    <span>Using {this.props.wep.label} in Wilderness?</span>
+                </div>
+                </>
+            )
+        }
         return (
             <div className="equipmentpanel">
                 {this.state.showModal ? <Modal legs={this.props.legs} setLegs={this.setLegsHandler} ring={this.props.ring} setRing={this.setRingHandler} feet={this.props.feet} setFeet={this.setFeetHandler} hands={this.props.hands} setHands={this.setHandsHandler} shield={this.props.shield} setShield={this.setShieldHandler} body={this.props.body} setBody={this.setBodyHandler} wep={this.props.wep} setWep={this.setWepHandler} ammo={this.props.ammo} setAmmo={this.setAmmoHandler} neck={this.props.neck} setNeck={this.setNeckHandler} head={this.props.head} setHead={this.setHeadHandler} selectedSlot={this.state.selectedSlot} cape={this.props.cape} setCape={this.setCapeHandler} click={this.modalClickHandler}/> : null }
@@ -131,6 +147,8 @@ class EquipmentPanel extends React.Component {
                 <div className="equipmentrow">
                     <EquipmentIcon hands={this.props.hands} type="hands_slot" click={this.iconClickHandler}/> <EquipmentIcon feet={this.props.feet} type="feet_slot" click={this.iconClickHandler}/> <EquipmentIcon ring={this.props.ring} type="ring_slot" click={this.iconClickHandler}/>
                 </div>
+
+                {checkWildy}
 
                 
 

@@ -6,6 +6,35 @@ import MonsterAttributeRow from './MonsterAttributeRow/MonsterAttributeRow';
 
 import './MonsterAttributes.css';
 
+const DEMON_TYPE = [
+    "Abyssal Sire",
+    "Abyssal demon",
+    "Balfrug Kreeyath",
+    "Black demon",
+    "Demonic gorilla",
+    "Doomion",
+    "Nechrya",
+    "Greater demon",
+    "Holthion",
+    "pyrelord",
+    "Pyrelord",
+    "Jungle demon",
+    "Tsutaroth",
+    "Lesser demon",
+    "Othainian",
+    "Skotizo",
+    "Tstanon Karlak",
+    "Zakl'n Gritch"
+]
+
+const LEAFY_TYPE = [
+    "Turoth", "turoth", "Kurask", "kurask"
+]
+
+const DRAGON_TYPE = [
+    "dragon", "Dragon", "Wyvern", "wyvern", "Hydra", "hydra", "Drake", "drake", "Galvek", "galvek", "Wyrm", "wyrm", "Vorkath"
+]
+
 
 class MonsterAttributes extends React.Component {
     state = {
@@ -13,6 +42,21 @@ class MonsterAttributes extends React.Component {
     }
 
     selectMonsterHandler = (m) => {
+        DEMON_TYPE.forEach((d) => {
+            if ((m.im).includes(d)) {
+                m.cT.push("demon");
+            }
+        })
+        LEAFY_TYPE.forEach((l) => {
+            if ((m.im).includes(l)) {
+                m.cT.push("leafy");
+            }
+        })
+        DRAGON_TYPE.forEach((r) => {
+            if ((m.im).includes(r) && !((m.im).includes('Revenant'))) {
+                m.cT.push("dragon");
+            }
+        })
         this.setState({
             selectedMonster: m
         }, () => {
