@@ -90,7 +90,7 @@ class PlayerInputs extends React.Component {
 
         ],
 
-        //Selected gear:
+        //Selected gear: (transferred to parent component (DpsCalculator))
         cape: null,
         head: null,
         neck: null,
@@ -189,6 +189,7 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
              
             this.props.calcAttributes(this.state.cape, "cape", previous); //update equipment attributes
+            this.props.setGear("cape", this.state.cape.label); //update parent component with selected gear label
         })
     }
 
@@ -197,6 +198,7 @@ class PlayerInputs extends React.Component {
         this.setState({head: (headObj.value == "Nothing") ? null : headObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.head, "head", previous); //update equipment attributes
+            this.props.setGear("head", this.state.head.label); //update parent component with selected gear label
         })
     }
 
@@ -205,6 +207,7 @@ class PlayerInputs extends React.Component {
         this.setState({neck: (neckObj.value == "Nothing") ? null : neckObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.neck, "neck", previous); //update equipment attributes
+            this.props.setGear("neck", this.state.neck.label); //update parent component with selected gear label
         })
     }
 
@@ -213,6 +216,7 @@ class PlayerInputs extends React.Component {
         this.setState({ammo: (ammoObj.value == "Nothing") ? null : ammoObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.ammo, "ammo", previous); //update equipment attributes
+            this.props.setGear("ammo", this.state.ammo.label); //update parent component with selected gear label
         })
     }
 
@@ -231,6 +235,7 @@ class PlayerInputs extends React.Component {
         }, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.weapon, "weapon", previous); //update equipment attributes
+            this.props.setGear("weapon", this.state.weapon.label); //update parent component with selected gear label
         })
     }
 
@@ -239,6 +244,7 @@ class PlayerInputs extends React.Component {
         this.setState({body: (bodyObj.value == "Nothing") ? null : bodyObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.body, "torso", previous); //update equipment attributes
+            this.props.setGear("torso", this.state.body.label); //update parent component with selected gear label
         })
     }
 
@@ -257,6 +263,7 @@ class PlayerInputs extends React.Component {
         }, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.shield, "shield", previous); //update equipment attributes
+            this.props.setGear("shield", this.state.shield.label); //update parent component with selected gear label
         })
     }
 
@@ -267,6 +274,7 @@ class PlayerInputs extends React.Component {
         }, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.hands, "gloves", previous); //update equipment attributes
+            this.props.setGear("gloves", this.state.hands.label); //update parent component with selected gear label
         })
     }
 
@@ -275,6 +283,7 @@ class PlayerInputs extends React.Component {
         this.setState({feet: (feetObj.value == "Nothing") ? null : feetObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.feet, "boots", previous); //update equipment attributes
+            this.props.setGear("boots", this.state.feet.label); //update parent component with selected gear label
         })
     }
 
@@ -283,6 +292,7 @@ class PlayerInputs extends React.Component {
         this.setState({ring: (ringObj.value == "Nothing") ? null : ringObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.ring, "ring", previous); //update equipment attributes
+            this.props.setGear("ring", this.state.ring.label); //update parent component with selected gear label
         })
     }
 
@@ -291,6 +301,7 @@ class PlayerInputs extends React.Component {
         this.setState({legs: (legsObj.value == "Nothing") ? null : legsObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.legs, "legs", previous); //update equipment attributes
+            this.props.setGear("legs", this.state.legs.label); //update parent component with selected gear label
         })
     }
 

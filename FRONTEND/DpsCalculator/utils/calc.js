@@ -14,8 +14,69 @@ var calc = {
                 //  
             };
             return _this;
+        },
+        ApplyFunc: function(arr,args,func){
+            console.log(args)
+            for(var i=0; i<arr.length; i++){
+    
+                arr[i] = func(arr[i],args);
+            }
+            return arr;
+        },
+        ApplyMult: function(arr,mult){
+            if(mult === 1){
+                return arr;
+            }
+            for(var i=0; i<arr.length; i++){
+                arr[i].Roll = Math.floor(arr[i].Roll*mult);
+            }
+            return arr;
+        },
+        ApplyAdd: function(arr,add){
+            if(add === 0){
+                return arr;
+            }
+            for(var i=0; i<arr.length; i++){
+                arr[i].Roll = Math.floor(arr[i].Roll+add);
+            }
+            return arr;
+        },
+        ApplySplitMult: function(arr,splitarr){
+            var newarr = [];
+            splitarr.forEach(function(splitar){
+                arr.forEach(function(ar){
+                    newarr.push(calc.roll.Roller(ar.Prob*splitar.Prob,Math.floor(ar.Roll*splitar.Roll),ar.Spec|splitar.Spec));
+                }); 
+            });
+            return newarr;
+        },
+        ApplySplitAdd: function(arr,splitarr){
+            var newarr = [];
+            splitarr.forEach(function(splitar){
+                arr.forEach(function(ar){
+                    newarr.push(calc.roll.Roller(ar.Prob*splitar.Prob,Math.floor(ar.Roll+splitar.Roll),ar.Spec|splitar.Spec));
+                }); 
+            });
+            return newarr;
         }
+    },
+    //end roll
+    
+    check: {
+        //Returns elite if wearing elite void, normal if wearing normal void, and 1 if not wearing void.
+        //loadout = equipment object
+        MVoid: function(loadout, helmet, normal, elite){ 
+            if(loadout.head === helmet && loadout.gloves === 'Void knight gloves' && (loadout.torso === 'Elite void top' || loadout.torso === 'Void knight top') && (loadout.legs === 'Elite void robe' || loadout.legs === 'Void knight robe')){
+                if(loadout.torso === 'Elite void top' && loadout.legs === 'Elite void robe'){
+                    return elite;
+                }
+                return normal;
+            }
+            return 1;
+        },
     }
-}
+    //end check
+    
+} //end of calc object
 
 export default calc;
