@@ -27,6 +27,11 @@ class DpsCalculator extends React.Component {
             boots: null,
             ring: null
         },
+
+        //Selected Monster:
+        monster: {
+            cT: ["null"]
+        },
         
 
         //Equipment Bonuses
@@ -56,7 +61,18 @@ class DpsCalculator extends React.Component {
             // console.log("Set Gear");
             // console.log(this.state);
             // console.log("MVOID::::");
-            // console.log(calc.check.MVoid(this.state.equipment, 'Void mage helm', 'NORMAL', 'ELITE'));
+            // var loadout = {
+            //     equipment: {...this.state.equipment},
+            //     monster: {...this.state.monster}
+            // }
+            // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
+            // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
+        })
+    }
+
+    setMonster = (m) => {
+        this.setState({
+            monster: m
         })
     }
 
@@ -95,7 +111,7 @@ class DpsCalculator extends React.Component {
                 {/* Dps calc react code is mounted here */}
                 <PlayerInputs setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
-                <MonsterAttributes />
+                <MonsterAttributes setMonster={this.setMonster}/>
                 <Results />
             </div>
         )

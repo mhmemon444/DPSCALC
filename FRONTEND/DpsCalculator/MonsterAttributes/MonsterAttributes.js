@@ -17,6 +17,7 @@ class MonsterAttributes extends React.Component {
             selectedMonster: m
         }, () => {
             console.log(this.state)
+            this.props.setMonster(this.state.selectedMonster); //set Monster in parent component to pass to loadout
         })
     }
 

@@ -66,11 +66,35 @@ var calc = {
         //Returns elite if wearing elite void, normal if wearing normal void, and 1 if not wearing void.
         //loadout = equipment object
         MVoid: function(loadout, helmet, normal, elite){ 
-            if(loadout.head === helmet && loadout.gloves === 'Void knight gloves' && (loadout.torso === 'Elite void top' || loadout.torso === 'Void knight top') && (loadout.legs === 'Elite void robe' || loadout.legs === 'Void knight robe')){
-                if(loadout.torso === 'Elite void top' && loadout.legs === 'Elite void robe'){
+            if(loadout.equipment.head === helmet && loadout.equipment.gloves === 'Void knight gloves' && (loadout.equipment.torso === 'Elite void top' || loadout.equipment.torso === 'Void knight top') && (loadout.equipment.legs === 'Elite void robe' || loadout.equipment.legs === 'Void knight robe')){
+                if(loadout.equipment.torso === 'Elite void top' && loadout.equipment.legs === 'Elite void robe'){
                     return elite;
                 }
                 return normal;
+            }
+            return 1;
+        },
+        MMaskSalve: function(loadout, imbuedonly, mask, salve, salve_e){
+            var helmets;
+            var amulets;
+            var amulets_e;
+            if(imbuedonly){
+                helmets = ['Black mask (i)','Slayer helmet (i)','Black slayer helmet (i)','Green slayer helmet (i)','Red slayer helmet (i)','Purple slayer helmet (i)','Turquoise slayer helmet (i)','Hydra slayer helmet (i)','Twisted slayer helmet (i)'];
+                amulets = ['Salve amulet(i)'];
+                amulets_e = ['Salve amulet(ei)'];
+            } else {
+                helmets = ['Black mask','Black mask (i)','Slayer helmet','Slayer helmet (i)','Black slayer helmet','Black slayer helmet (i)','Green slayer helmet','Green slayer helmet (i)','Red slayer helmet','Red slayer helmet (i)','Purple slayer helmet','Purple slayer helmet (i)','Turquoise slayer helmet','Turquoise slayer helmet (i)','Hydra slayer helmet','Hydra slayer helmet (i)','Twisted slayer helmet','Twisted slayer helmet (i)'];
+                amulets = ['Salve amulet','Salve amulet(i)'];
+                amulets_e = ['Salve amulet (e)','Salve amulet(ei)'];
+            }
+            if(amulets_e.includes(loadout.equipment.neck)){
+                return salve_e;
+            }
+            if(amulets.includes(loadout.equipment.neck)){
+                return salve;
+            }
+            if(helmets.includes(loadout.equipment.head) && loadout.monster.cT.includes('slayer')){
+                return mask;
             }
             return 1;
         },
