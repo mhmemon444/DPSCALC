@@ -7,6 +7,7 @@ import MonsterAttributes from './MonsterAttributes/MonsterAttributes';
 import Results from './Results/Results';
 
 import * as attributes from './dpsattributes';
+import calc from './utils/calc';
 
 import './DpsCalculator.css';
 
@@ -51,6 +52,12 @@ class DpsCalculator extends React.Component {
             console.log(this.state)
         })
     }
+
+    componentDidMount() {
+        //console.log(calc);
+    }
+
+
 
     render() {
         return (
