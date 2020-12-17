@@ -38,6 +38,9 @@ class DpsCalculator extends React.Component {
 
         //check if wildy wep for dps code
         checkedwildy: false,
+
+        //Chinchompa target distance
+        chindistance: 3,
         
 
         //Equipment Bonuses
@@ -71,7 +74,8 @@ class DpsCalculator extends React.Component {
             //     equipment: {...this.state.equipment},
             //     monster: {...this.state.monster},
             //     spell: {...this.state.spell},
-            //     wilderness: this.state.checkedwildy
+            //     wilderness: this.state.checkedwildy,
+            //     targetdistance: this.state.chindistance
             // }
             // // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
             // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
@@ -126,6 +130,14 @@ class DpsCalculator extends React.Component {
         })
     }
 
+    setChinDistance = (d) => {
+        this.setState({
+            chindistance: d
+        }, () => {
+            console.log(this.state);
+        })
+    }
+
     componentDidMount() {
         //console.log(calc);
     }
@@ -136,7 +148,7 @@ class DpsCalculator extends React.Component {
         return (
             <div className="calc-overall-layout" style={{marginTop: "50px"}}>
                 {/* Dps calc react code is mounted here */}
-                <PlayerInputs checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
+                <PlayerInputs setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
                 <Results />

@@ -157,6 +157,149 @@ var calc = {
             return 1;
         },
         //Tbow
+        MTbow: function(loadout,modifier){
+            if(loadout.equipment.weapon === 'Twisted bow'){
+                var calc;
+                if(modifier){ //maxhit modifier
+                    calc = 250 + 100*loadout.monster.cT.includes('raids');
+                    calc = Math.min(calc,Math.max(loadout.monster.Ma,loadout.monster.am));
+                    calc = Math.min(250,250+Math.trunc((10*3*calc/10-14)/100)-Math.trunc(Math.pow(3*calc/10-140,2)/100))/100;
+                    return calc;   
+                } else { //accuracy modifier
+                    calc = 250 + 100*loadout.monster.cT.includes('raids');
+                    calc = Math.min(calc,Math.max(loadout.monster.Ma,loadout.monster.am));
+                    calc = Math.min(140,140+Math.trunc((10*3*calc/10-10)/100)-Math.trunc(Math.pow(3*calc/10-100,2)/100))/100;
+                    return calc;
+                }
+            }
+            return 1;
+        },
+        MObbyArmour: function(loadout){
+            //TODO does staff count as melee?
+            if(loadout.equipment.head === 'Obsidian helmet' && loadout.equipment.torso === 'Obsidian platebody' && loadout.equipment.legs === 'Obsidian platelegs' && (loadout.equipment.weapon === 'Tzhaar-ket-om' || loadout.equipment.weapon === 'Tzhaar-ket-om (t)' || loadout.equipment.weapon === 'Tzhaar-ket-em' || loadout.equipment.weapon === 'Toktz-xil-ak' || loadout.equipment.weapon === 'Toktz-mej-tal' || loadout.equipment.weapon === 'Toktz-xil-ek')){
+                return 1.1;
+            }
+            return 1;
+        },
+        MObbyAmmy: function(loadout){
+            //TODO does staff count as melee?
+            if((loadout.equipment.neck === 'Berserker necklace' || loadout.equipment.neck === 'Berserker necklace (or)') && (loadout.equipment.weapon === 'Tzhaar-ket-om' || loadout.equipment.weapon === 'Tzhaar-ket-om (t)' || loadout.equipment.weapon === 'Tzhaar-ket-em' || loadout.equipment.weapon === 'Toktz-xil-ak' || loadout.equipment.weapon === 'Toktz-mej-tal' || loadout.equipment.weapon === 'Toktz-xil-ek')){
+                return 1.2;
+            }
+            return 1;
+        },
+        MCrystalArmour: function(loadout,modifier){
+            if(loadout.equipment.weapon === 'Crystal bow'){
+                var bonus = 0;
+                if(loadout.equipment.head === 'Crystal helm'){
+                    bonus += 1;
+                }
+                if(loadout.equipment.torso === 'Crystal body'){
+                    bonus += 1;
+                }
+                if(loadout.equipment.legs === 'Crystal legs'){
+                    bonus += 1;
+                }
+                if(bonus === 3){
+                    bonus = 5;
+                }
+                if(modifier){ //maxhit modifier
+                    bonus = 1+bonus*0.03;
+                } else { //accuracy modifier
+                    bonus = 1+bonus*0.06;
+                }
+                return bonus;
+            }
+            return 1;
+        },
+        MChinchompa: function(loadout,stance2){
+            if(loadout.targetdistance && (loadout.equipment.weapon === 'Chinchompa' || loadout.equipment.weapon === 'Red chinchompa' || loadout.equipment.weapon === 'Black chinchompa')){
+                if(stance2 === 'Accurate'){
+                    if(loadout.targetdistance <= 3){
+                        return 0;
+                    } else if (loadout.targetdistance <= 6) {
+                        return 0.25;
+                    } else {
+                        return 0.5;
+                    }
+                } else if(stance2 === 'Rapid'){
+                    if(loadout.targetdistance <= 3){
+                        return 0.25;
+                    } else if (loadout.targetdistance <= 6) {
+                        return 0;
+                    } else {
+                        return 0.25;
+                    }
+                } else if(stance2 === 'Longrange'){
+                    if(loadout.targetdistance <= 3){
+                        return 0.5;
+                    } else if (loadout.targetdistance <= 6) {
+                        return 0.25;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+            return 0;
+        },
+        HasGadder: function(loadout){
+            return loadout.equipment.weapon === 'Gadderhammer';
+        },
+        HasBrimstone: function(loadout){
+            return loadout.equipment.ring === 'Brimstone ring';
+        },
+        HasVestaLongsword: function(loadout){
+            return loadout.equipment.ring === 'Vesta\'s longsword';
+        },
+        HasKeris: function(loadout){
+            return loadout.equipment.weapon === 'Keris'||loadout.equipment.weapon === 'Keris(p)'||loadout.equipment.weapon === 'Keris(p+)'||loadout.equipment.weapon === 'Keris(p++)';
+        },
+        HasVerac: function(loadout){
+            if(loadout.equipment.head === 'Verac\'s helm' && loadout.equipment.torso === 'Verac\'s brassard' && loadout.equipment.legs === 'Verac\'s plateskirt' && loadout.equipment.weapon === 'Verac\'s flail'){
+                if(loadout.equipment.neck === 'Amulet of the damned'){
+                    return 2;
+                }
+                return 1;
+            }
+            return 0;
+        },
+        HasAhrim: function(loadout){
+            if(loadout.equipment.head === 'Ahrim\'s hood' && loadout.equipment.torso === 'Ahrim\'s robetop' && loadout.equipment.legs === 'Ahrim\'s robeskirt' && loadout.equipment.weapon === 'Ahrim\'s staff'){
+                if(loadout.equipment.neck === 'Amulet of the damned'){
+                    return 2;
+                }
+                return 1;
+            }
+            return 0;
+        },
+        HasDharok: function(loadout){
+            if(loadout.equipment.head === 'Dharok\'s helm' && loadout.equipment.torso === 'Dharok\'s platebody' && loadout.equipment.legs === 'Dharok\'s platelegs' && loadout.equipment.weapon === 'Dharok\'s greataxe'){
+                if(loadout.equipment.neck === 'Amulet of the damned'){
+                    return 2;
+                }
+                return 1;
+            }
+            return 0;
+        },
+        HasKaril: function(loadout){
+            if(loadout.equipment.head === 'Karil\'s coif' && loadout.equipment.torso === 'Karil\'s leathertop' && loadout.equipment.legs === 'Karil\'s leatherskirt' && loadout.equipment.weapon === 'Karil\'s crossbow'){
+                if(loadout.equipment.neck === 'Amulet of the damned'){
+                    return 2;
+                }
+                return 1;
+            }
+            return 0;
+        },
+        MDharok: function(loadout){
+            //TODO - add hitpoints
+            if(calc.check.HasDharok(loadout)){
+                // if(true/*TODO*/){
+                //     return 1;
+                // }
+                return 1 + Math.max(0,loadout.playerLevel.current.Hitpoints-loadout.playerLevel.visible.Hitpoints)*loadout.playerLevel.current.Hitpoints/10000;
+            }
+            return 1;
+        },
     },
     //end check
     

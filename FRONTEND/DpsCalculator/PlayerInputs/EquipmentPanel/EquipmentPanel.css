@@ -26,3 +26,16 @@
     top: 249px;
     left: 0px;
 }
+
+.checkChin {
+    position: absolute;
+    top: 220px;
+    left: 50px;
+    color: 
+    #cf7b19;
+    text-shadow: 1px 1px black;
+}
+
+.chin_radiobtn {
+    display: flex;
+}

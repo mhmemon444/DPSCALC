@@ -35,6 +35,10 @@ const DRAGON_TYPE = [
     "dragon", "Dragon", "Wyvern", "wyvern", "Hydra", "hydra", "Drake", "drake", "Galvek", "galvek", "Wyrm", "wyrm", "Vorkath"
 ]
 
+const RAIDS_TYPE = [
+    "Ice demon", "Chambers of Xeric", "Muttadile", "Skeletal Mystic", "Tekton", "Vanguard", "Vasa Nistirio", "Vespula", "Vespine", "Great Olm", "Challenge Mode"
+]
+
 
 class MonsterAttributes extends React.Component {
     state = {
@@ -55,6 +59,11 @@ class MonsterAttributes extends React.Component {
         DRAGON_TYPE.forEach((r) => {
             if ((m.im).includes(r) && !((m.im).includes('Revenant'))) {
                 m.cT.push("dragon");
+            }
+        })
+        RAIDS_TYPE,forEach((a) => {
+            if ((m.im).includes(a)) {
+                m.cT.push("raids");
             }
         })
         this.setState({

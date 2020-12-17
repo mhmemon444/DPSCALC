@@ -11,7 +11,12 @@ const WILDY_WEPS = ["Craw's bow", "Thammaron's sceptre", "Viggora's chainmace"];
 class EquipmentPanel extends React.Component {
     state = {
         showModal: false,
-        selectedSlot: null
+        selectedSlot: null,
+
+        //check chinchompa:
+        checkeddistance_three: true,
+        checkeddistance_six: false,
+        checkeddistance_seven: false
     }
 
     modalClickHandler = () => { //hide modal when modal is clicked
@@ -115,6 +120,26 @@ class EquipmentPanel extends React.Component {
         })
     }
 
+    //chinchompa checkboxes
+    checkboxClickHandler = (e, n) => {
+        this.setState({
+            checkeddistance_seven: false,
+            checkeddistance_six: false,
+            checkeddistance_three: false,
+            [n]: true
+        }, () => {
+            var d;
+            if (this.state.checkeddistance_seven) {
+                d = 7;
+            } else if (this.state.checkeddistance_six) {
+                d = 6;
+            } else if (this.state.checkeddistance_three) {
+                d = 3;
+            }
+            this.props.setChinDistance(d);
+        })
+    }
+
     render() {
         var checkWildy = null;
         if (this.props.wep && WILDY_WEPS.includes(this.props.wep.label)) {
@@ -127,6 +152,35 @@ class EquipmentPanel extends React.Component {
                     <span>Using {this.props.wep.label} in Wilderness?</span>
                 </div>
                 </>
+            )
+        }
+
+        var checkChinchompa = null;
+        if (this.props.wep && (this.props.wep.label).includes("inchompa")) {
+            checkChinchompa = (
+                // <>
+                // <div className="chkchin">
+                //     <Checkbox type="wildy" height="20px" checked={this.props.checkWildy} checkboxClickHandler={this.props.checkboxClick}/>
+                // </div>
+                // <div className='chkwildy'>
+                //     <span>Using {this.props.wep.label} in Wilderness?</span>
+                // </div>
+                // </>
+                <div className="checkChin">
+                    <span style={{fontWeight: 'bold', marginBottom: '5px'}}>Distance from target</span>
+                    <div className="chin_radiobtn">
+                    <Checkbox type="distance_three" height="20px" checked={this.state.checkeddistance_three} checkboxClickHandler={this.checkboxClickHandler}/>
+                        <div style={{marginLeft: '5px'}}>less than 3 tiles</div>
+                    </div>
+                    <div className="chin_radiobtn">
+                    <Checkbox type="distance_six" height="20px" checked={this.state.checkeddistance_six} checkboxClickHandler={this.checkboxClickHandler}/>
+                        <div style={{marginLeft: '5px'}}>4 to 6 tiles</div>
+                    </div>
+                    <div className="chin_radiobtn">
+                    <Checkbox type="distance_seven" height="20px" checked={this.state.checkeddistance_seven} checkboxClickHandler={this.checkboxClickHandler}/>
+                        <div style={{marginLeft: '5px'}}>7+ tiles</div>
+                    </div>
+                </div>
             )
         }
         return (
@@ -149,6 +203,7 @@ class EquipmentPanel extends React.Component {
                 </div>
 
                 {checkWildy}
+                {checkChinchompa}
 
                 
 
