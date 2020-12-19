@@ -61,7 +61,7 @@ class MonsterAttributes extends React.Component {
                 m.cT.push("dragon");
             }
         })
-        RAIDS_TYPE,forEach((a) => {
+        RAIDS_TYPE.forEach((a) => {
             if ((m.im).includes(a)) {
                 m.cT.push("raids");
             }

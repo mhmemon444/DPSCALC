@@ -29,8 +29,17 @@
 }
 
 
-.skills-container {
+/* .skills-container {
     margin-top: 10px;
+} */
+
+.skills-container {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+align-items: center;
+align-content: stretch;
 }
 
 .loading-hiscore {
