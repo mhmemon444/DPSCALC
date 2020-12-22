@@ -300,6 +300,68 @@ var calc = {
             }
             return 1;
         },
+        MGuardians: function(loadout){
+            //TODO: Mining level
+            //TODO: What happens if not using pickaxe?
+            if(loadout.monster.im === 'Guardian (Chambers of Xeric, Challenge Mode)' || loadout.monster.im === 'Guardian (Chambers of Xeric)'){
+                var weapon = Math.min(61,loadout.wepMiningLvl || 0);
+                var level = Math.min(100,loadout.playerLevel.current.Mining || 1); //TODO
+                return (50+level+weapon)/150;
+            }
+            return 1;
+        },
+        //TODO Check "ontask"
+        MaxMagicDart: function(loadout){
+            var staves = ['Slayer\'s staff','Slayer\'s staff (e)','Toxic staff of the dead','Toxic staff (uncharged)','Staff of the dead','Staff of balance','Staff of light'];
+            if(staves.includes(loadout.equipment.weapon)){
+                if(loadout.equipment.weapon === 'Slayer\'s staff (e)' && loadout.monster.cT.includes('slayer')){
+                    return Math.floor(13+loadout.playerLevel.visible.Magic/6);
+                }
+                return Math.floor(10+loadout.playerLevel.visible.Magic/10);
+            }
+            return 0;
+        },
+        MaxTrident: function(loadout){
+            if(loadout.equipment.weapon === 'Trident of the seas' || loadout.equipment.weapon === 'Trident of the seas (e)'){
+                return Math.max(1,Math.floor(loadout.playerLevel.visible.Magic/3 - 5));
+            } else if(loadout.equipment.weapon === 'Trident of the swamp' || loadout.equipment.weapon === 'Trident of the swamp (e)' || loadout.equipment.weapon === 'Uncharged toxic trident' || loadout.equipment.weapon === 'Uncharged toxic trident (e)'){
+                return Math.max(4,Math.floor(loadout.playerLevel.visible.Magic/3 - 2));
+            } else if(loadout.equipment.weapon === 'Sanguinesti staff' || loadout.equipment.weapon === 'Sanguinesti staff (beta)'){
+                return Math.max(5,Math.floor(loadout.playerLevel.visible.Magic/3 - 1));
+            } else if(loadout.equipment.weapon === 'Starter staff'){
+                return 8;
+            } else {
+                return false;
+            }
+        },
+        MaxSalamander: function(loadout){
+            if(loadout.equipment.weapon === 'Black salamander'){
+                return Math.floor(0.5+loadout.playerLevel.visible.Magic*0.24375);
+            }
+            if(loadout.equipment.weapon === 'Red salamander'){
+                return Math.floor(0.5+loadout.playerLevel.visible.Magic*0.2203125);
+            }
+            if(loadout.equipment.weapon === 'Orange salamander'){
+                return Math.floor(0.5+loadout.playerLevel.visible.Magic*0.1921875);
+            }
+            if(loadout.equipment.weapon === 'Swamp lizard'){
+                return Math.floor(0.5+loadout.playerLevel.visible.Magic*0.1875);
+            }
+            return false;
+        },
+        MChaosGauntlet: function(loadout){
+            if(loadout.slot.label.gloves === 'Chaos gauntlets' && loadout.spell.bolt){
+                return 3;
+            }
+            return 0;
+        },
+        MTomeOfFire: function(loadout){
+            if(loadout.slot.label.shield === 'Tome of fire' && loadout.spell.fire){
+                return 1.5;
+            }
+            return 1;
+        },
+
     },
     //end check
     

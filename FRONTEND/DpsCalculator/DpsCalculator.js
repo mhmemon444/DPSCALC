@@ -11,6 +11,21 @@ import calc from './utils/calc';
 
 import './DpsCalculator.css';
 
+const WEP_MINING_LEVEL = {
+    "Bronze pickaxe": 1,
+    "Iron pickaxe": 1,
+    "Steel pickaxe": 6,
+    "Black pickaxe": 11,
+    "Mithril pickaxe": 21,
+    "Adamant pickaxe": 31,
+    "Rune pickaxe": 41,
+    "Dragon pickaxe": 61,
+    "3rd age pickaxe": 61,
+    "Infernal pickaxe": 61,
+    "Corrupted pickaxe": 61,
+    "Crystal pickaxe": 61 //capped at 61 for guardian (COX) dps
+}
+
 class DpsCalculator extends React.Component {
     state = {
         //Selected gear: (transferred to parent component (DpsCalculator) to send to loadout)
@@ -50,6 +65,7 @@ class DpsCalculator extends React.Component {
         rangedLevel: 99,
         mageLevel: 99,
         prayerLevel: 99,
+        miningLevel: 99,
         visibleHitpoints: 99,
 
         //Stat Boosts:
@@ -64,6 +80,7 @@ class DpsCalculator extends React.Component {
         boostedStr: 99,
         boostedMage: 99,
         boostedAtt: 99,
+        boostedMining: 99,
         
 
         //Equipment Bonuses
@@ -90,37 +107,41 @@ class DpsCalculator extends React.Component {
         this.setState({
             equipment: e
         }, () => {
+            console.log(this.state);
             // console.log("Set Gear");
             // console.log(this.state);
             // console.log("MVOID::::");
             
-            // var loadout = {
-            //     equipment: {...this.state.equipment},
-            //     monster: {...this.state.monster},
-            //     spell: {...this.state.spell},
-            //     wilderness: this.state.checkedwildy,
-            //     targetdistance: this.state.chindistance,
-            //     playerLevel: {
-            //         current: {
-            //             Attack: parseInt(this.state.attackLevel),
-            //             Strength: parseInt(this.state.strengthLevel),
-            //             Defence: parseInt(this.state.defenceLevel),
-            //             Hitpoints: parseInt(this.state.hitpointsLevel),
-            //             Ranged: parseInt(this.state.rangedLevel),
-            //             Magic: parseInt(this.state.mageLevel),
-            //             Prayer: parseInt(this.state.prayerLevel)
-            //         },
-            //         visible: {
-            //             Hitpoints: parseInt(this.state.visibleHitpoints),
-            //             Attack: parseInt(this.state.boostedAtt),
-            //             Strength: parseInt(this.state.boostedStr),
-            //             Defence: parseInt(this.state.boostedDef),
-            //             Ranged: parseInt(this.state.boostedRange),
-            //             Magic: parseInt(this.state.boostedMage)
-            //             //Prayer: parseInt(this.state.prayerLevel) //may need to change to visible
-            //         }
-            //     }
-            // }
+            var loadout = {
+                equipment: {...this.state.equipment},
+                monster: {...this.state.monster},
+                spell: {...this.state.spell},
+                wilderness: this.state.checkedwildy,
+                targetdistance: this.state.chindistance,
+                wepMiningLvl: ((this.state.equipment.weapon).includes('pickaxe') ? WEP_MINING_LEVEL[this.state.equipment.weapon]: 0),
+                playerLevel: {
+                    current: {
+                        Attack: parseInt(this.state.attackLevel),
+                        Strength: parseInt(this.state.strengthLevel),
+                        Defence: parseInt(this.state.defenceLevel),
+                        Hitpoints: parseInt(this.state.hitpointsLevel),
+                        Ranged: parseInt(this.state.rangedLevel),
+                        Magic: parseInt(this.state.mageLevel),
+                        Prayer: parseInt(this.state.prayerLevel),
+                        Mining: parseInt(this.state.miningLevel)
+                    },
+                    visible: {
+                        Hitpoints: parseInt(this.state.visibleHitpoints),
+                        Attack: parseInt(this.state.boostedAtt),
+                        Strength: parseInt(this.state.boostedStr),
+                        Defence: parseInt(this.state.boostedDef),
+                        Ranged: parseInt(this.state.boostedRange),
+                        Magic: parseInt(this.state.boostedMage),
+                        Mining: parseInt(this.state.boostedMining)
+                        //Prayer: parseInt(this.state.prayerLevel) //may need to change to visible
+                    }
+                }
+            }
 
             // // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
             // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
@@ -452,7 +473,7 @@ class DpsCalculator extends React.Component {
         return (
             <div className="calc-overall-layout" style={{marginTop: "50px"}}>
                 {/* Dps calc react code is mounted here */}
-                <PlayerInputs visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
+                <PlayerInputs boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
                 <Results />

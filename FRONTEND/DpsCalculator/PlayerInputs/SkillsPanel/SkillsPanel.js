@@ -11,7 +11,8 @@ const skills = [
     { name: "Hitpoints", value: "hitpointsLevel", rsrc: "96" },
     { name: "Ranged", value: "rangedLevel", rsrc: "19" },
     { name: "Magic", value: "mageLevel", rsrc: "5c" },
-    { name: "Prayer", value: "prayerLevel", rsrc: "f2" }
+    { name: "Prayer", value: "prayerLevel", rsrc: "f2" },
+    { name: "Mining", value: "miningLevel", rsrc: "4a" }
 ]
 
 class SkillsPanel extends React.Component {
