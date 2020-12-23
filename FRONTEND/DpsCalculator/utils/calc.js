@@ -361,9 +361,122 @@ var calc = {
             }
             return 1;
         },
-
+        MCastleWars: function(loadout){
+            if(loadout.monster.combatType.includes('castle wars flagholder')){
+                return 1.2;
+            }
+            return 1;
+        },
     },
     //end check
+    naiveDPS: function(accarr,rollmin,rollmax,typeless,ticks){
+        //TODO: Scythe
+        var dps = 0;
+        for(var i = 0; i < accarr.length; i++) {
+            var hit;
+            if(accarr[i].Spec & 8){
+                hit = (rollmax[i].Roll + rollmin[i].Roll)/2 + Math.floor((rollmax[i].Roll + rollmin[i].Roll)/2)/2;
+            } else {
+                hit = (rollmax[i].Roll + rollmin[i].Roll)/2;
+            }
+            dps += accarr[i].Prob*accarr[i].Roll*hit+typeless;
+        }
+        return dps/ticks/0.6;
+    },
+    accuracy: function(aroll,droll){
+        if(aroll>droll){
+            return 1-(droll+2)/(2*aroll+2);
+        }
+        return aroll/(2*droll+2);
+    },
+    accuracies: function(arollers,drollers){
+        var newarr = [];
+        arollers.forEach(function(aroller){
+            var roll;
+            if(aroller.Spec & 1){ //guaranteed hit
+                roll = 1;
+            } else if (aroller.Spec & 6){ //Dinh's (2) or invalid (4)
+                roll = 0;
+            } else {
+                roll = 0;
+                drollers.forEach(function(droller){
+                    roll += droller.Prob*calc.accuracy(aroller.Roll,droller.Roll);
+                }); 
+            }
+            newarr.push(calc.roll.Roller(aroller.Prob,roll,aroller.Spec));
+        });
+        return newarr;
+    },
+    monsterDefence: function(loadout,style,spec){
+        var roll;
+        // if(style === 'dmagic'){
+        if(style === 'dm'){
+            roll = [calc.roll.Roller(1,Math.floor((loadout.monster.Ma+9)*(64+loadout.monster.dm)),0)]; //changed dmagic to dm
+            if(calc.check.HasBrimstone(loadout)){
+                roll = calc.roll.ApplySplitMult(roll,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,0.9,0)]);
+            }
+        } else {
+            roll = [calc.roll.Roller(1,Math.floor((loadout.monster.De+9)*(64+loadout.monster[style])),0)];
+            if(spec && calc.check.HasVestaLongsword(loadout)){
+                roll = calc.roll.ApplyMult(roll,0.25);
+            }
+        }
+        return roll;
+
+    },
+    playerMaxHit: function(loadout){
+        //Todo: Ba level to min + max hit
+        //Todo: Holy water
+        //todo: Bolts
+        //Todo: Clarify which dragons are fiery
+
+        var res = loadout.combatStyle.match(/^(.*) - (.*)$/);
+        if(!(res && ['Stab','Slash','Crush','Ranged','Magic','Block'].includes(res[2]) && ['Accurate','Aggressive','Defensive','Shared','Rapid','Longrange','Spell','Defensive Spell'].includes(res[1]))){
+            // if(loadout.slot.combatStyleLoadout in equipment.combatStyleLoadout){
+            //     res = equipment.combatStyleLoadout[loadout.slot.combatStyleLoadout][0].match(/^(.*) - (.*)$/);
+            // } else {
+            //     res = 'Stab - Accurate'.match(/^(.*) - (.*)$/);
+            // }
+            res = 'Accurate - Stab'.match(/^(.*) - (.*)$/);
+        }
+        var stance1 = res[2];
+        var stance2 = res[1];
+
+        var rollmax;
+        var rollmin = [calc.roll.Roller(1,0,0)];
+        var typeless = 0; //dmg even if miss
+        var attackticks = loadout.attackSpeed;
+        var args;
+        var tomeoffire = 1;
+
+        if (stance1 === 'Block') {
+            rollmax = [calc.roll.Roller(1, 0, 2)];
+        } else if (stance1 === 'Ranged') {
+            rollmax = [calc.roll.Roller(1, loadout.playerLevel.visible.Ranged, 0)];
+            loadout.prayersArr.forEach(function (prayer) {
+                rollmax = calc.roll.ApplyMult(rollmax, prayer.RangedStrengthBonus || 1);
+            });
+            rollmax = calc.roll.ApplyAdd(rollmax, 8);
+            if (stance2 === 'Accurate') {
+                rollmax = calc.roll.ApplyAdd(rollmax, 3);
+            } else if (stance2 === 'Rapid') {
+                attackticks -= 1;
+            }
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MVoid(loadout, 'Void ranger helm', 1.1, 1.125));
+            rollmax[0].Roll = Math.floor(0.5 + rollmax[0].Roll * (64 + loadout.equipmentBonus.br) / 640); //cheating out of laziness
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MMaskSalve(loadout, true, 1.15, 1.15, 1.2));
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MDhcb(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MHolyWater(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MWildyWeap(loadout, 'Craw\'s bow', 1.5));
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MTbow(loadout, true));
+            rollmax = calc.roll.ApplyMult(rollmax, calc.check.MCrystalArmour(loadout, true));
+            if (calc.check.HasKaril(loadout)) {
+                rollmax = calc.roll.ApplySplitAdd(rollmax, [calc.roll.Roller(0.75, 0, 0), calc.roll.Roller(0.25, 0, 8)]);
+                rollmin = calc.roll.ApplySplitAdd(rollmin, [calc.roll.Roller(0.75, 0, 0), calc.roll.Roller(0.25, 0, 0)]);
+            }
+        }
+
+    },
     
 } //end of calc object
 

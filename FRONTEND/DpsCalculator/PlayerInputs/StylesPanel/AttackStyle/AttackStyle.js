@@ -37,7 +37,7 @@ class AttackStyle extends React.Component {
 
         return (
             <div className="attackstyle-entry" >
-                <div className={!this.props.selected ? "attackstyle-individual" : "indiv-sel"} onClick={() => this.props.selectHandler(this.props.opt, this.props.name)}>
+                <div className={!this.props.selected ? "attackstyle-individual" : "indiv-sel"} onClick={() => this.props.selectHandler(this.props.opt, this.props.name, this.props.style)}>
         {this.props.name != "Spell (Def)" ? <img className={spellImgClass} src={(this.props.name=="Spell" && this.props.currentSpell != null) ? spellicon : this.props.rsrc} /> : <span><img src={shieldIcon}/><img  className={defensiveSpellImgClass} src={spellicon}/></span> }
                     <div className="attackstyle-textinfo">{this.props.name}</div>
                 </div>

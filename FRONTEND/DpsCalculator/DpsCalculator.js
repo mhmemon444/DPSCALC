@@ -24,7 +24,39 @@ const WEP_MINING_LEVEL = {
     "Infernal pickaxe": 61,
     "Corrupted pickaxe": 61,
     "Crystal pickaxe": 61 //capped at 61 for guardian (COX) dps
-}
+};
+
+const PRAYER_TURNOFF= {
+    'Thick Skin': {DefenceBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Rock Skin','Steel Skin','Chivalry','Piety','Rigour','Augury']},
+    'Burst of Strength': {StrengthBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Superhuman Strength','Ultimate Strength','Chivalry','Piety']},
+    'Clarity of Thought': {AttackBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Improved Reflexes','Incredible Reflexes','Chivalry','Piety']},
+    'Sharp Eye': {RangedAttackBonus:1.05, RangedStrengthBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Hawk Eye','Eagle Eye','Rigour']},
+    'Mystic Will': {MagicBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Mystic Lore','Mystic Might','Augury']},
+    'Rock Skin': {DefenceBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Thick Skin','Steel Skin','Chivalry','Piety','Rigour','Augury']},
+    'Superhuman Strength': {StrengthBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Burst of Strength','Ultimate Strength','Chivalry','Piety']},
+    'Improved Reflexes': {AttackBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Clarity of Thought','Incredible Reflexes','Chivalry','Piety']},
+    'Rapid Restore': {DrainSpeed:1, vi:1, TurnsOff:[]},
+    'Rapid Heal': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Protect Item': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Hawk Eye': {RangedAttackBonus:1.1, RangedStrengthBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Sharp Eye','Eagle Eye','Rigour']},
+    'Mystic Lore': {MagicBonus:1.1, DrainSpeed:6, vi:0, TurnsOff:['Mystic Will','Mystic Might','Augury']},
+    'Steel Skin': {DefenceBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Thick Skin','Rock Skin','Chivalry','Piety','Rigour','Augury']},
+    'Ultimate Strength': {StrengthBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Burst of Strength','Superhuman Strength','Chivalry','Piety']},
+    'Incredible Reflexes': {AttackBonus:1.15, DrainSpeed:12, vi:0, TurnsOff:['Clarity of Thought','Improved Reflexes','Chivalry','Piety']},
+    'Protect from Magic': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Missiles','Protect from Melee','Retribution','Redemption','Smite']},
+    'Protect from Missiles': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Magic','Protect from Melee','Retribution','Redemption','Smite']},
+    'Protect from Melee': {DrainSpeed:12, vi:1, TurnsOff:['Protect from Magic','Protect from Missiles','Retribution','Redemption','Smite']},
+    'Eagle Eye': {RangedAttackBonus:1.15, RangedStrengthBonus:1.15, DrainSpeed:12, vi:2, TurnsOff:['Sharp Eye','Hawk Eye','Rigour']},
+    'Mystic Might': {MagicBonus:1.15, DrainSpeed:12, vi:2, TurnsOff:['Mystic Will','Mystic Lore','Augury']},
+    'Retribution': {DrainSpeed:3, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Redemption','Smite']},
+    'Redemption': {DrainSpeed:6, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Retribution','Smite']},
+    'Smite': {DrainSpeed:18, vi:0, TurnsOff:['Protect from Magic','Protect from Missiles','Protect from Melee','Retribution','Redemption']},
+    'Preserve': {DrainSpeed:2, vi:1, TurnsOff:[]},
+    'Chivalry': {AttackBonus:1.15, StrengthBonus:1.18, DefenceBonus:1.2, DrainSpeed:24, vi:0, TurnsOff:['Thick Skin','Burst of Strength','Clarity of Thought','Rock Skin','Superhuman Strength','Improved Reflexes','Steel Skin','Ultimate Strength','Incredible Reflexes','Piety','Rigour','Augury']},
+    'Piety': {AttackBonus:1.2, StrengthBonus:1.23, DefenceBonus:1.25, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Burst of Strength','Clarity of Thought','Rock Skin','Superhuman Strength','Improved Reflexes','Steel Skin','Ultimate Strength','Incredible Reflexes','Chivalry','Rigour','Augury']},
+    'Rigour': {DefenceBonus:1.25, RangedAttackBonus:1.2, RangedStrengthBonus:1.23, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Rock Skin','Steel Skin','Chivalry','Piety','Sharp Eye','Hawk Eye','Eagle Eye','Augury']},
+    'Augury': {DefenceBonus:1.25, MagicBonus:1.25, DrainSpeed:24, vi:2, TurnsOff:['Thick Skin','Rock Skin','Steel Skin','Chivalry','Piety','Mystic Will','Mystic Lore','Mystic Might','Rigour']},
+};
 
 class DpsCalculator extends React.Component {
     state = {
@@ -57,6 +89,11 @@ class DpsCalculator extends React.Component {
         //Chinchompa target distance to send to loadout
         chindistance: 3,
 
+        //Selected prayers to send to loadout
+        selectedPrayers: [
+
+        ],
+
         //Player Stats:
         attackLevel: 99,
         strengthLevel: 99,
@@ -81,6 +118,9 @@ class DpsCalculator extends React.Component {
         boostedMage: 99,
         boostedAtt: 99,
         boostedMining: 99,
+
+        //Combat style
+        combatStyle: 'Accurate - Crush',
         
 
         //Equipment Bonuses
@@ -98,7 +138,8 @@ class DpsCalculator extends React.Component {
         strengthDef: 0,
         rangedStrengthBonus: 0,
         mageStrengthBonus: 0,
-        prayerBonus: 0
+        prayerBonus: 0,
+        attackSpeed: 4
     }
 
     setGear = (type, gear) => {
@@ -111,6 +152,11 @@ class DpsCalculator extends React.Component {
             // console.log("Set Gear");
             // console.log(this.state);
             // console.log("MVOID::::");
+
+            var prayers = [];
+            this.state.selectedPrayers.forEach( (prayer) => {
+                prayers.push(PRAYER_TURNOFF[prayer]);
+            })
             
             var loadout = {
                 equipment: {...this.state.equipment},
@@ -118,7 +164,13 @@ class DpsCalculator extends React.Component {
                 spell: {...this.state.spell},
                 wilderness: this.state.checkedwildy,
                 targetdistance: this.state.chindistance,
+                combatStyle: this.state.combatStyle,
+                attackSpeed: this.state.attackSpeed,
                 wepMiningLvl: ((this.state.equipment.weapon).includes('pickaxe') ? WEP_MINING_LEVEL[this.state.equipment.weapon]: 0),
+                prayersArr: prayers,
+                equipmentBonus: {
+                    br: this.state.rangedStrengthBonus
+                },
                 playerLevel: {
                     current: {
                         Attack: parseInt(this.state.attackLevel),
@@ -147,12 +199,15 @@ class DpsCalculator extends React.Component {
             // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
             // console.log(calc.check.MSmokeStaff(loadout));
             // console.log(calc.check.MDharok(loadout))
+            calc.playerMaxHit(loadout);
         })
     }
 
     setMonster = (m) => {
         this.setState({
-            monster: m
+            monster: {...m}
+        }, () => {
+            console.log(this.state)
         })
     }
 
@@ -161,6 +216,14 @@ class DpsCalculator extends React.Component {
             spell: s
         }, () => {
             
+        })
+    }
+
+    setCombatStyle = (style) => {
+        this.setState({
+            combatStyle: style
+        }, () => {
+            console.log(this.state);
         })
     }
 
@@ -191,7 +254,8 @@ class DpsCalculator extends React.Component {
             stabDef: this.state.stabDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dt"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dt"]),
             crushDef: this.state.crushDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dc"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dc"]),
             mageDef: this.state.mageDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dm"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dm"]),
-            rangedDef: this.state.rangedDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dr"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dr"])
+            rangedDef: this.state.rangedDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dr"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dr"]),
+            attackSpeed: (type == "weapon" && (attributes.equipment)[type][item.label]["aS"]) ? (attributes.equipment)[type][item.label]["aS"] : 4 
         }, () => {
             console.log(this.state)
         })
@@ -463,6 +527,33 @@ class DpsCalculator extends React.Component {
         })
     }
 
+
+
+    //Prayer tab
+    prayerClickHandler = (prayerName) => {
+        var selPrayers = [...(this.state.selectedPrayers)];
+
+        if (!selPrayers.includes(prayerName)) {
+            selPrayers.push(prayerName);
+            PRAYER_TURNOFF[prayerName].TurnsOff.forEach(t => {
+                const index = selPrayers.indexOf(t);
+                if (index > -1) {
+                    selPrayers.splice(index, 1);
+                }
+            })
+        } else {
+            const index = selPrayers.indexOf(prayerName);
+            if (index > -1) {
+                selPrayers.splice(index, 1);
+            }
+        }
+        this.setState({
+            selectedPrayers: [...selPrayers]
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
     componentDidMount() {
         //console.log(calc);
     }
@@ -473,7 +564,7 @@ class DpsCalculator extends React.Component {
         return (
             <div className="calc-overall-layout" style={{marginTop: "50px"}}>
                 {/* Dps calc react code is mounted here */}
-                <PlayerInputs boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
+                <PlayerInputs prayerClickHandler={this.prayerClickHandler} selectedPrayers={this.state.selectedPrayers} setCombatStyle={this.setCombatStyle} boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
                 <Results />
