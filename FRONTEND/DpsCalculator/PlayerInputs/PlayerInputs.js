@@ -193,7 +193,10 @@ class PlayerInputs extends React.Component {
         this.setState({head: (headObj.value == "Nothing") ? null : headObj}, () => {
             console.log(this.state)
             this.props.calcAttributes(this.state.head, "head", previous); //update equipment attributes
-            this.props.setGear("head", this.state.head.label); //update parent component with selected gear label
+            if (this.state.head) {
+                this.props.setGear("head", this.state.head.label); //update parent component with selected gear label
+            }
+            
         })
     }
 
