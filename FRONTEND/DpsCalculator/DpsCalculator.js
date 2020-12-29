@@ -171,7 +171,12 @@ class DpsCalculator extends React.Component {
                 equipmentBonus: {
                     br: this.state.rangedStrengthBonus,
                     bm: this.state.mageStrengthBonus,
-                    bs: this.state.strengthBonus
+                    bs: this.state.strengthBonus,
+                    ar: this.state.rangedBonus,
+                    am: this.state.mageBonus,
+                    at: this.state.stabBonus,
+                    al: this.state.slashBonus,
+                    ac: this.state.crushBonus
                 },
                 playerLevel: {
                     current: {
@@ -201,7 +206,7 @@ class DpsCalculator extends React.Component {
             // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
             // console.log(calc.check.MSmokeStaff(loadout));
             // console.log(calc.check.MDharok(loadout))
-            calc.playerMaxHit(loadout);
+            calc.playerAttack(loadout);
         })
     }
 

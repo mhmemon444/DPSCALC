@@ -562,7 +562,111 @@ var calc = {
         return [rollmin,rollmax,typeless,attackticks];
 
     },
+    playerAttack: function(loadout){
+        var res = loadout.combatStyle.match(/^(.*) - (.*)$/);
+        if(!(res && ['Stab','Slash','Crush','Ranged','Magic','Block'].includes(res[2]) && ['Accurate','Aggressive','Defensive','Shared','Rapid','Longrange','Spell','Defensive Spell'].includes(res[1]))){
+            // if(loadout.slot.combatStyleLoadout in equipment.combatStyleLoadout){
+            //     res = equipment.combatStyleLoadout[loadout.slot.combatStyleLoadout][0].match(/^(.*) - (.*)$/);
+            // } else {
+            //     res = 'Stab - Accurate'.match(/^(.*) - (.*)$/);
+            // }
+            res = 'Accurate - Stab'.match(/^(.*) - (.*)$/);
+        }
+        var stance1 = res[2];
+        var stance2 = res[1];
+
+        var rollacc;
+        var args;
+        var defencestyle;
+
+        if(stance1 === 'Block'){
+            return [[calc.roll.Roller(1,0,2)],''];
+        } else if(stance1 === 'Ranged'){
+            defencestyle = 'drange';
+            rollacc = [calc.roll.Roller(1,loadout.playerLevel.visible.Ranged,0)];
+            loadout.prayersArr.forEach(function (prayer) {
+                rollacc = calc.roll.ApplyMult(rollacc, prayer.RangedAttackBonus || 1);
+            });
+            rollacc = calc.roll.ApplyAdd(rollacc,8);
+            if(stance2 === 'Accurate'){
+                rollacc = calc.roll.ApplyAdd(rollacc,3);
+            }
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MVoid(loadout,'Void ranger helm',1.1,1.1));
+            rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.ar);
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MMaskSalve(loadout,true,1.15,1.15,1.2));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MDhcb(loadout));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MWildyWeap(loadout,'Craw\'s bow',1.5));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MTbow(loadout,false));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MCrystalArmour(loadout,false));
+            args = calc.check.MChinchompa(loadout,stance2);
+            rollacc = calc.roll.ApplyFunc(rollacc,args,function(rollaccer_i,chin){
+                rollaccer_i.Roll = rollaccer_i.Roll - Math.floor(rollaccer_i.Roll*chin);
+                return rollaccer_i;
+            });
+            if(calc.check.HasKaril(loadout)){
+                rollacc = calc.roll.ApplySplitAdd(rollacc,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,0,8)]);
+            }
+        } else if(stance1 === 'Magic'){
+            defencestyle = 'dmagic';
+            rollacc = [calc.roll.Roller(1,loadout.playerLevel.visible.Magic,0)];
+            loadout.prayersArr.forEach(function (prayer) {
+                rollacc = calc.roll.ApplyMult(rollacc, prayer.MagicBonus || 1);
+            });
+            rollacc = calc.roll.ApplyAdd(rollacc,8);
+            if(stance2 === 'Accurate'){
+                rollacc = calc.roll.ApplyAdd(rollacc,3);
+            }
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MVoid(loadout,'Void mage helm',1.45,1.45));
+            rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.am);
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MSmokeStaff(loadout));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MMaskSalve(loadout,true,1.15,1.15,1.2));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MWildyWeap(loadout,'Thammaron\'s sceptre',2));
+            if(calc.check.HasAhrim(loadout) === 2){ //split to keep in line with max hit above
+                rollacc = calc.roll.ApplySplitMult(rollacc,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,1,0)]);
+            }
+        } else {
+            rollacc = [calc.roll.Roller(1,loadout.playerLevel.visible.Attack,0)];
+            loadout.prayersArr.forEach(function (prayer) {
+                rollacc = calc.roll.ApplyMult(rollacc, prayer.AttackBonus || 1);
+            });
+            rollacc = calc.roll.ApplyAdd(rollacc,8);
+            if(stance2 === 'Accurate'){
+                rollacc = calc.roll.ApplyAdd(rollacc,3);
+            } else if(stance2 === 'Shared') {
+                rollacc = calc.roll.ApplyAdd(rollacc,1);
+            }
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MVoid(loadout,'Void melee helm',1.1,1.1));
+            if(stance1 === 'Stab'){
+                defencestyle = 'dstab';
+                rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.at);
+            } else if (stance1 === 'Slash'){
+                defencestyle = 'dslash';
+                rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.al);
+            } else {
+                defencestyle = 'dcrush';
+                rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.ac);
+            }
+
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MMaskSalve(loadout,true,7/6,7/6,1.2));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MLightsword(loadout,1,1));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MDhl(loadout));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MWildyWeap(loadout,'Viggora\'s chainmace',1.5));
+            rollacc = calc.roll.ApplyMult(rollacc,calc.check.MObbyArmour(loadout));
+            if(calc.check.HasGadder(loadout)){
+                rollacc = calc.roll.ApplySplitMult(rollacc,[calc.roll.Roller(0.95,1,0),calc.roll.Roller(0.05,1,0)]);
+            }
+            if(calc.check.HasKeris(loadout)){
+                rollacc = calc.roll.ApplySplitMult(rollacc,[calc.roll.Roller(50/51,1,0),calc.roll.Roller(1/51,1,0)]);
+            }
+            if(calc.check.HasVerac(loadout)){
+                rollacc = calc.roll.ApplySplitMult(rollacc,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,1,1)]);
+            }
+        }
+        console.log("rollacc: ", rollacc);
+        console.log("defencestyle:", defencestyle);
+        return [rollacc,defencestyle];
+    } //end of playerAttack function
     
-} //end of calc object
+}; //end of calc object
 
 export default calc;
