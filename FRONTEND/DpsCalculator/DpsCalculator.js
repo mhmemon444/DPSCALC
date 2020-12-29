@@ -7,24 +7,9 @@ import MonsterAttributes from './MonsterAttributes/MonsterAttributes';
 import Results from './Results/Results';
 
 import * as attributes from './dpsattributes';
-import calc from './utils/calc';
+
 
 import './DpsCalculator.css';
-
-const WEP_MINING_LEVEL = {
-    "Bronze pickaxe": 1,
-    "Iron pickaxe": 1,
-    "Steel pickaxe": 6,
-    "Black pickaxe": 11,
-    "Mithril pickaxe": 21,
-    "Adamant pickaxe": 31,
-    "Rune pickaxe": 41,
-    "Dragon pickaxe": 61,
-    "3rd age pickaxe": 61,
-    "Infernal pickaxe": 61,
-    "Corrupted pickaxe": 61,
-    "Crystal pickaxe": 61 //capped at 61 for guardian (COX) dps
-};
 
 const PRAYER_TURNOFF= {
     'Thick Skin': {DefenceBonus:1.05, DrainSpeed:3, vi:0, TurnsOff:['Rock Skin','Steel Skin','Chivalry','Piety','Rigour','Augury']},
@@ -148,65 +133,12 @@ class DpsCalculator extends React.Component {
         this.setState({
             equipment: e
         }, () => {
-            console.log(this.state);
+            // console.log(this.state);
             // console.log("Set Gear");
             // console.log(this.state);
             // console.log("MVOID::::");
 
-            var prayers = [];
-            this.state.selectedPrayers.forEach( (prayer) => {
-                prayers.push(PRAYER_TURNOFF[prayer]);
-            })
             
-            var loadout = {
-                equipment: {...this.state.equipment},
-                monster: {...this.state.monster},
-                spell: {...this.state.spell},
-                wilderness: this.state.checkedwildy,
-                targetdistance: this.state.chindistance,
-                combatStyle: this.state.combatStyle,
-                attackSpeed: this.state.attackSpeed,
-                wepMiningLvl: ( ( this.state.equipment.weapon && (this.state.equipment.weapon).includes('pickaxe') ) ? WEP_MINING_LEVEL[this.state.equipment.weapon]: 0),
-                prayersArr: prayers,
-                equipmentBonus: {
-                    br: this.state.rangedStrengthBonus,
-                    bm: this.state.mageStrengthBonus,
-                    bs: this.state.strengthBonus,
-                    ar: this.state.rangedBonus,
-                    am: this.state.mageBonus,
-                    at: this.state.stabBonus,
-                    al: this.state.slashBonus,
-                    ac: this.state.crushBonus
-                },
-                playerLevel: {
-                    current: {
-                        Attack: parseInt(this.state.attackLevel),
-                        Strength: parseInt(this.state.strengthLevel),
-                        Defence: parseInt(this.state.defenceLevel),
-                        Hitpoints: parseInt(this.state.hitpointsLevel),
-                        Ranged: parseInt(this.state.rangedLevel),
-                        Magic: parseInt(this.state.mageLevel),
-                        Prayer: parseInt(this.state.prayerLevel),
-                        Mining: parseInt(this.state.miningLevel)
-                    },
-                    visible: {
-                        Hitpoints: parseInt(this.state.visibleHitpoints),
-                        Attack: parseInt(this.state.boostedAtt),
-                        Strength: parseInt(this.state.boostedStr),
-                        Defence: parseInt(this.state.boostedDef),
-                        Ranged: parseInt(this.state.boostedRange),
-                        Magic: parseInt(this.state.boostedMage),
-                        Mining: parseInt(this.state.boostedMining)
-                        //Prayer: parseInt(this.state.prayerLevel) //may need to change to visible
-                    }
-                }
-            }
-
-            // // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
-            // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
-            // console.log(calc.check.MSmokeStaff(loadout));
-            // console.log(calc.check.MDharok(loadout))
-            calc.playerAttack(loadout);
         })
     }
 
@@ -214,13 +146,20 @@ class DpsCalculator extends React.Component {
         this.setState({
             monster: {...m}
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
         })
     }
 
-    setSpell = (s) => {
+    setSpell = (s, n) => {
+        var oN = null;
+        if (n == 'Spell') {
+            oN = 'Spell - Magic';
+        } else if (n == 'Spell (Def)') {
+            oN = 'Defensive Spell - Magic';
+        }
         this.setState({
-            spell: s
+            spell: s,
+            combatStyle: oN
         }, () => {
             
         })
@@ -230,7 +169,7 @@ class DpsCalculator extends React.Component {
         this.setState({
             combatStyle: style
         }, () => {
-            console.log(this.state);
+            //console.log(this.state);
         })
     }
 
@@ -239,7 +178,7 @@ class DpsCalculator extends React.Component {
         this.setState({
             [n]: !getcheck
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
         })
         
     }
@@ -264,7 +203,7 @@ class DpsCalculator extends React.Component {
             rangedDef: this.state.rangedDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dr"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dr"]),
             attackSpeed: (type == "weapon" && (attributes.equipment)[type][item.label]["aS"]) ? (attributes.equipment)[type][item.label]["aS"] : 4 
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
         })
     }
 
@@ -272,7 +211,7 @@ class DpsCalculator extends React.Component {
         this.setState({
             chindistance: d
         }, () => {
-            console.log(this.state);
+            //console.log(this.state);
         })
     }
 
@@ -351,7 +290,7 @@ class DpsCalculator extends React.Component {
             //         hitpointsLevel: this.state.visibleHitpoints
             //     })
             // }
-            console.log(this.state);
+            //console.log(this.state);
         })
     }
 
@@ -574,7 +513,39 @@ class DpsCalculator extends React.Component {
                 <PlayerInputs prayerClickHandler={this.prayerClickHandler} selectedPrayers={this.state.selectedPrayers} setCombatStyle={this.setCombatStyle} boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
-                <Results />
+                <Results 
+                    equipment={this.state.equipment}
+                    monster={this.state.monster}
+                    spell={this.state.spell}
+                    checkedwildy={this.state.checkedwildy}
+                    chindistance={this.state.chindistance}
+                    combatStyle= {this.state.combatStyle}
+                    attackSpeed= {this.state.attackSpeed}
+                    selectedPrayers={this.state.selectedPrayers}
+                    rangedStrengthBonus={this.state.rangedStrengthBonus}
+                    mageStrengthBonus={this.state.mageStrengthBonus}
+                    strengthBonus={this.state.strengthBonus}
+                    rangedBonus={this.state.rangedBonus}
+                    mageBonus={this.state.mageBonus}
+                    stabBonus={this.state.stabBonus}
+                    slashBonus={this.state.slashBonus}
+                    crushBonus={this.state.crushBonus}
+                    attackLevel={this.state.attackLevel}
+                    strengthLevel={this.state.strengthLevel}
+                    defenceLevel={this.state.defenceLevel}
+                    hitpointsLevel={this.state.hitpointsLevel}
+                    rangedLevel={this.state.rangedLevel}
+                    mageLevel={this.state.mageLevel}
+                    prayerLevel={this.state.prayerLevel}
+                    miningLevel={this.state.miningLevel}
+                    visibleHitpoints={this.state.visibleHitpoints}
+                    boostedAtt={this.state.boostedAtt}
+                    boostedStr={this.state.boostedStr}
+                    boostedDef={this.state.boostedDef}
+                    boostedRange={this.state.boostedRange}
+                    boostedMage={this.state.boostedMage}
+                    boostedMining={this.state.boostedMining}
+                />
             </div>
         )
     }

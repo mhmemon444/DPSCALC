@@ -1,6 +1,7 @@
 var calc = {
     roll: {
         Roller: function(probability,roll,special){
+            console.log("ROLL: ", roll)
             var _this = {
                 'Prob':probability, //Percentage chance of this roll occurring
                 'Roll':roll, //Value of the roll (e.g. attack roll or max hit)
@@ -13,10 +14,11 @@ var calc = {
                 //  32 = Scythe hit 3
                 //  
             };
+            // console.log("THIS RETURN: ", _this)
             return _this;
         },
         ApplyFunc: function(arr,args,func){
-            console.log(args)
+            //console.log(args)
             for(var i=0; i<arr.length; i++){
     
                 arr[i] = func(arr[i],args);
@@ -143,7 +145,7 @@ var calc = {
             return 1;
         },
         MHolyWater: function(loadout){
-            if(loadout.cT.includes('demon')){
+            if(loadout.monster.cT.includes('demon')){
                 if(loadout.equipment.weapon === 'Holy water'){
                     return 1.6;
                 }
@@ -350,13 +352,13 @@ var calc = {
             return false;
         },
         MChaosGauntlet: function(loadout){
-            if(loadout.slot.label.gloves === 'Chaos gauntlets' && loadout.spell.bolt){
+            if(loadout.equipment.gloves === 'Chaos gauntlets' && loadout.spell.bolt){
                 return 3;
             }
             return 0;
         },
         MTomeOfFire: function(loadout){
-            if(loadout.slot.label.shield === 'Tome of fire' && loadout.spell.fire){
+            if(loadout.equipment.shield === 'Tome of fire' && loadout.spell.fire){
                 return 1.5;
             }
             return 1;
@@ -442,7 +444,7 @@ var calc = {
         var stance1 = res[2];
         var stance2 = res[1];
 
-        var rollmax;
+        var rollmax = [];
         var rollmin = [calc.roll.Roller(1,0,0)];
         var typeless = 0; //dmg even if miss
         var attackticks = loadout.attackSpeed;
@@ -482,6 +484,7 @@ var calc = {
                     rollmax = [calc.roll.Roller(1,args,args ? 0 : 4)];
                 } else {
                     rollmax = [calc.roll.Roller(1,loadout.spell.mh,loadout.spell.mh ? 0 : 4)];
+
                     calc.roll.ApplyAdd(rollmax,calc.check.MChaosGauntlet(loadout));
                     tomeoffire = calc.check.MTomeOfFire(loadout);
                 }
@@ -496,7 +499,7 @@ var calc = {
                     rollmax = [calc.roll.Roller(1,args,0)];
                 }
             }
-            var mbns = loadout.equipmentBonus.bm;
+            var mbns = parseInt(loadout.equipmentBonus.bm);
             var mask = 1;
             mbns += calc.check.MSmokeStaff(loadout);
             args = calc.check.MMaskSalve(loadout,true,0,1.15,1.2);
@@ -554,10 +557,10 @@ var calc = {
         }
         rollmax = calc.roll.ApplyMult(rollmax,calc.check.MCastleWars(loadout));
         //TODO: If ba, typeless += attack level
-        console.log("rollmin: ", rollmin);
-        console.log("rollmax: ", rollmax);
-        console.log("typeless: ", typeless);
-        console.log("attackticks: ", attackticks);
+        // console.log("rollmin: ", rollmin);
+        // console.log("rollmax: ", rollmax);
+        // console.log("typeless: ", typeless);
+        // console.log("attackticks: ", attackticks);
 
         return [rollmin,rollmax,typeless,attackticks];
 
@@ -582,7 +585,7 @@ var calc = {
         if(stance1 === 'Block'){
             return [[calc.roll.Roller(1,0,2)],''];
         } else if(stance1 === 'Ranged'){
-            defencestyle = 'drange';
+            defencestyle = 'dr';
             rollacc = [calc.roll.Roller(1,loadout.playerLevel.visible.Ranged,0)];
             loadout.prayersArr.forEach(function (prayer) {
                 rollacc = calc.roll.ApplyMult(rollacc, prayer.RangedAttackBonus || 1);
@@ -607,7 +610,7 @@ var calc = {
                 rollacc = calc.roll.ApplySplitAdd(rollacc,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,0,8)]);
             }
         } else if(stance1 === 'Magic'){
-            defencestyle = 'dmagic';
+            defencestyle = 'dm';
             rollacc = [calc.roll.Roller(1,loadout.playerLevel.visible.Magic,0)];
             loadout.prayersArr.forEach(function (prayer) {
                 rollacc = calc.roll.ApplyMult(rollacc, prayer.MagicBonus || 1);
@@ -637,13 +640,13 @@ var calc = {
             }
             rollacc = calc.roll.ApplyMult(rollacc,calc.check.MVoid(loadout,'Void melee helm',1.1,1.1));
             if(stance1 === 'Stab'){
-                defencestyle = 'dstab';
+                defencestyle = 'dt';
                 rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.at);
             } else if (stance1 === 'Slash'){
-                defencestyle = 'dslash';
+                defencestyle = 'dl';
                 rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.al);
             } else {
-                defencestyle = 'dcrush';
+                defencestyle = 'dc';
                 rollacc = calc.roll.ApplyMult(rollacc,64+loadout.equipmentBonus.ac);
             }
 
@@ -662,8 +665,8 @@ var calc = {
                 rollacc = calc.roll.ApplySplitMult(rollacc,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,1,1)]);
             }
         }
-        console.log("rollacc: ", rollacc);
-        console.log("defencestyle:", defencestyle);
+        // console.log("rollacc: ", rollacc);
+        // console.log("defencestyle:", defencestyle);
         return [rollacc,defencestyle];
     } //end of playerAttack function
     

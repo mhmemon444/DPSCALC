@@ -50,10 +50,10 @@ const COMBAT_STYLE_MAP = {
     blunt: "Accurate - Crush",
     bulwark: "Accurate - Crush",
     claws: "Accurate - Slash",
-    polearm: "Controlled - Stab",
+    polearm: "Shared - Stab",
     pickaxe: "Accurate - Stab",
     scythe: "Accurate - Slash",
-    spear: "Controlled - Stab",
+    spear: "Shared - Stab",
     spiked: "Accurate - Crush",
     stab: "Accurate - Stab",
     twohanded: "Accurate - Slash",
@@ -231,7 +231,7 @@ class PlayerInputs extends React.Component {
             selectedOptionName: ATK_STYLE_MAP[wepObj.type],
             selectedSpell: null
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
             this.props.calcAttributes(this.state.weapon, "weapon", previous); //update equipment attributes
             this.props.setGear("weapon", this.state.weapon.label); //update parent component with selected gear label
             this.props.setCombatStyle(COMBAT_STYLE_MAP[wepObj.type]); //pass style to parent for dps loadout
@@ -260,7 +260,7 @@ class PlayerInputs extends React.Component {
             shield: (shieldObj.value == "Nothing") ? null : shieldObj,
             weapon: wep
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
             this.props.calcAttributes(this.state.shield, "shield", previous); //update equipment attributes
             this.props.setGear("shield", this.state.shield.label); //update parent component with selected gear label
         })
@@ -271,7 +271,7 @@ class PlayerInputs extends React.Component {
         this.setState({
             hands: (handsObj.value == "Nothing") ? null : handsObj
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
             this.props.calcAttributes(this.state.hands, "gloves", previous); //update equipment attributes
             this.props.setGear("gloves", this.state.hands.label); //update parent component with selected gear label
         })
@@ -280,7 +280,7 @@ class PlayerInputs extends React.Component {
     setFeet = (feetObj) => {
         var previous = this.state.feet;
         this.setState({feet: (feetObj.value == "Nothing") ? null : feetObj}, () => {
-            console.log(this.state)
+            //console.log(this.state)
             this.props.calcAttributes(this.state.feet, "boots", previous); //update equipment attributes
             this.props.setGear("boots", this.state.feet.label); //update parent component with selected gear label
         })
@@ -330,7 +330,9 @@ class PlayerInputs extends React.Component {
         selectedOptionName: selectedName,
         openSpellsTab: (selectedName == "Spell" || selectedName == "Spell (Def)") ? true : false
         }, () => {
-            this.props.setCombatStyle(style); //pass style to parent for dps loadout
+            if (!(selectedName == 'Spell' || selectedName == 'Spell (Def)')) {
+                this.props.setCombatStyle(style); //pass style to parent for dps loadout
+            }
         })
     }
 
@@ -347,8 +349,10 @@ class PlayerInputs extends React.Component {
             selectedSpell: spellObj, //e.g. selectedSpell: {name: "Fire Blast", rsrc: "((...base64 image code))"}
             openSpellsTab: false //close spellsTab after selecting spell
         }, () => {
-            console.log(this.state)
-            this.props.setSpell(spell);
+            //console.log(this.state)
+            
+            this.props.setSpell(spell, this.state.selectedOptionName);
+            
         })
     }
 
