@@ -158,48 +158,50 @@ class DpsCalculator extends React.Component {
                 prayers.push(PRAYER_TURNOFF[prayer]);
             })
             
-            // var loadout = {
-            //     equipment: {...this.state.equipment},
-            //     monster: {...this.state.monster},
-            //     spell: {...this.state.spell},
-            //     wilderness: this.state.checkedwildy,
-            //     targetdistance: this.state.chindistance,
-            //     combatStyle: this.state.combatStyle,
-            //     attackSpeed: this.state.attackSpeed,
-            //     wepMiningLvl: ((this.state.equipment.weapon).includes('pickaxe') ? WEP_MINING_LEVEL[this.state.equipment.weapon]: 0),
-            //     prayersArr: prayers,
-            //     equipmentBonus: {
-            //         br: this.state.rangedStrengthBonus
-            //     },
-            //     playerLevel: {
-            //         current: {
-            //             Attack: parseInt(this.state.attackLevel),
-            //             Strength: parseInt(this.state.strengthLevel),
-            //             Defence: parseInt(this.state.defenceLevel),
-            //             Hitpoints: parseInt(this.state.hitpointsLevel),
-            //             Ranged: parseInt(this.state.rangedLevel),
-            //             Magic: parseInt(this.state.mageLevel),
-            //             Prayer: parseInt(this.state.prayerLevel),
-            //             Mining: parseInt(this.state.miningLevel)
-            //         },
-            //         visible: {
-            //             Hitpoints: parseInt(this.state.visibleHitpoints),
-            //             Attack: parseInt(this.state.boostedAtt),
-            //             Strength: parseInt(this.state.boostedStr),
-            //             Defence: parseInt(this.state.boostedDef),
-            //             Ranged: parseInt(this.state.boostedRange),
-            //             Magic: parseInt(this.state.boostedMage),
-            //             Mining: parseInt(this.state.boostedMining)
-            //             //Prayer: parseInt(this.state.prayerLevel) //may need to change to visible
-            //         }
-            //     }
-            // }
+            var loadout = {
+                equipment: {...this.state.equipment},
+                monster: {...this.state.monster},
+                spell: {...this.state.spell},
+                wilderness: this.state.checkedwildy,
+                targetdistance: this.state.chindistance,
+                combatStyle: this.state.combatStyle,
+                attackSpeed: this.state.attackSpeed,
+                wepMiningLvl: ( ( this.state.equipment.weapon && (this.state.equipment.weapon).includes('pickaxe') ) ? WEP_MINING_LEVEL[this.state.equipment.weapon]: 0),
+                prayersArr: prayers,
+                equipmentBonus: {
+                    br: this.state.rangedStrengthBonus,
+                    bm: this.state.mageStrengthBonus,
+                    bs: this.state.strengthBonus
+                },
+                playerLevel: {
+                    current: {
+                        Attack: parseInt(this.state.attackLevel),
+                        Strength: parseInt(this.state.strengthLevel),
+                        Defence: parseInt(this.state.defenceLevel),
+                        Hitpoints: parseInt(this.state.hitpointsLevel),
+                        Ranged: parseInt(this.state.rangedLevel),
+                        Magic: parseInt(this.state.mageLevel),
+                        Prayer: parseInt(this.state.prayerLevel),
+                        Mining: parseInt(this.state.miningLevel)
+                    },
+                    visible: {
+                        Hitpoints: parseInt(this.state.visibleHitpoints),
+                        Attack: parseInt(this.state.boostedAtt),
+                        Strength: parseInt(this.state.boostedStr),
+                        Defence: parseInt(this.state.boostedDef),
+                        Ranged: parseInt(this.state.boostedRange),
+                        Magic: parseInt(this.state.boostedMage),
+                        Mining: parseInt(this.state.boostedMining)
+                        //Prayer: parseInt(this.state.prayerLevel) //may need to change to visible
+                    }
+                }
+            }
 
             // // console.log(calc.check.MVoid(loadout, 'Void mage helm', 'NORMAL', 'ELITE'));
             // // console.log(calc.check.MMaskSalve(loadout, true, 'MASK', 'SALVE', 'SALVE_E'));
             // console.log(calc.check.MSmokeStaff(loadout));
             // console.log(calc.check.MDharok(loadout))
-            // calc.playerMaxHit(loadout);
+            calc.playerMaxHit(loadout);
         })
     }
 

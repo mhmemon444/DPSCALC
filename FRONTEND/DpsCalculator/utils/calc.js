@@ -362,7 +362,7 @@ var calc = {
             return 1;
         },
         MCastleWars: function(loadout){
-            if(loadout.monster.combatType.includes('castle wars flagholder')){
+            if(loadout.monster.cT.includes('castle wars flagholder')){
                 return 1.2;
             }
             return 1;
@@ -474,7 +474,92 @@ var calc = {
                 rollmax = calc.roll.ApplySplitAdd(rollmax, [calc.roll.Roller(0.75, 0, 0), calc.roll.Roller(0.25, 0, 8)]);
                 rollmin = calc.roll.ApplySplitAdd(rollmin, [calc.roll.Roller(0.75, 0, 0), calc.roll.Roller(0.25, 0, 0)]);
             }
+        } else if(stance1 === 'Magic') {
+            if(stance2 === 'Spell' || stance2 === 'Defensive Spell'){
+                attackticks = loadout.attackSpeed;
+                if(loadout.spell.name === 'Magic Dart'){
+                    args = calc.check.MaxMagicDart(loadout);
+                    rollmax = [calc.roll.Roller(1,args,args ? 0 : 4)];
+                } else {
+                    rollmax = [calc.roll.Roller(1,loadout.spell.mh,loadout.spell.mh ? 0 : 4)];
+                    calc.roll.ApplyAdd(rollmax,calc.check.MChaosGauntlet(loadout));
+                    tomeoffire = calc.check.MTomeOfFire(loadout);
+                }
+            } else {
+                args = calc.check.MaxTrident(loadout);
+                if(args === false){
+                    args = calc.check.MaxSalamander(loadout);
+                }
+                if(args === false){
+                    rollmax = [calc.roll.Roller(1,0,4)];
+                } else {
+                    rollmax = [calc.roll.Roller(1,args,0)];
+                }
+            }
+            var mbns = loadout.equipmentBonus.bm;
+            var mask = 1;
+            mbns += calc.check.MSmokeStaff(loadout);
+            args = calc.check.MMaskSalve(loadout,true,0,1.15,1.2);
+            if(args === 0){
+                mask = 1.15;
+            } else {
+                args = args - 1;
+            }
+            mbns += args;
+            mbns += calc.check.MWildyWeap(loadout,'Thammaron\'s sceptre',1.25)-1;
+            mbns += calc.check.MVoid(loadout,'Void mage helm',1,1.025)-1;
+            rollmax = calc.roll.ApplyMult(rollmax,mbns);
+            rollmax = calc.roll.ApplyMult(rollmax,tomeoffire);
+            rollmax = calc.roll.ApplyMult(rollmax,mask);
+            if(calc.check.HasAhrim(loadout) === 2){
+                rollmax = calc.roll.ApplySplitMult(rollmax,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,1.3,0)]);
+                rollmin = calc.roll.ApplySplitAdd(rollmin,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,0,0)]);
+            }
+
+
+        } else {
+            rollmax = [calc.roll.Roller(1,loadout.playerLevel.visible.Strength,0)];
+            loadout.prayersArr.forEach(function (prayer) {
+                rollmax = calc.roll.ApplyMult(rollmax, prayer.StrengthBonus || 1);
+            });
+            rollmax = calc.roll.ApplyAdd(rollmax,8);
+            if(stance2 === 'Aggressive'){
+                rollmax = calc.roll.ApplyAdd(rollmax,3);
+            } else if(stance2 === 'Shared') {
+                rollmax = calc.roll.ApplyAdd(rollmax,1);
+            }
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MVoid(loadout,'Void melee helm',1.1,1.1));
+            rollmax[0].Roll = Math.floor(0.5+rollmax[0].Roll*(64+loadout.equipmentBonus.bs)/640);
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MMaskSalve(loadout,true,7/6,7/6,1.2));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MLightsword(loadout,1.6,1.5/*???TODO???*/));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MLeafyBaxe(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MDhl(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MWildyWeap(loadout,'Viggora\'s chainmace',1.5));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MObbyArmour(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MObbyAmmy(loadout)); //which order with obsidian?
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MDharok(loadout));
+            rollmax = calc.roll.ApplyMult(rollmax,calc.check.MGuardians(loadout));
+            if(calc.check.HasGadder(loadout)){
+                rollmax = calc.roll.ApplySplitMult(rollmax,[calc.roll.Roller(0.95,1.25,0),calc.roll.Roller(0.05,2,0)]);
+                rollmin = calc.roll.ApplySplitAdd(rollmin,[calc.roll.Roller(0.95,0,0),calc.roll.Roller(0.05,0,0)]);
+            }
+            if(calc.check.HasKeris(loadout)){
+                rollmax = calc.roll.ApplySplitMult(rollmax,[calc.roll.Roller(50/51,4/3,0),calc.roll.Roller(1/51,3,0)]);
+                rollmin = calc.roll.ApplySplitAdd(rollmin,[calc.roll.Roller(50/51,0,0),calc.roll.Roller(1/51,0,0)]);
+            }
+            if(calc.check.HasVerac(loadout)){
+                rollmax = calc.roll.ApplySplitAdd(rollmax,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,1,1)]);
+                rollmin = calc.roll.ApplySplitAdd(rollmin,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,1,1)]);
+            }
         }
+        rollmax = calc.roll.ApplyMult(rollmax,calc.check.MCastleWars(loadout));
+        //TODO: If ba, typeless += attack level
+        console.log("rollmin: ", rollmin);
+        console.log("rollmax: ", rollmax);
+        console.log("typeless: ", typeless);
+        console.log("attackticks: ", attackticks);
+
+        return [rollmin,rollmax,typeless,attackticks];
 
     },
     
