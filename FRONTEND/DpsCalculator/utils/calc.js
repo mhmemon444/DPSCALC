@@ -499,7 +499,9 @@ var calc = {
                     rollmax = [calc.roll.Roller(1,args,0)];
                 }
             }
-            var mbns = parseInt(loadout.equipmentBonus.bm);
+            // var mbns = parseInt(loadout.equipmentBonus.bm);
+            var mbns = 0;
+            console.log(mbns);
             var mask = 1;
             mbns += calc.check.MSmokeStaff(loadout);
             args = calc.check.MMaskSalve(loadout,true,0,1.15,1.2);
@@ -518,6 +520,8 @@ var calc = {
                 rollmax = calc.roll.ApplySplitMult(rollmax,[calc.roll.Roller(0.75,1,0),calc.roll.Roller(0.25,1.3,0)]);
                 rollmin = calc.roll.ApplySplitAdd(rollmin,[calc.roll.Roller(0.75,0,0),calc.roll.Roller(0.25,0,0)]);
             }
+            
+            rollmax[0].Roll = Math.floor(rollmax[0].Roll * (1 + (loadout.equipmentBonus.bm/100))); //fix for magic str bonus equipment
 
 
         } else {
