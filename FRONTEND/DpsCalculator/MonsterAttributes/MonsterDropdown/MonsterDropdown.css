@@ -1,12 +1,17 @@
 .monster-dropdown {
     font-family: 'Calibri', 'Arial', sans-serif;
     margin-top: 13px;
+    width: 210px;
 }
 
 .myClassListName {
     max-height: 260px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.hellostyles {
+    width: 210px;
 }
 
 .myClassItemName:hover {
