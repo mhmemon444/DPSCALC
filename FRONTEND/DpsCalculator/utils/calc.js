@@ -501,7 +501,7 @@ var calc = {
             }
             // var mbns = parseInt(loadout.equipmentBonus.bm);
             var mbns = 0;
-            console.log(mbns);
+            //console.log(mbns);
             var mask = 1;
             mbns += calc.check.MSmokeStaff(loadout);
             args = calc.check.MMaskSalve(loadout,true,0,1.15,1.2);

@@ -1686,7 +1686,7 @@ const IconOption = props => (
         {props.data.icon == "NA" ? null :
         <img
             src={props.data.icon}
-            style={{ height: 25, position: "relative", bottom: 0 }}
+            style={{ height: 25, position: "relative", bottom: 0  }}
             alt={props.data.label}
             loading="lazy"
         />
@@ -1712,7 +1712,8 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         color: state.isSelected ? 'black' : 'black',
-        backgroundColor: state.isSelected ? '#b3b3b3' : 'white'
+        backgroundColor: state.isSelected ? '#b3b3b3' : 'white',
+        backgroundColor: state.isFocused ? "#cacaca" : "inherit"
     })
 }
 

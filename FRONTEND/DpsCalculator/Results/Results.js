@@ -132,8 +132,10 @@ class Results extends React.Component {
             var accuracyMeasure = (acc[0].Roll * 100).toFixed(3);
             if (accuracyMeasure == 'NaN') {
                 accuracyMeasure = 'N/A';
+            } else if (accuracyMeasure > 100) {
+                    accuracyMeasure = '100%'
             } else {
-                accuracyMeasure = (acc[0].Roll * 100).toFixed(3) + '%';
+                    accuracyMeasure = (acc[0].Roll * 100).toFixed(3) + '%';
             }
 
             var dpsMeasure = dps.toFixed(5);
