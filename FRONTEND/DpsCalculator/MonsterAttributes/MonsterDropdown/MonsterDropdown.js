@@ -84,7 +84,7 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         color: state.isSelected ? 'black' : 'black',
-        backgroundColor: state.isSelected ? '#b3b3b3' : 'white',
+        backgroundColor: state.isSelected ? '#cacaca' : 'white',
         backgroundColor: state.isFocused ? "#cacaca" : "inherit",
         fontFamily: 'Calibri',
         width: '200px',
@@ -113,6 +113,18 @@ const CustomSelectValue = props => (
     </div>
 )
 
+// const OptionTT = ({ children, ...props }) => {
+//     const { onMouseMove, onMouseOver, ...rest } = props.innerProps;
+//     const newProps = Object.assign(props, { innerProps: rest });
+//     return (
+//       <components.Option
+//         {...newProps}
+//       >
+//         {children}
+//       </components.Option>
+//     );
+//   };
+
 const MonsterDropdown = (props) => {
     return (
         <div style={{width: '200px', margin: 'auto', marginTop: '13px'}}>
@@ -120,7 +132,9 @@ const MonsterDropdown = (props) => {
                     options={monsterSelect}
                     onChange={props.selectMonster.bind(this)}
                     styles={customStyles}
+                    // components={{ Option: OptionTT, SingleValue: CustomSelectValue }}
                     className="hellostyles"
+                    filterOption={createFilter({ ignoreAccents: false })}
                     components={{ Option: IconOption, SingleValue: CustomSelectValue }}
                 />
         </div>
