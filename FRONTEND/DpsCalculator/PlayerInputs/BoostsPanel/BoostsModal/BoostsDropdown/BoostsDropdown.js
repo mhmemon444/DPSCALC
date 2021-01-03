@@ -122,7 +122,8 @@ const customStyles = {
     option: (provided, state) => ({
         ...provided,
         color: state.isSelected ? 'black' : 'black',
-        backgroundColor: state.isSelected ? '#b3b3b3' : 'white'
+        backgroundColor: state.isSelected ? '#cacaca' : 'white',
+        backgroundColor: state.isFocused ? "#cacaca" : "inherit"
     })
 }
 
