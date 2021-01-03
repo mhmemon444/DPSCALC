@@ -305,7 +305,7 @@ class DpsCalculator extends React.Component {
         })
     }
 
-    hiscoreFetchHandler = (atk, str, def, hp, rng, mag, pray) => {
+    hiscoreFetchHandler = (atk, str, def, hp, rng, mag, pray, min) => {
         this.setState({
             attackLevel: atk,
             strengthLevel: str,
@@ -314,7 +314,8 @@ class DpsCalculator extends React.Component {
             visibleHitpoints: (hp < this.state.visibleHitpoints) ? hp : this.state.visibleHitpoints,
             rangedLevel: rng,
             mageLevel: mag,
-            prayerLevel: pray
+            prayerLevel: pray,
+            miningLevel: min
         }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
             this.recalcAllBoosts();
             // this.props.setStats(atk, str, def, hp, rng, mag, pray, this.state.visibleHitpoints); //set stats in parent component to pass to dps calculations

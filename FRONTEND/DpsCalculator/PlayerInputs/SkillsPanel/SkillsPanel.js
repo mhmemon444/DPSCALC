@@ -28,7 +28,7 @@ class SkillsPanel extends React.Component {
                 console.log(rem);
                 document.getElementById("loadinghs").style.visibility = "hidden";
                 
-                this.props.fetchClick( parseInt(rem[3]), parseInt(rem[7]), parseInt(rem[5]), parseInt(rem[9]), parseInt(rem[11]), parseInt(rem[15]), parseInt(rem[13]))
+                this.props.fetchClick( parseInt(rem[3]), parseInt(rem[7]), parseInt(rem[5]), parseInt(rem[9]), parseInt(rem[11]), parseInt(rem[15]), parseInt(rem[13]), parseInt(rem[31]))
 
             })
         })
