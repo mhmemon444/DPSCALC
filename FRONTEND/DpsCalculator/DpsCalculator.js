@@ -129,14 +129,22 @@ class DpsCalculator extends React.Component {
 
     setGear = (type, gear) => {
         var e = {...this.state.equipment};
-        e[type] = gear;
+        if (gear == null) {
+            e[type] = null;
+        } else {
+            e[type] = gear.label;
+        }
+        
+
         this.setState({
             equipment: e
         }, () => {
-            // console.log(this.state);
-            // console.log("Set Gear");
-            // console.log(this.state);
-            // console.log("MVOID::::");
+            console.log(this.state.equipment.weapon);
+            this.setState({
+                attackSpeed: (this.state.equipment.weapon == null) ? 4 : attributes.equipment["weapon"][this.state.equipment.weapon]["aS"]
+            }, () => {
+                console.log(this.state.attackSpeed);
+            })
 
             
         })
@@ -185,6 +193,8 @@ class DpsCalculator extends React.Component {
 
     calculateAttributeBonusHandler = (item, type, previous) => {
         // console.log( (attributes.equipment)[type][item] );
+        // console.log(item);
+        // console.log(type);
 
         this.setState({
             stabBonus: this.state.stabBonus + (item == null ? 0 : (attributes.equipment)[type][item.label]["at"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["at"]),
@@ -201,7 +211,8 @@ class DpsCalculator extends React.Component {
             crushDef: this.state.crushDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dc"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dc"]),
             mageDef: this.state.mageDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dm"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dm"]),
             rangedDef: this.state.rangedDef + (item == null ? 0 : (attributes.equipment)[type][item.label]["dr"]) - (previous == null ? 0 : (attributes.equipment)[type][previous.label]["dr"]),
-            attackSpeed: (type == "weapon" && (attributes.equipment)[type][item.label]["aS"]) ? (attributes.equipment)[type][item.label]["aS"] : 4 
+            // attackSpeed: (type == "weapon" && (item != null && attributes.equipment)[type][item.label]["aS"]) ? (attributes.equipment)[type][item.label]["aS"] : 4 
+
         }, () => {
             //console.log(this.state)
         })

@@ -1,7 +1,7 @@
 var calc = {
     roll: {
         Roller: function(probability,roll,special){
-            console.log("ROLL: ", roll)
+            // console.log("ROLL: ", roll)
             var _this = {
                 'Prob':probability, //Percentage chance of this roll occurring
                 'Roll':roll, //Value of the roll (e.g. attack roll or max hit)
