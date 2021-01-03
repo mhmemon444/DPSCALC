@@ -1,7 +1,6 @@
 .monster-dropdown {
     font-family: 'Calibri', 'Arial', sans-serif;
     margin-top: 13px;
-    width: 210px;
 }
 
 .myClassListName {
@@ -16,5 +15,9 @@
 }
 
 .myClassItemName:hover {
-    background-color: gainsboro;
+    background-color: #cacaca;
+}
+
+.myClassItemName:focus {
+    background-color: none;
 }

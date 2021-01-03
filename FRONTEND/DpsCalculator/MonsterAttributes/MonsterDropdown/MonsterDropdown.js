@@ -32,114 +32,123 @@ intermediateMonsterArray.forEach(mon => {
 //     })
 // }
 
-// const MenuList = function MenuList(props) {
-//     const children = props.children;
+const customStyles = {
+    option: (provided, state) => ({
+        ...provided,
+        color: state.isSelected ? 'black' : 'black',
+        backgroundColor: state.isSelected ? 'white' : 'white',
+        backgroundColor: state.isFocused ? "white" : "white"
+    })
+}
 
-//     if (!children.length) {
-//         return (<div className="myClassListName">{children}</div>);
-//     }
+const MenuList = function MenuList(props) {
+    const children = props.children;
 
-//     return (
+    if (!children.length) {
+        return (<div className="myClassListName">{children}</div>);
+    }
+
+    return (
         
-//             <div className="myClassListName">
-//                 {children.length && children.map((key, i) => {
-//                     // delete key.props.innerProps.onMouseMove; //FIX LAG!!
-//                     // delete key.props.innerProps.onMouseOver;  //FIX LAG!!
+            <div className="myClassListName">
+                {children.length && children.map((key, i) => {
+                    delete key.props.innerProps.onMouseMove; //FIX LAG!!
+                    delete key.props.innerProps.onMouseOver;  //FIX LAG!!
 
-//                     return (
-//                         <div className="myClassItemName" key={i}>{key}</div>
-//                     );
-//                 })}
-//             </div>
-//     );
-// };
+                    return (
+                        <div className="myClassItemName" key={i}>{key}</div>
+                    );
+                })}
+            </div>
+    );
+};
 
-// const MonsterDropdown = (props) => {
-//     return (
-//         <div className="monster-dropdown">
-//             {/* <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select monster</div> */}
-//             <div style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
-//                 <Select
-//                     //value={props.selectedMonster.value}
-//                     options={monsterSelect}
-//                     components={{ MenuList }}
-//                     //styles={customStyles}
-//                     // filterOption={createFilter({ ignoreAccents: false })}
-//                     onChange={props.selectMonster.bind(this)}
-//                 />
-//             </div>
+const MonsterDropdown = (props) => {
+    return (
+        <div className="monster-dropdown">
+            {/* <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select monster</div> */}
+            <div style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
+                <Select
+                    //value={props.selectedMonster.value}
+                    options={monsterSelect}
+                    components={{ MenuList }}
+                    styles={customStyles}
+                    filterOption={createFilter({ ignoreAccents: false })}
+                    onChange={props.selectMonster.bind(this)}
+                />
+            </div>
             
-//         </div>
-//     )
-//     listRenderer = props => <MenuList {...props} />;
-// }
+        </div>
+    )
+    listRenderer = props => <MenuList {...props} />;
+}
 
-// export default MonsterDropdown
+export default MonsterDropdown
 
 
 
 
 //Second
-const customStyles = {
-    option: (provided, state) => ({
-        ...provided,
-        color: state.isSelected ? 'black' : 'black',
-        backgroundColor: state.isSelected ? '#cacaca' : 'white',
-        backgroundColor: state.isFocused ? "#cacaca" : "inherit",
-        fontFamily: 'Calibri',
-        width: '200px',
-        overflowX: 'hidden'
-    })
-}
+// const customStyles = {
+//     option: (provided, state) => ({
+//         ...provided,
+//         color: state.isSelected ? 'black' : 'black',
+//         backgroundColor: state.isSelected ? '#cacaca' : 'white',
+//         backgroundColor: state.isFocused ? "#cacaca" : "inherit",
+//         fontFamily: 'Calibri',
+//         width: '200px',
+//         overflowX: 'hidden'
+//     })
+// }
 
-const { Option } = components;
-const IconOption = props => (
-    <Option {...props} className="itemoption">
-        {/* {props.data.icon == "NA" ? null :
-        <img
-            src={props.data.icon}
-            style={{ height: 25, position: "relative", bottom: 0  }}
-            alt={props.data.label}
-            loading="lazy"
-        />
-        } */}
-        <span style={{fontFamily: "Calibri, Arial, sans-serif", width: '200px'}}>{props.data.label}</span>
-    </Option>
-);
+// const { Option } = components;
+// const IconOption = props => (
+//     <Option {...props} className="itemoption">
+//         {/* {props.data.icon == "NA" ? null :
+//         <img
+//             src={props.data.icon}
+//             style={{ height: 25, position: "relative", bottom: 0  }}
+//             alt={props.data.label}
+//             loading="lazy"
+//         />
+//         } */}
+//         <span style={{fontFamily: "Calibri, Arial, sans-serif", width: '200px'}}>{props.data.label}</span>
+//     </Option>
+// );
 
-const CustomSelectValue = props => (
-    <div>
-        <span style={{fontFamily: "Calibri, Arial, sans-serif"}}>{props.data.label.length > 19 ? props.data.label.slice(0, 19) + "..." : props.data.label}</span>
-    </div>
-)
+// const CustomSelectValue = props => (
+//     <div>
+//         <span style={{fontFamily: "Calibri, Arial, sans-serif"}}>{props.data.label.length > 19 ? props.data.label.slice(0, 19) + "..." : props.data.label}</span>
+//     </div>
+// )
 
-// const OptionTT = ({ children, ...props }) => {
-//     const { onMouseMove, onMouseOver, ...rest } = props.innerProps;
-//     const newProps = Object.assign(props, { innerProps: rest });
+// // const OptionTT = ({ children, ...props }) => {
+// //     const { onMouseMove, onMouseOver, ...rest } = props.innerProps;
+// //     const newProps = Object.assign(props, { innerProps: rest });
+// //     return (
+// //       <components.Option
+// //         {...newProps}
+// //       >
+// //         {children}
+// //       </components.Option>
+// //     );
+// //   };
+
+// const MonsterDropdown = (props) => {
 //     return (
-//       <components.Option
-//         {...newProps}
-//       >
-//         {children}
-//       </components.Option>
-//     );
-//   };
+//         <div style={{width: '200px', margin: 'auto', marginTop: '13px'}}>
+//                 <Select
+//                     options={monsterSelect}
+//                     onChange={props.selectMonster.bind(this)}
+//                     styles={customStyles}
+//                     // components={{ Option: OptionTT, SingleValue: CustomSelectValue }}
+//                     className="hellostyles"
+//                     filterOption={createFilter({ ignoreAccents: false })}
+//                     components={{ Option: IconOption, SingleValue: CustomSelectValue }}
+//                 />
+//         </div>
+//     )
+// }
 
-const MonsterDropdown = (props) => {
-    return (
-        <div style={{width: '200px', margin: 'auto', marginTop: '13px'}}>
-                <Select
-                    options={monsterSelect}
-                    onChange={props.selectMonster.bind(this)}
-                    styles={customStyles}
-                    // components={{ Option: OptionTT, SingleValue: CustomSelectValue }}
-                    className="hellostyles"
-                    filterOption={createFilter({ ignoreAccents: false })}
-                    components={{ Option: IconOption, SingleValue: CustomSelectValue }}
-                />
-        </div>
-    )
-}
-
-export default MonsterDropdown
+// export default MonsterDropdown
 
