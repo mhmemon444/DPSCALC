@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ReactTooltip from "react-tooltip";
+
 import './PrayerIcon.css';
 
 class PrayerIcon extends React.Component {
@@ -28,12 +30,17 @@ class PrayerIcon extends React.Component {
     render() {
 
         return (
+            <>
             <div className="prayer-entry" >
                 <div id="hovericon" className={this.props.selectedPrayers.includes(this.props.name) ? "prayer-active" : null} onClick={this.iconClickHandler}>
-                    <img src={this.props.rsrc} />
+                    <img data-tip data-for={this.props.name} src={this.props.rsrc} />
                 </div>
                 
             </div>
+            <ReactTooltip id={this.props.name} place="top" effect="solid">
+                <span style={{fontFamily: 'Calibri, Arial, serif'}}>{this.props.name}</span>
+            </ReactTooltip>
+            </>
         )
     }
     
