@@ -263,22 +263,32 @@ class PlayerInputs extends React.Component {
     setShield = (shieldObj) => {
         var previous = this.state.shield;
         var wep = this.state.weapon;
+        var set = false;
         if (wep != null) {
             if ("twohanded" in this.state.weapon) {
                 wep = null; //turn off 2h wep when shield equipped
+                set = true;
                 this.props.setGear("weapon", wep);
+                this.props.setCombatStyle(COMBAT_STYLE_MAP["unarmed"]); //pass style to parent for dps loadout
                 this.props.calcAttributes(null, "weapon", this.state.weapon); //update equipment attributes
             }
         }
 
         this.setState({
             shield: (shieldObj.value == "Nothing") ? null : shieldObj,
-            weapon: wep
+            weapon: wep,
+            selectedStyle1: set ? true : this.state.selectedStyle1,
+            selectedStyle2: set ? false : this.state.selectedStyle2,
+            selectedStyle3: set ? false : this.state.selectedStyle3,
+            selectedStyle4: set ? false : this.state.selectedStyle4,
+            selectedStyle5: set ? false : this.state.selectedStyle5,
+            selectedOptionName: set ? "Punch" : this.state.selectedOptionName,
+            selectedSpell: set ? null : this.state.selectedSpell
         }, () => {
             //console.log(this.state)
+            console.log("selectedOptionName: ", this.state.selectedOptionName);
             this.props.setGear("shield", this.state.shield); //update parent component with selected gear label
             
-
             this.props.calcAttributes(this.state.shield, "shield", previous); //update equipment attributes
             
         })
