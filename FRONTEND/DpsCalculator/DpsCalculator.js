@@ -422,6 +422,9 @@ class DpsCalculator extends React.Component {
             case "Magic potion":
                 return level + 4;
             
+            case "Dragon pickaxe":
+                return level + 3;
+            
             default:
                 return level;
         }
@@ -478,8 +481,10 @@ class DpsCalculator extends React.Component {
     }
 
     setOtherBoost = (boost) => {
+        var newLvl = this.boostStatHandler(boost.label, "other", this.state.miningLevel);
         this.setState({
-            otherSelectedBoost: boost
+            otherSelectedBoost: boost,
+            boostedMining: newLvl
         }, () => {
             console.log(this.state)
         })
