@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ReactTooltip from "react-tooltip";
+
 import './SpellIcon.css';
 
 const SpellIcon = (props) => {
@@ -20,15 +22,20 @@ const SpellIcon = (props) => {
     }
 
     return (
+        <>
         <div className="spell-entry" >
             <div id={confirmSpell ? "spell-hovericon" : null} onClick={() => handleSelect(props.name, props.rsrc, confirmSpell, props.spell)}>
-                <img
+                <img data-tip data-for={props.name}
                     className={imgClassName}
                     src={props.rsrc}
                 />
             </div>
 
         </div>
+        <ReactTooltip id={props.name} place="top" effect="solid">
+             <span style={{fontFamily: 'Calibri, Arial, serif'}}>{props.name}</span>
+        </ReactTooltip>
+        </>
     )
 
 }
