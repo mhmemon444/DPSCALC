@@ -4,11 +4,11 @@ import './SkillEntry.css';
 
 const SkillEntry = (props) => {
     // Creating the full path to the skill image:
-    const imgFolderPath = "https://oldschool.runescape.wiki/images/";
-    const n1 = props.rsrc.charAt(0) + "/";
-    const n2 = props.rsrc + "/";
-    const extension = props.name + "_icon.png";
-    const fullImage = imgFolderPath.concat(n1).concat(n2).concat(extension);
+    // const imgFolderPath = "https://oldschool.runescape.wiki/images/";
+    // const n1 = props.rsrc.charAt(0) + "/";
+    // const n2 = props.rsrc + "/";
+    // const extension = props.name + "_icon.png";
+    // const fullImage = imgFolderPath.concat(n1).concat(n2).concat(extension);
     // `````````````````````````````````````````````
 
     const changeHandler = (event) => {
@@ -20,7 +20,7 @@ const SkillEntry = (props) => {
         skillentry = ( //allow manual change of visible hitpoints for Dharok dps
             <div className="skill-entry">
                 <div className="skill-icon">
-                    <img className="skicc" src={fullImage}/>
+                    <img className="skicc" src={props.icon}/>
                 </div>
                 <div className="skill-input-container">
                     <input className="skill-input" type="text" value={props.vhp} onChange={(e) => props.statsChange(e.target.value.replace(/\D/,''), "visibleHitpoints")} />
@@ -33,7 +33,7 @@ const SkillEntry = (props) => {
         skillentry = (
             <div className="skill-entry">
             <div className="skill-icon">
-                <img className="skicc" src={fullImage}/>
+                <img className="skicc" src={props.icon}/>
             </div>
             <div className="skill-input-container">
             <input className="skill-input" type="text" value={props.val} onChange={(e) => changeHandler(e)} />
