@@ -3,7 +3,7 @@ import React from 'react';
 import './MonsterIndividualAttribute.css';
 
 const MonsterIndividualAttribute = (props) => {
-    var sign = parseInt(props.attrib) >= 0 ? "+" : "-";
+    var sign = parseInt(props.attrib) >= 0 ? "+" : null;
     return (
         <div className="mon-indl-attr">
             <img style={{height: '16px', paddingRight: '2px'}} src={props.icon} />
