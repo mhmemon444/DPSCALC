@@ -136,6 +136,218 @@ class PlayerInputs extends React.Component {
         // boostedAtt: 99
     }
 
+    componentWillMount() {
+        //get cape from localStorage
+        const cape_value = localStorage.getItem('dpscalcwikirs_cape_value');
+        const cape_label = localStorage.getItem('dpscalcwikirs_cape_label');
+        const cape_icon = localStorage.getItem('dpscalcwikirs_cape_icon');
+        var cape_full = null;
+        if (cape_value != '' && cape_label != '' && cape_icon != '') {
+            cape_full = {
+                value: cape_value,
+                label: cape_label,
+                icon: cape_icon
+            }
+        }
+        if (cape_value == null || cape_label == null || cape_icon == null) {
+            cape_full = null;
+        }
+
+        //get helmet from localStorage
+        const helm_value = localStorage.getItem('dpscalcwikirs_helm_value');
+        const helm_label = localStorage.getItem('dpscalcwikirs_helm_label');
+        const helm_icon = localStorage.getItem('dpscalcwikirs_helm_icon');
+        var helm_full = null;
+        if (helm_value != '' && helm_label != '' && helm_icon != '') {
+            helm_full = {
+                value: helm_value,
+                label: helm_label,
+                icon: helm_icon
+            }
+        }
+        if (helm_value == null || helm_label == null || helm_icon == null) {
+            helm_full = null;
+        }
+
+        //get neck from localStorage
+        const neck_value = localStorage.getItem('dpscalcwikirs_neck_value');
+        const neck_label = localStorage.getItem('dpscalcwikirs_neck_label');
+        const neck_icon = localStorage.getItem('dpscalcwikirs_neck_icon');
+        var neck_full = null;
+        if (neck_value != '' && neck_label != '' && neck_icon != '') {
+            neck_full = {
+                value: neck_value,
+                label: neck_label,
+                icon: neck_icon
+            }
+        }
+        if (neck_value == null || neck_label == null || neck_icon == null) {
+            neck_full = null;
+        }
+
+        //set ammo from localStorage
+        const ammo_value = localStorage.getItem('dpscalcwikirs_ammo_value');
+        const ammo_label = localStorage.getItem('dpscalcwikirs_ammo_label');
+        const ammo_icon = localStorage.getItem('dpscalcwikirs_ammo_icon');
+        var ammo_full = null;
+        if (ammo_value != '' && ammo_label != '' && ammo_icon != '') {
+            ammo_full = {
+                value: ammo_value,
+                label: ammo_label,
+                icon: ammo_icon
+            }
+        }
+        if (ammo_value == null || ammo_label == null || ammo_icon == null) {
+            ammo_full = null;
+        }
+
+        //set wep from localStorage
+        const weapon_value = localStorage.getItem('dpscalcwikirs_weapon_value');
+        const weapon_label = localStorage.getItem('dpscalcwikirs_weapon_label');
+        const weapon_icon = localStorage.getItem('dpscalcwikirs_weapon_icon');
+        const weapon_type = localStorage.getItem('dpscalcwikirs_weapon_type');
+        const weapon_twoh = localStorage.getItem('dpscalcwikirs_weapon_twohanded');
+        var weapon_full = null;
+        if (weapon_value != '' && weapon_label != '' && weapon_icon != '') {
+            weapon_full = {
+                value: weapon_value,
+                label: weapon_label,
+                icon: weapon_icon,
+                type: weapon_type
+            }
+            if (weapon_twoh == 'true') {
+                weapon_full.twohanded = true
+            }
+        }
+        if (weapon_value == null || weapon_label == null || weapon_icon == null) {
+            weapon_full = null;
+        }
+
+        //set body from localStorage
+        const body_value = localStorage.getItem('dpscalcwikirs_body_value');
+        const body_label = localStorage.getItem('dpscalcwikirs_body_label');
+        const body_icon = localStorage.getItem('dpscalcwikirs_body_icon');
+        var body_full = null;
+        if (body_value != '' && body_label != '' && body_icon != '') {
+            body_full = {
+                value: body_value,
+                label: body_label,
+                icon: body_icon
+            }
+        }
+        if (body_value == null || body_label == null || body_icon == null) {
+            body_full = null;
+        }
+
+        //set shield from localStorage
+        const shield_value = localStorage.getItem('dpscalcwikirs_shield_value');
+        const shield_label = localStorage.getItem('dpscalcwikirs_shield_label');
+        const shield_icon = localStorage.getItem('dpscalcwikirs_shield_icon');
+        var shield_full = null;
+        if (shield_value != '' && shield_label != '' && shield_icon != '') {
+            shield_full = {
+                value: shield_value,
+                label: shield_label,
+                icon: shield_icon
+            }
+        }
+        if (shield_value == null || shield_label == null || shield_icon == null) {
+            shield_full = null;
+        }
+
+        //set legs from localStorage
+        const legs_value = localStorage.getItem('dpscalcwikirs_legs_value');
+        const legs_label = localStorage.getItem('dpscalcwikirs_legs_label');
+        const legs_icon = localStorage.getItem('dpscalcwikirs_legs_icon');
+        var legs_full = null;
+        if (legs_value != '' && legs_label != '' && legs_icon != '') {
+            legs_full = {
+                value: legs_value,
+                label: legs_label,
+                icon: legs_icon
+            }
+        }
+        if (legs_value == null || legs_label == null || legs_icon == null) {
+            legs_full = null;
+        }
+
+        //set hands from localStorage
+        const hands_value = localStorage.getItem('dpscalcwikirs_hands_value');
+        const hands_label = localStorage.getItem('dpscalcwikirs_hands_label');
+        const hands_icon = localStorage.getItem('dpscalcwikirs_hands_icon');
+        var hands_full = null;
+        if (hands_value != '' && hands_label != '' && hands_icon != '') {
+            hands_full = {
+                value: hands_value,
+                label: hands_label,
+                icon: hands_icon
+            }
+        }
+        if (hands_value == null || hands_label == null || hands_icon == null) {
+            hands_full = null;
+        }
+
+        //set feet from localStorage
+        const feet_value = localStorage.getItem('dpscalcwikirs_feet_value');
+        const feet_label = localStorage.getItem('dpscalcwikirs_feet_label');
+        const feet_icon = localStorage.getItem('dpscalcwikirs_feet_icon');
+        var feet_full = null;
+        if (feet_value != '' && feet_label != '' && feet_icon != '') {
+            feet_full = {
+                value: feet_value,
+                label: feet_label,
+                icon: feet_icon
+            }
+        }
+        if (feet_value == null || feet_label == null || feet_icon == null) {
+            feet_full = null;
+        }
+
+        //set ring from localStorage
+        const ring_value = localStorage.getItem('dpscalcwikirs_ring_value');
+        const ring_label = localStorage.getItem('dpscalcwikirs_ring_label');
+        const ring_icon = localStorage.getItem('dpscalcwikirs_ring_icon');
+        var ring_full = null;
+        if (ring_value != '' && ring_label != '' && ring_icon != '') {
+            ring_full = {
+                value: ring_value,
+                label: ring_label,
+                icon: ring_icon
+            }
+        }
+        if (ring_value == null || ring_label == null || ring_icon == null) {
+            ring_full = null;
+        }
+
+        console.log(ring_full);
+
+        this.setState({
+            cape: cape_full,
+            head: helm_full,
+            neck: neck_full,
+            ammo: ammo_full,
+            weapon: weapon_full,
+            body: body_full,
+            shield: shield_full,
+            legs: legs_full,
+            hands: hands_full,
+            feet: feet_full,
+            ring: ring_full
+
+            // cape: null,
+            // head: null,
+            // neck: null,
+            // ammo: null,
+            // weapon: null,
+            // body: null,
+            // shield: null,
+            // legs: null,
+            // hands:null,
+            // feet: null,
+            // ring: null
+        })
+    }
+
     selectTabHandler = (tab) => {
         this.setState({
             Combat: false,
@@ -185,6 +397,10 @@ class PlayerInputs extends React.Component {
              
             this.props.calcAttributes(this.state.cape, "cape", previous); //update equipment attributes
             this.props.setGear("cape", this.state.cape); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_cape_value', this.state.cape != null ? this.state.cape.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_cape_label', this.state.cape != null ? this.state.cape.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_cape_icon', this.state.cape != null ? this.state.cape.icon : ''); //save to browser localStorage
         })
     }
 
@@ -195,6 +411,9 @@ class PlayerInputs extends React.Component {
             this.props.calcAttributes(this.state.head, "head", previous); //update equipment attributes
             this.props.setGear("head", this.state.head); //update parent component with selected gear label
             
+            localStorage.setItem('dpscalcwikirs_helm_value', this.state.head != null ? this.state.head.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_helm_label', this.state.head != null ? this.state.head.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_helm_icon', this.state.head != null ? this.state.head.icon : ''); //save to browser localStorage
         })
     }
 
@@ -204,6 +423,10 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
             this.props.calcAttributes(this.state.neck, "neck", previous); //update equipment attributes
             this.props.setGear("neck", this.state.neck); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_neck_value', this.state.neck != null ? this.state.neck.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_neck_label', this.state.neck != null ? this.state.neck.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_neck_icon', this.state.neck != null ? this.state.neck.icon : ''); //save to browser localStorage
         })
     }
 
@@ -213,6 +436,10 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
             this.props.calcAttributes(this.state.ammo, "ammo", previous); //update equipment attributes
             this.props.setGear("ammo", this.state.ammo); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_ammo_value', this.state.ammo != null ? this.state.ammo.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_ammo_label', this.state.ammo != null ? this.state.ammo.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_ammo_icon', this.state.ammo != null ? this.state.ammo.icon : ''); //save to browser localStorage
         })
     }
 
@@ -227,6 +454,9 @@ class PlayerInputs extends React.Component {
                 this.props.setGear("shield", sh);
                 this.props.calcAttributes(null, "shield", this.state.shield); //update equipment attributes
                 
+                localStorage.setItem('dpscalcwikirs_shield_value', sh != null ? sh.value : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_shield_label', sh != null ? sh.label : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_shield_icon', sh != null ? sh.icon : ''); //save to browser localStorage
             }
         }
 
@@ -246,6 +476,21 @@ class PlayerInputs extends React.Component {
 
             this.props.setCombatStyle(COMBAT_STYLE_MAP[wepObj.type]); //pass style to parent for dps loadout
             this.props.calcAttributes(this.state.weapon, "weapon", previous); //update equipment attributes
+
+            localStorage.setItem('dpscalcwikirs_weapon_value', this.state.weapon != null ? this.state.weapon.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_weapon_label', this.state.weapon != null ? this.state.weapon.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_weapon_icon', this.state.weapon != null ? this.state.weapon.icon : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_weapon_type', this.state.weapon != null ? this.state.weapon.type : ''); //save to browser localStorage
+
+            if (this.state.weapon == null) {
+                localStorage.setItem('dpscalcwikirs_weapon_twohanded', '') //save to browser localStorage
+            } else if ("twohanded" in this.state.weapon) {
+                localStorage.setItem('dpscalcwikirs_weapon_twohanded', 'true'); //save to browser localStorage
+            } else {
+                localStorage.setItem('dpscalcwikirs_weapon_twohanded', 'false'); //save to browser localStorage
+            }
+            
+            
         })
     }
 
@@ -255,6 +500,10 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
             this.props.calcAttributes(this.state.body, "torso", previous); //update equipment attributes
             this.props.setGear("torso", this.state.body); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_body_value', this.state.body != null ? this.state.body.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_body_label', this.state.body != null ? this.state.body.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_body_icon', this.state.body != null ? this.state.body.icon : ''); //save to browser localStorage
         })
     }
 
@@ -269,6 +518,12 @@ class PlayerInputs extends React.Component {
                 this.props.setGear("weapon", wep);
                 this.props.setCombatStyle(COMBAT_STYLE_MAP["unarmed"]); //pass style to parent for dps loadout
                 this.props.calcAttributes(null, "weapon", this.state.weapon); //update equipment attributes
+
+                localStorage.setItem('dpscalcwikirs_weapon_value', wep != null ? wep.value : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_weapon_label', wep != null ? wep.label : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_weapon_icon', wep != null ? wep.icon : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_weapon_type', wep != null ? wep.type : ''); //save to browser localStorage
+                localStorage.setItem('dpscalcwikirs_weapon_twohanded', wep != null ? wep.twohanded : ''); //save to browser localStorage
             }
         }
 
@@ -288,6 +543,10 @@ class PlayerInputs extends React.Component {
             this.props.setGear("shield", this.state.shield); //update parent component with selected gear label
             
             this.props.calcAttributes(this.state.shield, "shield", previous); //update equipment attributes
+
+            localStorage.setItem('dpscalcwikirs_shield_value', this.state.shield != null ? this.state.shield.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_shield_label', this.state.shield != null ? this.state.shield.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_shield_icon', this.state.shield != null ? this.state.shield.icon : ''); //save to browser localStorage
             
         })
     }
@@ -300,6 +559,10 @@ class PlayerInputs extends React.Component {
             //console.log(this.state)
             this.props.calcAttributes(this.state.hands, "gloves", previous); //update equipment attributes
             this.props.setGear("gloves", this.state.hands); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_hands_value', this.state.hands != null ? this.state.hands.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_hands_label', this.state.hands != null ? this.state.hands.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_hands_icon', this.state.hands != null ? this.state.hands.icon : ''); //save to browser localStorage
         })
     }
 
@@ -309,6 +572,10 @@ class PlayerInputs extends React.Component {
             //console.log(this.state)
             this.props.calcAttributes(this.state.feet, "boots", previous); //update equipment attributes
             this.props.setGear("boots", this.state.feet); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_feet_value', this.state.feet != null ? this.state.feet.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_feet_label', this.state.feet != null ? this.state.feet.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_feet_icon', this.state.feet != null ? this.state.feet.icon : ''); //save to browser localStorage
         })
     }
 
@@ -318,6 +585,10 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
             this.props.calcAttributes(this.state.ring, "ring", previous); //update equipment attributes
             this.props.setGear("ring", this.state.ring); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_ring_value', this.state.ring != null ? this.state.ring.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_ring_label', this.state.ring != null ? this.state.ring.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_ring_icon', this.state.ring != null ? this.state.ring.icon : ''); //save to browser localStorage
         })
     }
 
@@ -327,6 +598,10 @@ class PlayerInputs extends React.Component {
             console.log(this.state)
             this.props.calcAttributes(this.state.legs, "legs", previous); //update equipment attributes
             this.props.setGear("legs", this.state.legs); //update parent component with selected gear label
+
+            localStorage.setItem('dpscalcwikirs_legs_value', this.state.legs != null ? this.state.legs.value : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_legs_label', this.state.legs != null ? this.state.legs.label : ''); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_legs_icon', this.state.legs != null ? this.state.legs.icon : ''); //save to browser localStorage
         })
     }
 
