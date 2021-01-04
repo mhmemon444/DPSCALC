@@ -1,6 +1,7 @@
 import React from 'react';
 
-import AttackStyle from './AttackStyle/AttackStyle'
+import AttackStyle from './AttackStyle/AttackStyle';
+import Checkbox from '../EquipmentPanel/Checkbox/Checkbox';
 
 import './StylesPanel.css';
 
@@ -168,11 +169,24 @@ class StylesPanel extends React.Component {
                     />
                     
         })
+        var showCharged = null
+        if (wepType == "staff" || wepType == "bladedstaff") {
+            if (this.props.currentSpell != null && ( this.props.currentSpell.name == "Claws of Guthix" || this.props.currentSpell.name == "Flames of Zamorak" || this.props.currentSpell.name == "Saradomin Strike" )) {
+                showCharged = (
+                    <div className="selectChargedSpell">
+                    <Checkbox type="chargedspell" checked={this.props.checkedchargedspell} checkboxClickHandler={this.props.chargedCheckHandler}/>
+                    <div style={{marginLeft: '5px', color: 'yellow', textShadow: '1px 1px black', fontSize: '11px'}}>Charged?</div>
+                    </div>
+                )
+            }
+        }
+
         return (
             <>
             <div className="wepname">{this.props.weapon == null ? "Unarmed" : this.props.weapon.label }</div>
             <div className="stylespanel">
                 {atkStyles}
+                {showCharged}
             </div>
             </>
         )

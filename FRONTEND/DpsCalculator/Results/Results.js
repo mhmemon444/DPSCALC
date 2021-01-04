@@ -65,11 +65,18 @@ class Results extends React.Component {
             this.props.selectedPrayers.forEach( (prayer) => {
                 prayers.push(PRAYER_TURNOFF[prayer]);
             })
+
+            var s = {...this.props.spell}
+            if (this.props.checkedchargedspell) {
+                if (s.name == "Claws of Guthix" || s.name == "Flames of Zamorak" || s.name == "Saradomin Strike") {
+                    s.mh += 10;
+                }
+            }
             
             var loadout = {
                 equipment: {...this.props.equipment},
                 monster: {...this.props.monster},
-                spell: {...this.props.spell},
+                spell: s,
                 wilderness: this.props.checkedwildy,
                 targetdistance: this.props.chindistance,
                 combatStyle: this.props.combatStyle,

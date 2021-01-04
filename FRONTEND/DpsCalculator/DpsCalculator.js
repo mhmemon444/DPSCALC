@@ -124,7 +124,16 @@ class DpsCalculator extends React.Component {
         rangedStrengthBonus: 0,
         mageStrengthBonus: 0,
         prayerBonus: 0,
-        attackSpeed: 4
+        attackSpeed: 4,
+
+        //Check charged spell for Claws of Guthix/Flames of Zamorak/Saradomin Strike
+        checkedchargedspell: true
+    }
+
+    chargedCheckHandler = () => {
+        this.setState({
+            checkedchargedspell: !(this.state.checkedchargedspell)
+        })
     }
 
     setGear = (type, gear) => {
@@ -527,10 +536,11 @@ class DpsCalculator extends React.Component {
         return (
             <div className="calc-overall-layout" style={{marginTop: "50px"}}>
                 {/* Dps calc react code is mounted here */}
-                <PlayerInputs prayerClickHandler={this.prayerClickHandler} selectedPrayers={this.state.selectedPrayers} setCombatStyle={this.setCombatStyle} boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
+                <PlayerInputs chargedCheckHandler={this.chargedCheckHandler} checkedchargedspell={this.state.checkedchargedspell} prayerClickHandler={this.prayerClickHandler} selectedPrayers={this.state.selectedPrayers} setCombatStyle={this.setCombatStyle} boostedMining={this.state.boostedMining} visibleHitpoints={this.state.visibleHitpoints} boostedStr={this.state.boostedStr} boostedRange={this.state.boostedRange} boostedMage={this.state.boostedMage} boostedDef={this.state.boostedDef} boostedAtt={this.state.boostedAtt} boostStatHandler={this.boostStatHandler} setStrBoost={this.setStrBoost} setAttBoost={this.setAttBoost} setDefBoost={this.setDefBoost} setMagBoost={this.setMagBoost} setRanBoost={this.setRanBoost} setOtherBoost={this.setOtherBoost} otherSelectedBoost={this.state.otherSelectedBoost} mageSelectedBoost={this.state.mageSelectedBoost} rangeSelectedBoost={this.state.rangeSelectedBoost} defSelectedBoost={this.state.defSelectedBoost} attSelectedBoost={this.state.attSelectedBoost} strSelectedBoost={this.state.strSelectedBoost} hiscoreFetchHandler={this.hiscoreFetchHandler} statsChangeHandler={this.statsChangeHandler} attackLevel={this.state.attackLevel} strengthLevel={this.state.strengthLevel} defenceLevel={this.state.defenceLevel} hitpointsLevel={this.state.hitpointsLevel} rangedLevel={this.state.rangedLevel} miningLevel={this.state.miningLevel} prayerLevel={this.state.prayerLevel} mageLevel={this.state.mageLevel} setChinDistance={this.setChinDistance} checkwildy={this.state.checkedwildy} checkboxClick = {this.checkboxClickHandler} setSpell={this.setSpell} setGear={this.setGear} calcAttributes={this.calculateAttributeBonusHandler}/>
                 <CombatAttributes dr={this.state.rangedDef} dm={this.state.mageDef} dc={this.state.crushDef} dt={this.state.stabDef} dl={this.state.slashDef} at={this.state.stabBonus} al={this.state.slashBonus} ac={this.state.crushBonus} am={this.state.mageBonus} ar={this.state.rangedBonus} bs={this.state.strengthBonus} br={this.state.rangedStrengthBonus} bm={this.state.mageStrengthBonus} pr={this.state.prayerBonus}/>
                 <MonsterAttributes setMonster={this.setMonster}/>
                 <Results 
+                    checkedchargedspell={this.state.checkedchargedspell}
                     equipment={this.state.equipment}
                     monster={this.state.monster}
                     spell={this.state.spell}
