@@ -186,7 +186,22 @@ class DpsCalculator extends React.Component {
         this.setState({
             checkedchargedspell: ccs,
             equipment: e,
-            monster: m
+            monster: m,
+            stabBonus: (parseInt(localStorage.getItem('dpscalcwikirs_stabBonus')) || 0),
+            slashBonus: (parseInt(localStorage.getItem('dpscalcwikirs_slashBonus')) || 0),
+            crushBonus: (parseInt(localStorage.getItem('dpscalcwikirs_crushBonus')) || 0),
+            mageBonus: (parseInt(localStorage.getItem('dpscalcwikirs_mageBonus') )|| 0),
+            rangedBonus: (parseInt(localStorage.getItem('dpscalcwikirs_rangedBonus')) || 0),
+            strengthBonus: (parseInt(localStorage.getItem('dpscalcwikirs_strengthBonus')) || 0),
+            rangedStrengthBonus: (parseInt(localStorage.getItem('dpscalcwikirs_rangedStrengthBonus')) || 0),
+            mageStrengthBonus: (parseInt(localStorage.getItem('dpscalcwikirs_mageStrengthBonus')) || 0),
+            prayerBonus: (parseInt(localStorage.getItem('dpscalcwikirs_prayerBonus')) || 0),
+            slashDef: (parseInt(localStorage.getItem('dpscalcwikirs_slashDef')) || 0),
+            stabDef: (parseInt(localStorage.getItem('dpscalcwikirs_stabDef')) || 0),
+            crushDef: (parseInt(localStorage.getItem('dpscalcwikirs_crushDef')) || 0),
+            mageDef: (parseInt(localStorage.getItem('dpscalcwikirs_mageDef')) || 0),
+            rangedDef: (parseInt(localStorage.getItem('dpscalcwikirs_rangedDef')) || 0)
+
         }, () => {
             console.log('this.state', this.state);
         })
@@ -354,6 +369,20 @@ class DpsCalculator extends React.Component {
 
         }, () => {
             //console.log(this.state)
+            localStorage.setItem('dpscalcwikirs_stabBonus', this.state.stabBonus);
+            localStorage.setItem('dpscalcwikirs_slashBonus', this.state.slashBonus);
+            localStorage.setItem('dpscalcwikirs_crushBonus', this.state.crushBonus);
+            localStorage.setItem('dpscalcwikirs_mageBonus', this.state.mageBonus);
+            localStorage.setItem('dpscalcwikirs_rangedBonus', this.state.rangedBonus);
+            localStorage.setItem('dpscalcwikirs_strengthBonus', this.state.strengthBonus);
+            localStorage.setItem('dpscalcwikirs_rangedStrengthBonus', this.state.rangedStrengthBonus);
+            localStorage.setItem('dpscalcwikirs_mageStrengthBonus', this.state.mageStrengthBonus);
+            localStorage.setItem('dpscalcwikirs_prayerBonus', this.state.prayerBonus);
+            localStorage.setItem('dpscalcwikirs_slashDef', this.state.slashDef);
+            localStorage.setItem('dpscalcwikirs_stabDef', this.state.stabDef);
+            localStorage.setItem('dpscalcwikirs_crushDef', this.state.crushDef);
+            localStorage.setItem('dpscalcwikirs_mageDef', this.state.mageDef);
+            localStorage.setItem('dpscalcwikirs_rangedDef', this.state.rangedDef);
         })
     }
 
