@@ -46,28 +46,30 @@ class MonsterAttributes extends React.Component {
     }
 
     selectMonsterHandler = (m) => {
-        DEMON_TYPE.forEach((d) => {
-            if ((m.im).includes(d)) {
-                m.cT.push("demon");
-            }
-        })
-        LEAFY_TYPE.forEach((l) => {
-            if ((m.im).includes(l)) {
-                m.cT.push("leafy");
-            }
-        })
-        DRAGON_TYPE.forEach((r) => {
-            if ((m.im).includes(r) && !((m.im).includes('Revenant'))) {
-                m.cT.push("dragon");
-            }
-        })
-        RAIDS_TYPE.forEach((a) => {
-            if ((m.im).includes(a)) {
-                m.cT.push("raids");
-            }
-        })
+        if (m.label != "None") {
+            DEMON_TYPE.forEach((d) => {
+                if ((m.im).includes(d)) {
+                    m.cT.push("demon");
+                }
+            })
+            LEAFY_TYPE.forEach((l) => {
+                if ((m.im).includes(l)) {
+                    m.cT.push("leafy");
+                }
+            })
+            DRAGON_TYPE.forEach((r) => {
+                if ((m.im).includes(r) && !((m.im).includes('Revenant'))) {
+                    m.cT.push("dragon");
+                }
+            })
+            RAIDS_TYPE.forEach((a) => {
+                if ((m.im).includes(a)) {
+                    m.cT.push("raids");
+                }
+            })
+        }
         this.setState({
-            selectedMonster: m
+            selectedMonster: m.label == "None" ? null : m
         }, () => {
             console.log(this.state)
             this.props.setMonster(this.state.selectedMonster); //set Monster in parent component to pass to loadout

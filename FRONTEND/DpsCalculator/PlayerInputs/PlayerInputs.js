@@ -99,14 +99,6 @@ class PlayerInputs extends React.Component {
 
         //Player stats:
         username: "",
-        // attackLevel: 99,
-        // strengthLevel: 99,
-        // defenceLevel: 99,
-        // hitpointsLevel: 99,
-        // rangedLevel: 99,
-        // mageLevel: 99,
-        // prayerLevel: 99,
-        // visibleHitpoints: 99,
 
         //Attack styles:
         selectedStyle1: true,
@@ -136,7 +128,7 @@ class PlayerInputs extends React.Component {
         // boostedAtt: 99
     }
 
-    componentWillMount() {
+    componentDidMount() {
         //get cape from localStorage
         const cape_value = localStorage.getItem('dpscalcwikirs_cape_value');
         const cape_label = localStorage.getItem('dpscalcwikirs_cape_label');
@@ -321,6 +313,21 @@ class PlayerInputs extends React.Component {
 
         console.log(ring_full);
 
+        //styles
+        const selectedStyle = localStorage.getItem('dpscalcwikirs_selectedstyle');
+        const selectedOpt = localStorage.getItem('dpscalcwikirs_selectedoption');
+
+        //spells
+        const n = localStorage.getItem('dpscalcwikirs_selectedSpellName');
+        const r = localStorage.getItem('dpscalcwikirs_selectedSpellRsrc');
+        var selSpell = {
+            name: n,
+            rsrc: r
+        }
+        if (n == null || r == null) {
+            selSpell = null;
+        }
+
         this.setState({
             cape: cape_full,
             head: helm_full,
@@ -332,19 +339,27 @@ class PlayerInputs extends React.Component {
             legs: legs_full,
             hands: hands_full,
             feet: feet_full,
-            ring: ring_full
-
-            // cape: null,
-            // head: null,
-            // neck: null,
-            // ammo: null,
-            // weapon: null,
-            // body: null,
-            // shield: null,
-            // legs: null,
-            // hands:null,
-            // feet: null,
-            // ring: null
+            ring: ring_full,
+            selectedStyle1: false,
+            selectedStyle2: false,
+            selectedStyle3: false,
+            selectedStyle4: false,
+            selectedStyle5: false,
+            [selectedStyle]: true,
+            selectedOptionName: selectedOpt,
+            selectedSpell: selSpell == '' ? null : selSpell
+        }, () => {
+            console.log(this.state.head);
+            // this.props.setGear("shield", this.state.shield);
+            // this.props.setGear("cape", this.state.cape); //update parent component with selected gear label
+            // this.props.setGear("head", this.state.head); //update parent component with selected gear label
+            // this.props.setGear("neck", this.state.neck); //update parent component with selected gear label
+            // this.props.setGear("ammo", this.state.ammo); //update parent component with selected gear label
+            // this.props.setGear("weapon", this.state.weapon); //update parent component with selected gear label
+            // this.props.setGear("torso", this.state.body); //update parent component with selected gear label
+            // this.props.setGear("gloves", this.state.hands); //update parent component with selected gear label
+            // this.props.setGear("boots", this.state.feet); //update parent component with selected gear label
+            // this.props.setGear("ring", this.state.ring); //update parent component with selected gear label
         })
     }
 
@@ -362,31 +377,6 @@ class PlayerInputs extends React.Component {
             }, () => {console.log(this.state)})
         })
     }
-
-    // //Prayer tab
-    // prayerClickHandler = (prayerName) => {
-    //     var selPrayers = [...(this.state.selectedPrayers)];
-
-    //     if (!selPrayers.includes(prayerName)) {
-    //         selPrayers.push(prayerName);
-    //         PRAYER_TURNOFF[prayerName].TurnsOff.forEach(t => {
-    //             const index = selPrayers.indexOf(t);
-    //             if (index > -1) {
-    //                 selPrayers.splice(index, 1);
-    //             }
-    //         })
-    //     } else {
-    //         const index = selPrayers.indexOf(prayerName);
-    //         if (index > -1) {
-    //             selPrayers.splice(index, 1);
-    //         }
-    //     }
-    //     this.setState({
-    //         selectedPrayers: [...selPrayers]
-    //     }, () => {
-    //         console.log(this.state)
-    //     })
-    // }
 
 
     //Equipment tab
@@ -489,8 +479,9 @@ class PlayerInputs extends React.Component {
             } else {
                 localStorage.setItem('dpscalcwikirs_weapon_twohanded', 'false'); //save to browser localStorage
             }
-            
-            
+
+            localStorage.setItem('dpscalcwikirs_selectedstyle', 'selectedStyle1'); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_selectedoption', this.state.selectedOptionName); //save to browser localStorage        
         })
     }
 
@@ -634,6 +625,8 @@ class PlayerInputs extends React.Component {
             if (!(selectedName == 'Spell' || selectedName == 'Spell (Def)')) {
                 this.props.setCombatStyle(style); //pass style to parent for dps loadout
             }
+            localStorage.setItem('dpscalcwikirs_selectedstyle', selectedOption); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_selectedoption', selectedName); //save to browser localStorage   
         })
     }
 
@@ -653,6 +646,9 @@ class PlayerInputs extends React.Component {
             //console.log(this.state)
             
             this.props.setSpell(spell, this.state.selectedOptionName);
+
+            localStorage.setItem('dpscalcwikirs_selectedSpellName', this.state.selectedSpell.name); //save to browser localStorage
+            localStorage.setItem('dpscalcwikirs_selectedSpellRsrc', this.state.selectedSpell.rsrc); //save to browser localStorage   
             
         })
     }

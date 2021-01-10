@@ -130,29 +130,133 @@ class DpsCalculator extends React.Component {
         checkedchargedspell: true
     }
 
+    componentDidMount() {
+        var ccs = localStorage.getItem('dpscalcwikirs_checkedchargedspell');
+        if (ccs == 'true') { css = true } else { ccs = false }
+        var dpscalcwikirs_cape = localStorage.getItem('dpscalcwikirs_cape');
+        var dpscalcwikirs_shield = localStorage.getItem('dpscalcwikirs_shield');
+        var dpscalcwikirs_head = localStorage.getItem('dpscalcwikirs_head');
+        var dpscalcwikirs_neck = localStorage.getItem('dpscalcwikirs_neck');
+        var dpscalcwikirs_ammo = localStorage.getItem('dpscalcwikirs_ammo');
+        var dpscalcwikirs_weapon = localStorage.getItem('dpscalcwikirs_weapon');
+        var dpscalcwikirs_torso = localStorage.getItem('dpscalcwikirs_torso');
+        var dpscalcwikirs_gloves = localStorage.getItem('dpscalcwikirs_gloves');
+        var dpscalcwikirs_boots = localStorage.getItem('dpscalcwikirs_boots');
+        var dpscalcwikirs_ring = localStorage.getItem('dpscalcwikirs_ring');
+        var dpscalcwikirs_legs = localStorage.getItem('dpscalcwikirs_legs');
+
+        var e = {
+            cape: dpscalcwikirs_cape == '' ? null : dpscalcwikirs_cape,
+            shield: dpscalcwikirs_shield == '' ? null : dpscalcwikirs_shield,
+            head: dpscalcwikirs_head == '' ? null : dpscalcwikirs_head,
+            neck: dpscalcwikirs_neck == '' ? null : dpscalcwikirs_neck,
+            ammo: dpscalcwikirs_ammo == '' ? null : dpscalcwikirs_ammo,
+            weapon: dpscalcwikirs_weapon == '' ? null : dpscalcwikirs_weapon,
+            torso: dpscalcwikirs_torso == '' ? null : dpscalcwikirs_torso,
+            gloves: dpscalcwikirs_gloves == '' ? null : dpscalcwikirs_gloves,
+            boots: dpscalcwikirs_boots == '' ? null : dpscalcwikirs_boots,
+            ring: dpscalcwikirs_ring == '' ? null : dpscalcwikirs_ring,
+            legs: dpscalcwikirs_legs == '' ? null : dpscalcwikirs_legs
+        }
+
+        var m_cT = ["null"]
+        var m = {
+            At: parseInt(localStorage.getItem('dpscalcwikirs_monster_At')),
+            De: parseInt(localStorage.getItem('dpscalcwikirs_monster_De')),
+            Hi: parseInt(localStorage.getItem('dpscalcwikirs_monster_Hi')),
+            Ma: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ma')),
+            Ra: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ra')),
+            St: parseInt(localStorage.getItem('dpscalcwikirs_monster_St')),
+
+            am: parseInt(localStorage.getItem('dpscalcwikirs_monster_am')),
+            ar: parseInt(localStorage.getItem('dpscalcwikirs_monster_ar')),
+            ba: parseInt(localStorage.getItem('dpscalcwikirs_monster_ba')),
+            bm: parseInt(localStorage.getItem('dpscalcwikirs_monster_bm')),
+            br: parseInt(localStorage.getItem('dpscalcwikirs_monster_br')),
+            bs: parseInt(localStorage.getItem('dpscalcwikirs_monster_bs')),
+
+            dc: parseInt(localStorage.getItem('dpscalcwikirs_monster_dc')),
+            dl: parseInt(localStorage.getItem('dpscalcwikirs_monster_dl')),
+            dm: parseInt(localStorage.getItem('dpscalcwikirs_monster_dm')),
+            dr: parseInt(localStorage.getItem('dpscalcwikirs_monster_dr')),
+            dt: parseInt(localStorage.getItem('dpscalcwikirs_monster_dt')),
+            cT: localStorage.getItem('dpscalcwikirs_monster_cT') == null ? m_cT : localStorage.getItem('dpscalcwikirs_monster_cT').split(',')
+        }
+
+        this.setState({
+            checkedchargedspell: ccs,
+            equipment: e,
+            monster: m
+        }, () => {
+            console.log('this.state', this.state);
+        })
+    }
+
     chargedCheckHandler = () => {
         this.setState({
             checkedchargedspell: !(this.state.checkedchargedspell)
+        }, () => {
+            localStorage.setItem('dpscalcwikirs_checkedchargedspell', this.state.checkedchargedspell); //save to browser localStorage
         })
     }
 
     setGear = (type, gear) => {
+        // console.log(gear);
         var e = {...this.state.equipment};
         if (gear == null) {
             e[type] = null;
         } else {
             e[type] = gear.label;
         }
+        console.log(e);
+
+        switch (type) {
+            case "cape":
+                localStorage.setItem('dpscalcwikirs_cape', gear == null ? '' : gear.label);
+                break;
+            case "shield":
+                localStorage.setItem('dpscalcwikirs_shield', gear == null ? '' : gear.label);
+                break;
+            case "head":
+                localStorage.setItem('dpscalcwikirs_head', gear == null ? '' : gear.label);
+                break;
+            case "neck":
+                localStorage.setItem('dpscalcwikirs_neck', gear == null ? '' : gear.label);
+                break;
+            case "ammo":
+                localStorage.setItem('dpscalcwikirs_ammo', gear == null ? '' : gear.label);
+                break;
+            case "weapon":
+                localStorage.setItem('dpscalcwikirs_weapon', gear == null ? '' : gear.label);
+                break;
+            case "torso":
+                localStorage.setItem('dpscalcwikirs_torso', gear == null ? '' : gear.label);
+                break;
+            case "gloves":
+                localStorage.setItem('dpscalcwikirs_gloves', gear == null ? '' : gear.label);
+                break;
+            case "boots":
+                localStorage.setItem('dpscalcwikirs_boots', gear == null ? '' : gear.label);
+                break;
+            case "ring":
+                localStorage.setItem('dpscalcwikirs_ring', gear == null ? '' : gear.label);
+                break;
+            case "legs":
+                localStorage.setItem('dpscalcwikirs_legs', gear == null ? '' : gear.label);
+                break;
+        }
         
 
         this.setState({
             equipment: e
         }, () => {
-            console.log(this.state.equipment.weapon);
+            // console.log(this.state.equipment);
             this.setState({
                 attackSpeed: (this.state.equipment.weapon == null) ? 4 : attributes.equipment["weapon"][this.state.equipment.weapon]["aS"]
+                
             }, () => {
                 console.log(this.state.attackSpeed);
+                localStorage.setItem('dpscalcwikirs_attkspeed', this.state.attackSpeed);
             })
 
             
@@ -161,9 +265,35 @@ class DpsCalculator extends React.Component {
 
     setMonster = (m) => {
         this.setState({
-            monster: {...m}
+            monster: m == null ? {cT: ["Null"]} : {...m}
         }, () => {
             //console.log(this.state)
+            localStorage.setItem('dpscalcwikirs_monster_At', this.state.monster.At || '');
+            localStorage.setItem('dpscalcwikirs_monster_De', this.state.monster.De || '');
+            localStorage.setItem('dpscalcwikirs_monster_Hi', this.state.monster.Hi || '');
+            localStorage.setItem('dpscalcwikirs_monster_Ma', this.state.monster.Ma || '');
+            localStorage.setItem('dpscalcwikirs_monster_Ra', this.state.monster.Ra || '');
+            localStorage.setItem('dpscalcwikirs_monster_St', this.state.monster.St || '');
+
+            localStorage.setItem('dpscalcwikirs_monster_am', this.state.monster.am || '');
+            localStorage.setItem('dpscalcwikirs_monster_ar', this.state.monster.ar || '');
+            localStorage.setItem('dpscalcwikirs_monster_ba', this.state.monster.ba || '');
+            localStorage.setItem('dpscalcwikirs_monster_bm', this.state.monster.bm || '');
+            localStorage.setItem('dpscalcwikirs_monster_br', this.state.monster.br || '');
+            localStorage.setItem('dpscalcwikirs_monster_bs', this.state.monster.bs || '');
+
+            var monsterCombatTypeString = "";
+            this.state.monster.cT.forEach(type => {
+                monsterCombatTypeString += type;
+                monsterCombatTypeString += ",";
+            })
+
+            localStorage.setItem('dpscalcwikirs_monster_cT', monsterCombatTypeString);
+            localStorage.setItem('dpscalcwikirs_monster_dc', this.state.monster.dc || '');
+            localStorage.setItem('dpscalcwikirs_monster_dl', this.state.monster.dl || '');
+            localStorage.setItem('dpscalcwikirs_monster_dm', this.state.monster.dm || '');
+            localStorage.setItem('dpscalcwikirs_monster_dr', this.state.monster.dr || '');
+            localStorage.setItem('dpscalcwikirs_monster_dt', this.state.monster.dt || '');
         })
     }
 
@@ -524,10 +654,6 @@ class DpsCalculator extends React.Component {
         }, () => {
             console.log(this.state)
         })
-    }
-
-    componentDidMount() {
-        //console.log(calc);
     }
 
 

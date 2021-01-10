@@ -8,17 +8,21 @@ import Select, {createFilter, components} from "react-select";
 
 import * as m from './monsterattribs';
 
+const SELECT_VALUE_KEY = "MySelectValue";
+
 const intermediateMonsterArray = Object.keys(m.monster);
 
 const monsterSelect = [
-    
+    {label: "None", 
+    value: "None"}
 ]
 
 intermediateMonsterArray.forEach(mon => {
     monsterSelect.push({
         ...m.monster[mon],
         label: mon,
-        value: mon
+        value: mon,
+
     })
 })
 
@@ -64,17 +68,30 @@ const MenuList = function MenuList(props) {
 };
 
 const MonsterDropdown = (props) => {
+    const [selected, setSelected] = React.useState([]);
+  const handleChange = (s) => {
+    localStorage.setItem(SELECT_VALUE_KEY, JSON.stringify(s));
+    setSelected(s);
+    props.selectMonster(s);
+  };
+
+  React.useEffect(() => {
+    const lastSelected = JSON.parse(
+      localStorage.getItem(SELECT_VALUE_KEY) ?? "[]"
+    );
+    setSelected(lastSelected);
+  }, []);
     return (
         <div className="monster-dropdown">
             {/* <div style={{ textAlign: 'center', color: 'rgb(207, 207, 207)' }}>Select monster</div> */}
             <div style={{ textAlign: 'center', width: '210px', margin: 'auto' }}>
                 <Select
-                    //value={props.selectedMonster.value}
+                    value={selected.label == "None" ? null : selected}
                     options={monsterSelect}
                     components={{ MenuList }}
                     styles={customStyles}
                     filterOption={createFilter({ ignoreAccents: false })}
-                    onChange={props.selectMonster.bind(this)}
+                    onChange={handleChange}
                 />
             </div>
             
