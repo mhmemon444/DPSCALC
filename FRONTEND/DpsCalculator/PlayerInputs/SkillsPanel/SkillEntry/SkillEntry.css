@@ -70,9 +70,9 @@
     -moz-box-shadow: none;
     box-shadow: none;
     text-align: center;
-    width: 50%;
+    width: 30px;
     position: absolute;
-    left: 25px;
+    left: 28px;
     top: 0px;
     z-index: 12;
     font-size: 16px;
@@ -101,7 +101,7 @@
     font-family: 'Times New Roman', 'Times', serif;
     text-shadow: 1px 1px black;
     position: absolute;
-    left: 45px;
+    left: 48px;
     top: 10px;
     color: rgb(197, 197, 4);
     background:transparent;
@@ -112,7 +112,7 @@
     -moz-box-shadow: none;
     box-shadow: none;
     text-align: center;
-    width: 50%;
+    width: 30px;
     z-index: 12;
     font-size: 16px;
 }
