@@ -81,6 +81,8 @@
 @media (max-width: 430px) {
     .skill-entry {
         width: 88px;
+        height: 35px;
+        background-size: 88px 35px;
     }
 
     .skill-input {
