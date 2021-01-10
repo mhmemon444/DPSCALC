@@ -202,7 +202,36 @@ class DpsCalculator extends React.Component {
             mageDef: (parseInt(localStorage.getItem('dpscalcwikirs_mageDef')) || 0),
             rangedDef: (parseInt(localStorage.getItem('dpscalcwikirs_rangedDef')) || 0),
             spell: JSON.parse(localStorage.getItem('dpscalcwikirs_setSpell')),
-            combatStyle: localStorage.getItem('dpscalcwikirs_oN') == null ? 'Accurate - Crush' : localStorage.getItem('dpscalcwikirs_oN')
+            combatStyle: localStorage.getItem('dpscalcwikirs_oN') == null ? 'Accurate - Crush' : localStorage.getItem('dpscalcwikirs_oN'),
+            attackLevel: (parseInt(localStorage.getItem('dpscalcwikirs_attackLevel')) || 99),
+            strengthLevel: (parseInt(localStorage.getItem('dpscalcwikirs_strengthLevel')) || 99),
+            defenceLevel: (parseInt(localStorage.getItem('dpscalcwikirs_defenceLevel')) || 99),
+            hitpointsLevel: (parseInt(localStorage.getItem('dpscalcwikirs_hitpointsLevel')) || 99),
+            visibleHitpoints: (parseInt(localStorage.getItem('dpscalcwikirs_visibleHitpoints')) || 99),
+            rangedLevel:(parseInt(localStorage.getItem('dpscalcwikirs_rangedLevel')) || 99),
+            prayerLevel: (parseInt(localStorage.getItem('dpscalcwikirs_prayerLevel')) || 99),
+            mageLevel: (parseInt(localStorage.getItem('dpscalcwikirs_mageLevel')) || 99),
+            miningLevel: (parseInt(localStorage.getItem('dpscalcwikirs_miningLevel')) || 99),
+            boostedAtt: (parseInt(localStorage.getItem('dpscalcwikirs_boostedAtt')) || 99),
+            boostedDef: (parseInt(localStorage.getItem('dpscalcwikirs_boostedDef')) || 99),
+            boostedStr: (parseInt(localStorage.getItem('dpscalcwikirs_boostedStr')) || 99),
+            boostedRange: (parseInt(localStorage.getItem('dpscalcwikirs_boostedRange')) || 99),
+            boostedMage: (parseInt(localStorage.getItem('dpscalcwikirs_boostedMage')) || 99),
+            boostedMining: (parseInt(localStorage.getItem('dpscalcwikirs_boostedMining') || 99))
+            
+            
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
         }, () => {
             console.log('this.state', this.state);
@@ -335,7 +364,7 @@ class DpsCalculator extends React.Component {
         this.setState({
             combatStyle: style
         }, () => {
-            //console.log(this.state);
+            localStorage.setItem('dpscalcwikirs_oN', this.state.combatStyle);
         })
     }
 
@@ -408,28 +437,34 @@ class DpsCalculator extends React.Component {
                 recalc = true; 
                 c = "boostedStr"; 
                 recalcBoost = this.state.strSelectedBoost ? this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(input)) : parseInt(input); 
+                localStorage.setItem('dpscalcwikirs_boostedStr', recalcBoost);
                 break;
             case "attackLevel":
                 recalc = true; 
                 c = "boostedAtt"; 
                 recalcBoost = this.state.attSelectedBoost ? this.boostStatHandler(this.state.attSelectedBoost.label, "att", parseInt(input)) : parseInt(input); 
+                localStorage.setItem('dpscalcwikirs_boostedAtt', recalcBoost);
                 break;
             case "defenceLevel":
                 
                 recalc = true; 
                 c = "boostedDef"; 
                 recalcBoost = this.state.defSelectedBoost ? this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(input)): parseInt(input);
-                 break;
+                localStorage.setItem('dpscalcwikirs_boostedDef', recalcBoost);
+                break;
             case "rangedLevel":
                 recalc = true; 
                 c = "boostedRange"; 
                 
                 recalcBoost = this.state.rangeSelectedBoost ? this.boostStatHandler(this.state.rangeSelectedBoost.label, "ran", parseInt(input)): parseInt(input);
+                localStorage.setItem('dpscalcwikirs_boostedRange', recalcBoost);
+            
                 break;
             case "mageLevel":
                 recalc = true; 
                 c = "boostedMage"; 
                 recalcBoost = this.state.mageSelectedBoost ? this.boostStatHandler(this.state.mageSelectedBoost.label, "mag", parseInt(input)): parseInt(input);
+                localStorage.setItem('dpscalcwikirs_boostedMage', recalcBoost);
                 break;
         }
         if (recalc) {
@@ -445,17 +480,26 @@ class DpsCalculator extends React.Component {
         var bDef = this.state.defSelectedBoost != null ? this.boostStatHandler(this.state.defSelectedBoost.label, "def", parseInt(this.state.defenceLevel)) : this.state.defenceLevel;
         var bRan = this.state.rangeSelectedBoost != null ? this.boostStatHandler(this.state.rangeSelectedBoost.label, "ran", parseInt(this.state.rangedLevel)) : this.state.rangedLevel;
         var bMag = this.state.mageSelectedBoost != null ? this.boostStatHandler(this.state.mageSelectedBoost.label, "mag", parseInt(this.state.mageLevel)) : this.state.mageLevel;
+        var bMin = this.state.otherSelectedBoost != null ? this.boostStatHandler(this.state.otherSelectedBoost.label, "min", parseInt(this.state.miningLevel)) : this.state.miningLevel;
         this.setState({
             boostedAtt: bAtt,
             boostedStr: bStr,
             boostedDef: bDef,
             boostedRange: bRan,
-            boostedMage: bMag
+            boostedMage: bMag,
+            boostedMining: bMin
         }, () => {
+            localStorage.setItem('dpscalcwikirs_boostedAtt', this.state.boostedAtt);
+            localStorage.setItem('dpscalcwikirs_boostedDef', this.state.boostedDef);
+            localStorage.setItem('dpscalcwikirs_boostedRange', this.state.boostedRange);
+            localStorage.setItem('dpscalcwikirs_boostedMage', this.state.boostedMage);
+            localStorage.setItem('dpscalcwikirs_boostedMining', this.state.boostedMining);
             //reboost str (dragon battleaxe bug fix)
             var doubleStrBoost = this.state.strSelectedBoost != null ? this.boostStatHandler(this.state.strSelectedBoost.label, "str", parseInt(this.state.strengthLevel)) : this.state.strengthLevel;
             this.setState({
                 boostedStr: doubleStrBoost
+            }, () => {
+                localStorage.setItem('dpscalcwikirs_boostedStr', this.state.boostedStr);
             })
         })
     }
@@ -467,13 +511,35 @@ class DpsCalculator extends React.Component {
             [val]: input,
         }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
             this.recalculateBoost(val, input);
-            // this.props.setIndividualStat(val, input);
-            // if (this.state.visibleHitpoints > this.state.hitpointsLevel) {
-            //     this.setState({
-            //         hitpointsLevel: this.state.visibleHitpoints
-            //     })
-            // }
-            //console.log(this.state);
+            switch (val) {
+                case ('attackLevel'):
+                    localStorage.setItem('dpscalcwikirs_attackLevel', this.state.attackLevel);
+                    break;
+                case ('strengthLevel'):
+                    localStorage.setItem('dpscalcwikirs_strengthLevel', this.state.strengthLevel);
+                    break;
+                case ('defenceLevel'):
+                    localStorage.setItem('dpscalcwikirs_defenceLevel', this.state.defenceLevel);
+                    break;
+                case ('hitpointsLevel'):
+                    localStorage.setItem('dpscalcwikirs_hitpointsLevel', this.state.hitpointsLevel);
+                    break;
+                case ('visibleHitpoints'):
+                    localStorage.setItem('dpscalcwikirs_visibleHitpoints', this.state.visibleHitpoints);
+                    break;
+                case ('rangedLevel'):
+                    localStorage.setItem('dpscalcwikirs_rangedLevel', this.state.rangedLevel);
+                    break;
+                case ('mageLevel'):
+                    localStorage.setItem('dpscalcwikirs_mageLevel', this.state.mageLevel);
+                    break;
+                case ('prayerLevel'):
+                    localStorage.setItem('dpscalcwikirs_prayerLevel', this.state.prayerLevel);
+                    break;
+                case ('miningLevel'):
+                    localStorage.setItem('dpscalcwikirs_miningLevel', this.state.miningLevel);
+                    break;
+            }
         })
     }
 
@@ -491,6 +557,16 @@ class DpsCalculator extends React.Component {
         }, () => { //RECALCULATE BOOSTEDSTATS AFTER STATS INPUT HAS CHANGED
             this.recalcAllBoosts();
             // this.props.setStats(atk, str, def, hp, rng, mag, pray, this.state.visibleHitpoints); //set stats in parent component to pass to dps calculations
+            localStorage.setItem('dpscalcwikirs_attackLevel', this.state.attackLevel);
+            localStorage.setItem('dpscalcwikirs_strengthLevel', this.state.strengthLevel);
+            localStorage.setItem('dpscalcwikirs_defenceLevel', this.state.defenceLevel);
+            localStorage.setItem('dpscalcwikirs_hitpointsLevel', this.state.hitpointsLevel);
+            localStorage.setItem('dpscalcwikirs_visibleHitpoints', this.state.visibleHitpoints);
+            localStorage.setItem('dpscalcwikirs_rangedLevel', this.state.rangedLevel);
+            localStorage.setItem('dpscalcwikirs_mageLevel', this.state.mageLevel);
+            localStorage.setItem('dpscalcwikirs_prayerLevel', this.state.prayerLevel);
+            localStorage.setItem('dpscalcwikirs_miningLevel', this.state.miningLevel);
+
         })
     }
 

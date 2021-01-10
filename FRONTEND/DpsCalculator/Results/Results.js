@@ -61,6 +61,7 @@ class Results extends React.Component {
 
 
     render() {
+            console.log(this.props.strengthLevel)
             var prayers = [];
             this.props.selectedPrayers.forEach( (prayer) => {
                 prayers.push(PRAYER_TURNOFF[prayer]);
