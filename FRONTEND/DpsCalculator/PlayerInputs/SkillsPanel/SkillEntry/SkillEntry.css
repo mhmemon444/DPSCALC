@@ -86,9 +86,10 @@
     }
 
     .skill-lower-input {
-        left: 40px;
-        top: 4px;
+        left: 36px;
+        top: 2px;
         width: 20px;
+        z-index: 25;
     }
 }
 
