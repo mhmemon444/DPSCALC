@@ -79,6 +79,10 @@
 }
 
 @media (max-width: 430px) {
+    .skill-entry {
+        width: 88px;
+    }
+
     .skill-input {
         left: 22px;
         top: -2px;
