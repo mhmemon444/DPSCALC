@@ -200,7 +200,9 @@ class DpsCalculator extends React.Component {
             stabDef: (parseInt(localStorage.getItem('dpscalcwikirs_stabDef')) || 0),
             crushDef: (parseInt(localStorage.getItem('dpscalcwikirs_crushDef')) || 0),
             mageDef: (parseInt(localStorage.getItem('dpscalcwikirs_mageDef')) || 0),
-            rangedDef: (parseInt(localStorage.getItem('dpscalcwikirs_rangedDef')) || 0)
+            rangedDef: (parseInt(localStorage.getItem('dpscalcwikirs_rangedDef')) || 0),
+            spell: JSON.parse(localStorage.getItem('dpscalcwikirs_setSpell')),
+            combatStyle: localStorage.getItem('dpscalcwikirs_oN') == null ? 'Accurate - Crush' : localStorage.getItem('dpscalcwikirs_oN')
 
         }, () => {
             console.log('this.state', this.state);
@@ -323,7 +325,9 @@ class DpsCalculator extends React.Component {
             spell: s,
             combatStyle: oN
         }, () => {
-            
+            console.log(this.state);
+            localStorage.setItem('dpscalcwikirs_setSpell', JSON.stringify(this.state.spell));
+            localStorage.setItem('dpscalcwikirs_oN', this.state.combatStyle);
         })
     }
 
