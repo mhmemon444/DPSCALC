@@ -45,6 +45,17 @@ class MonsterAttributes extends React.Component {
         selectedMonster: null
     }
 
+    componentDidMount() {
+        var lastSelected = localStorage.getItem('MySelectValue') ?? "[]"
+          this.setState({
+              selectedMonster: lastSelected == "[]" ? null 
+                                : JSON.parse(lastSelected).label == "None" ? null 
+                                : JSON.parse(lastSelected)
+          }, () => {
+              console.log(this.state)
+          })
+    }
+
     selectMonsterHandler = (m) => {
         if (m.label != "None") {
             DEMON_TYPE.forEach((d) => {

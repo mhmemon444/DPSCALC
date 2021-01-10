@@ -217,22 +217,14 @@ class DpsCalculator extends React.Component {
             boostedStr: (parseInt(localStorage.getItem('dpscalcwikirs_boostedStr')) || 99),
             boostedRange: (parseInt(localStorage.getItem('dpscalcwikirs_boostedRange')) || 99),
             boostedMage: (parseInt(localStorage.getItem('dpscalcwikirs_boostedMage')) || 99),
-            boostedMining: (parseInt(localStorage.getItem('dpscalcwikirs_boostedMining') || 99))
-            
-            
-            
-            
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
+            boostedMining: (parseInt(localStorage.getItem('dpscalcwikirs_boostedMining') || 99)),
+            attSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_attSelectedBoost')),
+            strSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_strSelectedBoost')),
+            defSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_defSelectedBoost')),
+            mageSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_mageSelectedBoost')),
+            rangeSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_rangeSelectedBoost')),
+            otherSelectedBoost: JSON.parse(localStorage.getItem('dpscalcwikirs_otherSelectedBoost')),
+            selectedPrayers: (JSON.parse(localStorage.getItem('dpscalcwikirs_selectedPrayers')) || [])
         }, () => {
             console.log('this.state', this.state);
         })
@@ -684,6 +676,8 @@ class DpsCalculator extends React.Component {
             strSelectedBoost: boost,
             boostedStr: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_strSelectedBoost', JSON.stringify(this.state.strSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedStr', this.state.boostedStr);
             console.log(this.state)
         })
     }
@@ -694,6 +688,8 @@ class DpsCalculator extends React.Component {
             attSelectedBoost: boost,
             boostedAtt: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_attSelectedBoost', JSON.stringify(this.state.attSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedAtt', this.state.boostedAtt);
             console.log(this.state)
         })
     }
@@ -704,6 +700,8 @@ class DpsCalculator extends React.Component {
             defSelectedBoost: boost,
             boostedDef: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_defSelectedBoost', JSON.stringify(this.state.defSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedDef', this.state.boostedDef);
             console.log(this.state)
         })
     }
@@ -714,6 +712,8 @@ class DpsCalculator extends React.Component {
             mageSelectedBoost: boost,
             boostedMage: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_mageSelectedBoost', JSON.stringify(this.state.mageSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedMage', this.state.boostedMage);
             console.log(this.state)
         })
     }
@@ -724,6 +724,8 @@ class DpsCalculator extends React.Component {
             rangeSelectedBoost: boost,
             boostedRange: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_rangeSelectedBoost', JSON.stringify(this.state.rangeSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedRange', this.state.boostedRange);
             console.log(this.state)
         })
     }
@@ -734,6 +736,8 @@ class DpsCalculator extends React.Component {
             otherSelectedBoost: boost,
             boostedMining: newLvl
         }, () => {
+            localStorage.setItem('dpscalcwikirs_otherSelectedBoost', JSON.stringify(this.state.otherSelectedBoost));
+            localStorage.setItem('dpscalcwikirs_boostedMining', this.state.boostedMining);
             console.log(this.state)
         })
     }
@@ -762,6 +766,7 @@ class DpsCalculator extends React.Component {
             selectedPrayers: [...selPrayers]
         }, () => {
             console.log(this.state)
+            localStorage.setItem('dpscalcwikirs_selectedPrayers', JSON.stringify(this.state.selectedPrayers));
         })
     }
 
