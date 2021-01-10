@@ -79,26 +79,7 @@
     font-size: 16px;
 }
 
-@media (max-width: 430px) {
-    /* .skill-entry {
-        height: 37px;
-        background-size: 78px 32px;
-    } */
 
-    .skill-input {
-        left: 28px;
-        top: 1px;
-    }
-
-    /* .skill-lower-inputhp {
-        left: 60px;
-        top: 18px;
-    } */
-
-    /* .skill-lower-input {
-        top: 16px;
-    } */
-}
 
 .slant {
     width: 2px;
@@ -137,4 +118,33 @@
     width: 17px;
     z-index: 12;
     font-size: 16px;
+}
+
+@media (max-width: 430px) {
+    /* .skill-entry {
+        height: 37px;
+        background-size: 78px 32px;
+    } */
+
+    .skill-input {
+        left: 28px;
+        top: 0px;
+    }
+
+    .slant {
+        left: 60px;
+        top: 10px;
+    }
+
+    /* .skill-lower-inputhp {
+        left: 66px;
+        top: 22px;
+    } */
+
+    
+
+    .skill-lower-input {
+        left: 69px;
+        top: 25px;
+    }
 }
