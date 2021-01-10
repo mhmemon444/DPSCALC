@@ -81,12 +81,12 @@
 @media (max-width: 430px) {
     .skill-input {
         left: 22px;
-        top: 0px
+        top: -2px
     }
 
     .skill-lower-input {
-        left: 44px;
-        top: 7px;
+        left: 40px;
+        top: 4px;
     }
 }
 
