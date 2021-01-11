@@ -28,6 +28,13 @@
     color: rgb(207, 207, 207);
 }
 
+.valmaxhit {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAWCAMAAADto6y6AAAAV1BMVEX///9hAQFhAQFhAQHCCAjCBQXBBQXBBATBAwPAAwPBAgLAAQHAAAC/AAC+AAC9AAC8AAC7AAC5AAC4AACIAwOEAwODAwN/AwN+AwN6AwN4AwNqAQFhAQFluK7VAAAABHRSTlMAACVMJAq7xgAAAL9JREFUeNpNUgkShDAIw72PVN1L9sj/37kDLUXG6pA2AVJFhCKkZGTC9cuflpCN1FecX4FUhlbNqHWpfbOE5T1SzDYAjAVQLI6DQYDH9fZUbgZWNdNGAVCwL7N+OeRElTE6y4rkiKoHTEaa9BOwt7vsXMzO/7ZDTOhKrnPCrO9Wg7Wrx/l4AXAASqtRW9b7WKUwvTSE2NtqTUm6a04YaLi5iLTEOM2p1YYn6t7GVXVcHGRWiFtl65FcE6Tbmf/CHyXSG+aMJFLdAAAAAElFTkSuQmCC');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 31px 27px;
+}
+
 @media (max-width: 600px) {
     .results {
         margin: auto;

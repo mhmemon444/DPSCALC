@@ -332,6 +332,12 @@ var calc = {
                 return Math.max(5,Math.floor(loadout.playerLevel.visible.Magic/3 - 1));
             } else if(loadout.equipment.weapon === 'Starter staff'){
                 return 8;
+            } else if (loadout.equipment.weapon === 'Crystal staff (basic)') {
+                return 23;
+            } else if (loadout.equipment.weapon === 'Crystal staff (attuned)') {
+                return 31;
+            } else if (loadout.equipment.weapon === 'Crystal staff (perfected)') {
+                return 39;
             } else {
                 return false;
             }

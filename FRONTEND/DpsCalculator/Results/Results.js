@@ -136,6 +136,7 @@ class Results extends React.Component {
             var dps = calc.naiveDPS(acc,drollmin,drollmax,dtypeless,ticks);
 
             // console.log("acc:", acc);
+            console.log(droll);
 
             var accuracyMeasure = (acc[0].Roll * 100).toFixed(3);
             if (accuracyMeasure == 'NaN') {
@@ -163,7 +164,7 @@ class Results extends React.Component {
                 <div style={{ textAlign: 'center', marginTop: '5px' }}><span className="playerinputstext">Results</span></div>
                 <div className="result-data" style={{marginTop: "35px"}}>
                     <div className="result-data-header">Max Hit</div>
-                    <div className="result-data-val">{drollmax[0].Roll}</div>
+                    <div className="result-data-val valmaxhit">{drollmax[0].Roll}</div>
                 </div>
                 <div className="result-data">
                     <div className="result-data-header">Accuracy</div>
@@ -177,10 +178,10 @@ class Results extends React.Component {
                     <div className="result-data-header">Average time to kill</div>
                     <div className="result-data-val">{timeToKill} </div>
                 </div>
-                <div className="result-data">
+                {/* <div className="result-data">
                     <div className="result-data-header">Average damage taken</div>
                     <div className="result-data-val">N/A</div>
-                </div>
+                </div> */}
             </div>
         )
     }

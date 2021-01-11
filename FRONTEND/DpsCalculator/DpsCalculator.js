@@ -159,34 +159,38 @@ class DpsCalculator extends React.Component {
             legs: dpscalcwikirs_legs == '' ? null : dpscalcwikirs_legs
         }
 
-        var m_cT = ["null"]
-        var m = {
-            At: parseInt(localStorage.getItem('dpscalcwikirs_monster_At')),
-            De: parseInt(localStorage.getItem('dpscalcwikirs_monster_De')),
-            Hi: parseInt(localStorage.getItem('dpscalcwikirs_monster_Hi')),
-            Ma: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ma')),
-            Ra: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ra')),
-            St: parseInt(localStorage.getItem('dpscalcwikirs_monster_St')),
+        // var m_cT = ["null"]
+        // var m = {
+        //     At: parseInt(localStorage.getItem('dpscalcwikirs_monster_At')),
+        //     De: parseInt(localStorage.getItem('dpscalcwikirs_monster_De')),
+        //     Hi: parseInt(localStorage.getItem('dpscalcwikirs_monster_Hi')),
+        //     Ma: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ma')),
+        //     Ra: parseInt(localStorage.getItem('dpscalcwikirs_monster_Ra')),
+        //     St: parseInt(localStorage.getItem('dpscalcwikirs_monster_St')),
 
-            am: parseInt(localStorage.getItem('dpscalcwikirs_monster_am')),
-            ar: parseInt(localStorage.getItem('dpscalcwikirs_monster_ar')),
-            ba: parseInt(localStorage.getItem('dpscalcwikirs_monster_ba')),
-            bm: parseInt(localStorage.getItem('dpscalcwikirs_monster_bm')),
-            br: parseInt(localStorage.getItem('dpscalcwikirs_monster_br')),
-            bs: parseInt(localStorage.getItem('dpscalcwikirs_monster_bs')),
+        //     am: parseInt(localStorage.getItem('dpscalcwikirs_monster_am')),
+        //     ar: parseInt(localStorage.getItem('dpscalcwikirs_monster_ar')),
+        //     ba: parseInt(localStorage.getItem('dpscalcwikirs_monster_ba')),
+        //     bm: parseInt(localStorage.getItem('dpscalcwikirs_monster_bm')),
+        //     br: parseInt(localStorage.getItem('dpscalcwikirs_monster_br')),
+        //     bs: parseInt(localStorage.getItem('dpscalcwikirs_monster_bs')),
 
-            dc: parseInt(localStorage.getItem('dpscalcwikirs_monster_dc')),
-            dl: parseInt(localStorage.getItem('dpscalcwikirs_monster_dl')),
-            dm: parseInt(localStorage.getItem('dpscalcwikirs_monster_dm')),
-            dr: parseInt(localStorage.getItem('dpscalcwikirs_monster_dr')),
-            dt: parseInt(localStorage.getItem('dpscalcwikirs_monster_dt')),
-            cT: localStorage.getItem('dpscalcwikirs_monster_cT') == null ? m_cT : localStorage.getItem('dpscalcwikirs_monster_cT').split(',')
-        }
+        //     dc: parseInt(localStorage.getItem('dpscalcwikirs_monster_dc')),
+        //     dl: parseInt(localStorage.getItem('dpscalcwikirs_monster_dl')),
+        //     dm: parseInt(localStorage.getItem('dpscalcwikirs_monster_dm')),
+        //     dr: parseInt(localStorage.getItem('dpscalcwikirs_monster_dr')),
+        //     dt: parseInt(localStorage.getItem('dpscalcwikirs_monster_dt')),
+        //     cT: localStorage.getItem('dpscalcwikirs_monster_cT') == null ? m_cT : localStorage.getItem('dpscalcwikirs_monster_cT').split(',')
+        // }
+
+        const lastSelected = JSON.parse(
+            localStorage.getItem('MySelectValue') ?? "[]"
+        );
 
         this.setState({
             checkedchargedspell: ccs,
             equipment: e,
-            monster: m,
+            monster: JSON.stringify(lastSelected) == "[]" ? { cT: ["null"] } : lastSelected,
             stabBonus: (parseInt(localStorage.getItem('dpscalcwikirs_stabBonus')) || 0),
             slashBonus: (parseInt(localStorage.getItem('dpscalcwikirs_slashBonus')) || 0),
             crushBonus: (parseInt(localStorage.getItem('dpscalcwikirs_crushBonus')) || 0),
