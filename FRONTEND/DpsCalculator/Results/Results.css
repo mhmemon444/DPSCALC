@@ -33,6 +33,10 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 31px 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 600px) {

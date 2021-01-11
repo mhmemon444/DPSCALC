@@ -190,7 +190,7 @@ class DpsCalculator extends React.Component {
         this.setState({
             checkedchargedspell: ccs,
             equipment: e,
-            monster: JSON.stringify(lastSelected) == "[]" ? { cT: ["null"] } : lastSelected,
+            monster: JSON.stringify(lastSelected) == "[]" ? { cT: ["null"] } : lastSelected.label == "None" ? { cT: ["null"] } : lastSelected,
             stabBonus: (parseInt(localStorage.getItem('dpscalcwikirs_stabBonus')) || 0),
             slashBonus: (parseInt(localStorage.getItem('dpscalcwikirs_slashBonus')) || 0),
             crushBonus: (parseInt(localStorage.getItem('dpscalcwikirs_crushBonus')) || 0),
