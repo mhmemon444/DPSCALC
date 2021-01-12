@@ -659,6 +659,48 @@ class PlayerInputs extends React.Component {
         })
     }
 
+
+    backSpaceHandler = (event, type) => {
+        if (event.keyCode === 8) {
+            switch (type) {
+                case "head_slot":
+                    this.setHead({value: "Nothing"});
+                    break;
+                case "cape_slot":
+                    this.setCape({value: "Nothing"});
+                    break;
+                case "neck_slot":
+                    this.setNeck({value: "Nothing"});
+                    break;
+                case "ammo_slot":
+                    this.setAmmo({value: "Nothing"});
+                    break;
+                case "weapon_slot":
+                    this.setWep({value: "Nothing", type: "unarmed"});
+                    break;
+                case "body_slot":
+                    this.setBody({value: "Nothing"});
+                    break;
+                case "shield_slot":
+                    this.setShield({value: "Nothing"});
+                    break;
+                case "hands_slot":
+                    this.setHands({value: "Nothing"});
+                    break;
+                case "feet_slot":
+                    this.setFeet({value: "Nothing"});
+                    break;
+                case "ring_slot":
+                    this.setRing({value: "Nothing"});
+                    break;
+                case "legs_slot":
+                    this.setLegs({value: "Nothing"});
+                    break;
+            }
+        }
+        
+    }
+
     render() {
         const tabs = TABS.map(tabType => {
             return <Tab type={tabType} selected={this.state[tabType]} click={this.selectTabHandler}/>
@@ -674,7 +716,7 @@ class PlayerInputs extends React.Component {
                 </div>
 
                 { this.state.openSpellsTab ? <SpellsPanel spellbook={this.state.spellbook} swapSpellbook={this.spellbookSwapHandler} selectSpell={this.selectSpellHandler} weapon={this.state.weapon}/> 
-                : this.state.Equipment ? <EquipmentPanel setChinDistance={this.props.setChinDistance} checkWildy = {this.props.checkwildy} checkboxClick = {this.props.checkboxClick} legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
+                : this.state.Equipment ? <EquipmentPanel keyDownHandler={this.backSpaceHandler} setChinDistance={this.props.setChinDistance} checkWildy = {this.props.checkwildy} checkboxClick = {this.props.checkboxClick} legs={this.state.legs} setLegs={this.setLegs} ring={this.state.ring} setRing={this.setRing} feet={this.state.feet} setFeet={this.setFeet} hands={this.state.hands} setHands={this.setHands} shield={this.state.shield} setShield={this.setShield} body={this.state.body} setBody={this.setBody} wep={this.state.weapon} setWep={this.setWep} ammo={this.state.ammo} setAmmo={this.setAmmo} neck={this.state.neck} setNeck={this.setNeck} head={this.state.head} setHead={this.setHead} selectedSlot={this.state.selectedSlot} cape={this.state.cape} setCape={this.setCape}/> 
                 : this.state.Prayers ? <PrayerPanel selectedPrayers={this.props.selectedPrayers} prayerClick={this.props.prayerClickHandler}/>
                 : this.state.Skills ? <SkillsPanel miningLevel={this.props.miningLevel} vhp={this.props.visibleHitpoints} statsChange={this.props.statsChangeHandler} username={this.state.username} usernameChange={this.usernameChangeHandler} fetchClick={this.props.hiscoreFetchHandler} attackLevel={this.props.attackLevel} strengthLevel={this.props.strengthLevel} defenceLevel={this.props.defenceLevel} hitpointsLevel={this.props.hitpointsLevel} rangedLevel={this.props.rangedLevel} prayerLevel={this.props.prayerLevel} mageLevel={this.props.mageLevel}/>
                 : this.state.Combat ? <StylesPanel chargedCheckHandler={this.props.chargedCheckHandler} checkedchargedspell={this.props.checkedchargedspell} currentSpell={this.state.selectedSpell} selectedStyle1={this.state.selectedStyle1} selectedStyle2={this.state.selectedStyle2} selectedStyle3={this.state.selectedStyle3} selectedStyle4={this.state.selectedStyle4} selectedStyle5={this.state.selectedStyle5} selectHandler={this.onSelectHandler} weapon={this.state.weapon}/>

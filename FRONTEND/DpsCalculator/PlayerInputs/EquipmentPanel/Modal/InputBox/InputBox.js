@@ -1737,6 +1737,7 @@ const InputBox = (props) => {
                         : props.selectedSlot == "legs_slot" ? props.legs
                         : null}
                     // defaultValue={options[0]}
+                    onKeyDown={(e) => { props.keyDownHandler(e, props.selectedSlot) } }
                     options={props.selectedSlot == "cape_slot" ? capeOptions
                         : props.selectedSlot == "head_slot" ? headOptions
                         : props.selectedSlot == "neck_slot" ? neckOptions
